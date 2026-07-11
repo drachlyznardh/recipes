@@ -1,15 +1,29 @@
 <html>
 	<head>
-		<script type="text/javascript">
-var scenario = () => {
+		<script src="https://code.jquery.com/jquery-4.0.0.slim.min.js">
+		</script><style type="text/css">
+input.scenario { width: 4em; }
+		</style><script type="text/javascript">
+// function reset() {
+var reset = () => {
 	console.log('Scenario.Start');
+	var scenario = $('input[type=number][name=scenario]').val();
+	console.log('scenario=' + scenario);
+	init(scenario);
 	console.log('Scenario.Stop');
+}
+var init = (scenario) => {
+	console.log('init.start(' + scenario + ')');
+	// stop timer and simulation
+	// create environment
+	// start simulation
+	console.log('init.stop');
 }
 		</script>
 	</head><body>
 		<label for="scenario">Game</label>
-		<input type="number" id="scenario" name="scenario" value="0" />
-		<input type="button" name="reset" value="Reset" onclick="scenario()" />
+		<input type="number" class="scenario" id="scenario" name="scenario" min="0" max="0" value="0" />
+		<input type="button" name="reset" value="Reset" onclick="reset()" />
 		<div id="board">
 		</div>
 	</body>
