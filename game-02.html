@@ -4,20 +4,44 @@
 		</script><style type="text/css">
 input.scenario { width: 4em; }
 		</style><script type="text/javascript">
-// function reset() {
 var reset = () => {
 	console.log('Scenario.Start');
 	var scenario = $('input[type=number][name=scenario]').val();
 	console.log('scenario=' + scenario);
-	init(scenario);
+	setTimeout(() => init(scenario), 100);
 	console.log('Scenario.Stop');
 }
 var init = (scenario) => {
 	console.log('init.start(' + scenario + ')');
 	// stop timer and simulation
 	// create environment
+	[starter, stepper, stopper] = [[{ amount: 0, name: 'dirt' }], [[[], 1]], [5]];
 	// start simulation
+	setTimeout(() => run(starter, stepper, stopper), 100);
 	console.log('init.stop');
+}
+var run = (starter, stepper, stopper) => {
+	console.log('run.start(' + starter + ', ' + stepper + ', ' + stopper + ')');
+	populate(starter);
+	setTimeout(() => step(stepper, stopper), 100);
+	console.log('run.stop');
+}
+var resources;
+var populate = (starter) => {
+	$('#board').html('');
+	starter.forEach((e, i) => console.log('populate(' + i + ', ' + e + ')'));
+	var row = (e, i) => { return $('<p><label for="r' + i + '">' + e.name + '</label> <input type="number" name="r' + i + '" value="' + e.amount + '" disabled />'); }
+	starter.forEach((e, i) => row(e, i).appendTo($('#board')));
+	// starter.forEach((e, i) => $('<p><label for="r' + i + '">' + e.name + '</label> <input type="number" name="r' + i + '" value="' + e.amount + '" disabled />').appendTo($('#board')));
+	resources = starter.map((e, i) => e.amount);
+	resources.forEach((e, i) => console.log('resource#' + i + ': ' + e));
+}
+var step = (stepper, stopper) => {
+	var product = resources.map((e, i) => 0);
+	stepper.forEach((e, i) => product[i] += e[1]);
+	product.forEach((e, i) => resources[i] += e);
+
+	// setTimeout(() => step(stepper, stopper), 100);
 }
 		</script>
 	</head><body>
