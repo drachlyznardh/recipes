@@ -32,16 +32,26 @@ var populate = (starter) => {
 	starter.forEach((e, i) => console.log('populate(' + i + ', ' + e + ')'));
 	var row = (e, i) => { return $('<p><label for="r' + i + '">' + e.name + '</label> <input type="number" name="r' + i + '" value="' + e.amount + '" disabled />'); }
 	starter.forEach((e, i) => row(e, i).appendTo($('#board')));
-	// starter.forEach((e, i) => $('<p><label for="r' + i + '">' + e.name + '</label> <input type="number" name="r' + i + '" value="' + e.amount + '" disabled />').appendTo($('#board')));
 	resources = starter.map((e, i) => e.amount);
 	resources.forEach((e, i) => console.log('resource#' + i + ': ' + e));
 }
 var step = (stepper, stopper) => {
+	console.log('step.start');
 	var product = resources.map((e, i) => 0);
 	stepper.forEach((e, i) => product[i] += e[1]);
 	product.forEach((e, i) => resources[i] += e);
+	resources.forEach((e, i) => $('input[name=r' + i + ']').val(e));
+	resources.forEach((e, i) => console.log('resource#' + i + ': ' + e));
 
-	// setTimeout(() => step(stepper, stopper), 100);
+	var victory = stopper.map((e, i) => resources[i] < e).filter(e => e).length == 0;
+
+	if (victory) setTimeout(win, 100);
+	else setTimeout(() => step(stepper, stopper), 100);
+	console.log('step.stop');
+}
+var win = () => {
+	populate([]);
+	alert('Victory!!!');
 }
 		</script>
 	</head><body>
