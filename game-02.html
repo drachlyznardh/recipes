@@ -4,32 +4,24 @@
 		</script><style type="text/css">
 .scenario { width: 10em; margin: 0em .5em; }
 		</style><script type="text/javascript">
-var game_data = {
-	title: 'Il Giochino',
-	scenarios: [{
-		name: '.5s to victory',
-		enabled: true,
-		starter: [{ amount: 0, name: 'Dirt' }],
-		stepper: [[[], 1]],
-		stopper: [5]
-	}]
-};
-$(() => load_game(); );
 var load_game = () => {
-	$('head/title').html(game_data.title || 'No Game Title');
+	console.log('load_game.start');
+	console.log(game_data);
+	document.title = game_data.title || 'No Game Title';
 
 	var scenario = $('#scenario');
 	game_data.scenarios //
 		.map((e, i) => $('<option value="' + i + '">' + e.name + '</option>')) //
 		.forEach(e => e.appendTo(scenario));
-});
+	console.log('load_game.stop');
+}
 
 var reset = () => {
-	console.log('Scenario.Start');
+	console.log('reset.start');
 	var scenario = $('input[type=number][name=scenario]').val();
 	console.log('scenario=' + scenario);
 	setTimeout(() => init(scenario), 100);
-	console.log('Scenario.Stop');
+	console.log('reset.stop');
 }
 var init = (scenario) => {
 	console.log('init.start(' + scenario + ')');
@@ -73,13 +65,26 @@ var win = () => {
 	populate([]);
 	alert('Victory!!!');
 }
+
+var game_data = {
+	title: 'Il Giochino',
+	scenarios: [{
+		name: '.5s to victory',
+		enabled: true,
+		// starter: [{ amount: 0, name: 'Dirt' }],
+		resources: [{ key: 'dirt', name: 'Dirt' }],
+		starter: { dirt: 0 },
+		stepper: [[[], 1]],
+		stopper: [5]
+	}]
+};
+$(load_game);
 		</script>
 	</head><body>
 		<label for="scenario">Game</label>
 		<select class="scenario" id="scenario" name="scenario" />
 		<input type="button" name="reset" value="Reset" onclick="reset()" />
-		<div id="board">
-		</div>
+		<div id="board" />
 	</body>
 </html>
 
