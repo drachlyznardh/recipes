@@ -4,6 +4,8 @@
 		</script><style type="text/css">
 .scenario { width: 10em; margin: 0em .5em; }
 		</style><script type="text/javascript">
+var game_data;
+var resources;
 var load_game = () => {
 	console.log('load_game.start');
 	console.log(game_data);
@@ -23,11 +25,14 @@ var reset = () => {
 	setTimeout(() => init(scenario), 100);
 	console.log('reset.stop');
 }
-var init = (scenario) => {
-	console.log('init.start(' + scenario + ')');
+var init = (scenario_id) => {
+	console.log('init.start(' + scenario_id + ')');
 	// stop timer and simulation
 	// create environment
-	[starter, stepper, stopper] = [[{ amount: 0, name: 'dirt' }], [[[], 1]], [5]];
+	// [starter, stepper, stopper] = [[{ amount: 0, name: 'dirt' }], [[[], 1]], [5]];
+	var scenario = game_data.scenarios[scenario_id];
+	console.log(scenario);
+	[starter, stepper, stopper] = [scenario.starter, scenario.stepper, scenario.stopper];
 	// start simulation
 	setTimeout(() => run(starter, stepper, stopper), 100);
 	console.log('init.stop');
@@ -38,7 +43,6 @@ var run = (starter, stepper, stopper) => {
 	setTimeout(() => step(stepper, stopper), 100);
 	console.log('run.stop');
 }
-var resources;
 var populate = (starter) => {
 	$('#board').html('');
 	starter.forEach((e, i) => console.log('populate(' + i + ', ' + e + ')'));
@@ -66,7 +70,7 @@ var win = () => {
 	alert('Victory!!!');
 }
 
-var game_data = {
+game_data = {
 	title: 'Il Giochino',
 	scenarios: [{
 		name: '.5s to victory',
