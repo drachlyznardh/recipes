@@ -36,6 +36,12 @@ var set_scenario_list = (scenarios) => {
 		.forEach(e => e.appendTo(scenario));
 }
 
+function reset() {
+	console.log('reset.start');
+	console.log('game_data', game_data);
+	console.log('reset.stop');
+}
+
 // Victory
 var check_amount = (amount) => {
 	return (resources) => {
