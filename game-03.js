@@ -2,7 +2,13 @@ console.log('game-03.js:start');
 
 var load_game_data = () => {
 	return {
-		title: 'Il Giochino'
+		title: 'Il Giochino',
+		scenarios: [{
+			name: '.5s to victory',
+			resources: [{ key: 'dirt', name: 'Dirt'}],
+			stepper: [[[], 1]],
+			victory: check_amount([5])
+		}]
 	};
 }
 var load_player_data = () => {
@@ -22,6 +28,13 @@ var load_game = (game_data, player_data) => {
 }
 var set_player_name = (name) => { $('#profile').html(name || '<NO INFO>'); }
 var set_player_points = (points) => { $('#points').html((parseInt(points) || 0) + 'pts'); }
+
+// Victory
+var check_amount = (amount) => {
+	return (resources) => {
+		amount.map((e, i) => resources[i] < e).filter(e => e).length == 0;
+	}
+}
 
 $(() => {
 	var game_data = load_game_data();
