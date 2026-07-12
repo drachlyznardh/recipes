@@ -23,11 +23,18 @@ var load_game = (game_data, player_data) => {
 	document.title = game_data?.title || 'Game Loaded';
 	set_player_name(player_data?.name);
 	set_player_points(player_data?.points);
+	set_scenario_list(game_data?.scenarios);
 
 	console.log('load_game.stop');
 }
 var set_player_name = (name) => { $('#profile').html(name || '<NO INFO>'); }
 var set_player_points = (points) => { $('#points').html((parseInt(points) || 0) + 'pts'); }
+var set_scenario_list = (scenarios) => {
+	var scenario = $('#scenario');
+	scenarios //
+		.map((e, i) => $('<option value="' + i + '">' + e.name + '</option>')) //
+		.forEach(e => e.appendTo(scenario));
+}
 
 // Victory
 var check_amount = (amount) => {
