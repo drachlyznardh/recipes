@@ -6,13 +6,11 @@ var load_game = (game_data, player_data) => {
 
 	document.title = game_data.title || 'Game Loaded';
 	$('#profile').html(player_data.name || '<NO INFO>');
-	set_player_points(player_data?.points); // $('#points').html(player_data.points ? player_data.points + 'pts': '<NO INFO>');
+	set_player_points(player_data?.points);
 
 	console.log('load_game.stop');
 }
-var set_player_points = (points) => {
-	$('#points').html(points ? Number.isInteger(points) ? points + 'pts' : points : '<NO INFO>' );
-}
+var set_player_points = (points) => { $('#points').html((parseInt(points) || 0) + 'pts'); }
 
 $(() => {
 	var game_data = {
