@@ -1,0 +1,13 @@
+
+body { background-color: #d0d0f0; }
+
+div.topbar {
+	background-color: #c0c0f0;
+	border: 1px solid #b0b0e0;
+	padding: .1em;
+}
+div.game_selector { float: left; }
+div.player_recap { float: right; }
+
+div.clear { float: none; clear: both;}
+

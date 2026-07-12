@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Game 03</title>
+		<script src="https://code.jquery.com/jquery-4.0.0.slim.min.js"></script>
+		<link rel="stylesheet" href="./game-03.css" />
+		<script src="./game-03.js"></script>
+	</head><body>
+		<div class="topbar">
+			<div class="game_selector">
+				<label for="scenario">Game</label>
+				<select class="scenario" id="scenario" name="scenario" />
+				<input type="button" name="reset" value="Reset" onclick="reset()" />
+				<input type="button" name="pause" value="Pause" onclick="on_button_pause()" />
+				<input type="button" name="resume" value="Resume" onclick="on_button_resume()" />
+			</div><div class="player_recap">
+				<span id="profile">Profile</span>, <span id="points">points</span>
+			</div><div class="clear">
+			</div>
+		</div>
+	</body>
+</html>
