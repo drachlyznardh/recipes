@@ -5,6 +5,14 @@
 		</script><style type="text/css">
 input.scenario { width: 4em; }
 		</style><script type="text/javascript">
+var game_data;
+$(() => {
+	$.getJSON('game_data.json', (e) => {
+		game_data = e;
+		console.log('Game data loaded');
+	});
+});
+
 var reset = () => {
 	console.log('Scenario.Start');
 	var scenario = $('input[type=number][name=scenario]').val();
