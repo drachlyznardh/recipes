@@ -3,14 +3,28 @@
 		<title>Game</title>
 		<script src="https://code.jquery.com/jquery-4.0.0.slim.min.js">
 		</script><style type="text/css">
-input.scenario { width: 4em; }
+.scenario { width: 10em; margin: 0em .5em; }
 		</style><script type="text/javascript">
 var game_data;
+// $(() => {
+// 	$.getJSON('game_data.json', (e) => {
+// 		game_data = e;
+// 		console.log('Game data loaded');
+// 	});
+// });
+game_data = [{
+	name: '.5s to victory',
+	enabled: true,
+	starter: [{ amount: 0, name: 'dirt' }],
+	stepper: [[[], 1]],
+	stopper: [5]
+}];
 $(() => {
-	$.getJSON('game_data.json', (e) => {
-		game_data = e;
-		console.log('Game data loaded');
-	});
+	// $('#scenario').html(game_data.map((e, i) => ));
+	var scenario = $('#scenario');
+	game_data //
+		.map((e, i) => $('<option value="' + i + '">' + e.name + '</option>')) //
+		.forEach(e => e.appendTo(scenario));
 });
 
 var reset = () => {
@@ -65,7 +79,8 @@ var win = () => {
 		</script>
 	</head><body>
 		<label for="scenario">Game</label>
-		<input type="number" class="scenario" id="scenario" name="scenario" min="0" max="0" value="0" />
+		<!-- <input type="number" class="scenario" id="scenario" name="scenario" min="0" max="0" value="0" /> -->
+		<select class="scenario" id="scenario" name="scenario" />
 		<input type="button" name="reset" value="Reset" onclick="reset()" />
 		<div id="board">
 		</div>
