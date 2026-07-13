@@ -12,7 +12,7 @@ var load_game_data = () => {
 			resources: [{ key: 'dirt', name: 'Dirt' },
 				{ key: 'gold', name: 'Gold' }],
 			stepper: [{ product: [[0, 1]]},
-				{ req: [[0, 10]], product: [[1, 1]]}],
+				{ req: [[0, 5]], product: [[1, 1]]}],
 			victory: check_amount([[1, 5]])
 		}]
 	};

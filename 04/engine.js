@@ -40,17 +40,17 @@ var reset = () => {
 }
 var load_scenario = (scenario, autoresume) => {
 
-	var grid = $('#grid');
-	grid.html('');
+	var board = $('.board');
+	board.show().html('<table></table>');
 	var row = (e, i) => {
-		return $('<div>' + //
-			'<label for="r' + i + '">' + e.name + '</label>' + //
-			' <input id="r' + i + '" name="r' + i + '" value="0" disabled />' + //
-			'</div>');
+		return $('<tr>' + //
+			'<td class="label"><label for="r' + i + '">' + e.name + '</label></td>' + //
+			'<td><input id="r' + i + '" name="r' + i + '" value="0" disabled /></td>' + //
+			'</tr>');
 	}
 	scenario.resources //
 		.map(row) //
-		.forEach(e => e.appendTo(grid));
+		.forEach(e => e.appendTo(board));
 	resources = scenario.resources.map(e => 0);
 
 	stepper = scenario.stepper;
@@ -71,7 +71,6 @@ var run = () => {
 	console.log('run.start');
 
 	var product = resources.map((e, i) => 0);
-	// stepper.forEach((e, i) => product[i] += e[1]);
 	stepper.forEach(e => handle_recipe(e, resources, product));
 	product.forEach((e, i) => resources[i] += e);
 	resources.forEach((e, i) => $('input[name=r' + i + ']').val(e));
@@ -81,11 +80,15 @@ var run = () => {
 
 	if (is_victory) setTimeout(win, 100);
 	else if (is_running) setTimeout(run, 100);
+
 	console.log('run.stop');
 }
 var handle_recipe = (recipe, resources, product) => {
-	if (recipe?.req?.some(e => resources[e[0]] < e[1])) return;
-	// if (recipe?.product.some(e =>
+	if (recipe?.disabled
+		|| recipe?.req?.some(e => resources[e[0]] < e[1])
+		|| recipe?.product?.some(e => e.length > 2 && resources[e[0]] >= e[2])
+	) return;
+	// Handle max? Recipe does not yield above certain amount of product
 	recipe?.req?.forEach(e => resources[e[0]] -= e[1]);
 	recipe?.product?.forEach(e => product[e[0]] += e[1]);
 }
@@ -96,10 +99,7 @@ var win = () => {
 
 // Victory
 var check_amount = (amount) => {
-	return (resources) => {
-		// return amount.map((e, i) => resources[i] < e).filter(e => e).length == 0;
-		return amount?.every(e => resources[e[0]] >= e[1]);
-	}
+	return (resources) => { return amount?.every(e => resources[e[0]] >= e[1]); }
 }
 
 $(() => {
