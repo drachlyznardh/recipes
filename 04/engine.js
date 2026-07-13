@@ -72,9 +72,7 @@ var run = () => {
 
 	var product = resources.map((e, i) => 0);
 	// stepper.forEach((e, i) => product[i] += e[1]);
-	stepper //
-		.filter(
-		.forEach((e, i) => product[i] += e[1]);
+	stepper.forEach(e => handle_recipe(e, resources, product));
 	product.forEach((e, i) => resources[i] += e);
 	resources.forEach((e, i) => $('input[name=r' + i + ']').val(e));
 	resources.forEach((e, i) => console.log('resource#' + i + ': ' + e));
@@ -84,6 +82,12 @@ var run = () => {
 	if (is_victory) setTimeout(win, 100);
 	else if (is_running) setTimeout(run, 100);
 	console.log('run.stop');
+}
+var handle_recipe = (recipe, resources, product) => {
+	if (recipe?.req?.some(e => resources[e[0]] < e[1])) return;
+	// if (recipe?.product.some(e =>
+	recipe?.req?.forEach(e => resources[e[0]] -= e[1]);
+	recipe?.product?.forEach(e => product[e[0]] += e[1]);
 }
 var win = () => {
 	pause();
