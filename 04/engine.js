@@ -97,7 +97,8 @@ var win = () => {
 // Victory
 var check_amount = (amount) => {
 	return (resources) => {
-		return amount.map((e, i) => resources[i] < e).filter(e => e).length == 0;
+		// return amount.map((e, i) => resources[i] < e).filter(e => e).length == 0;
+		return amount?.every(e => resources[e[0]] >= e[1]);
 	}
 }
 
