@@ -8,8 +8,6 @@ var load_game = (game_data, player_data) => {
 	set_player_points(player_data?.points);
 	set_scenario_list(game_data?.scenarios);
 	toggle_reset(true);
-	// toggle_pause(false);
-	// toggle_resume(false);
 	toggle_pause_resume(false, false);
 
 	console.log('load_game.stop');
@@ -23,9 +21,7 @@ var set_scenario_list = (scenarios) => {
 		.forEach(e => e.appendTo(scenario));
 }
 var toggle_reset = (v) => { $('input[name=reset]').toggle(v); }
-// var toggle_pause = (v) => { $('input[name=pause]').toggle(v); }
 var toggle_pause = (v) => { toggle_pause_resume(v, !v); }
-// var toggle_resume = (v) => { $('input[name=resume]').toggle(v); }
 var toggle_resume = (v) => { toggle_pause_resume(!v, v); }
 var toggle_pause_resume = (p, r) => {
 	$('input[name=pause]').toggle(p);
@@ -75,7 +71,10 @@ var run = () => {
 	console.log('run.start');
 
 	var product = resources.map((e, i) => 0);
-	stepper.forEach((e, i) => product[i] += e[1]);
+	// stepper.forEach((e, i) => product[i] += e[1]);
+	stepper //
+		.filter(
+		.forEach((e, i) => product[i] += e[1]);
 	product.forEach((e, i) => resources[i] += e);
 	resources.forEach((e, i) => $('input[name=r' + i + ']').val(e));
 	resources.forEach((e, i) => console.log('resource#' + i + ': ' + e));
