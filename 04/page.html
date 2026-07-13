@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title>Game 04</title>
+		<script src="https://code.jquery.com/jquery-4.0.0.slim.min.js"></script>
+		<link rel="stylesheet" href="./style.css" />
+		<script src="./globals.js"></script>
+		<script src="./data.js"></script>
+		<script src="./engine.js"></script>
+	</head><body>
+		<div class="topbar">
+			<div class="game_selector">
+				<label for="scenario">Game</label>
+				<select class="scenario" id="scenario" name="scenario"></select>
+				<input type="button" name="reset" value="Reset" onclick="reset()" />
+				<input type="button" name="pause" value="Pause" onclick="pause()" />
+				<input type="button" name="resume" value="Resume" onclick="resume()" />
+			</div><div class="player_recap">
+				<span id="profile">Profile</span>, <span id="points">points</span>
+			</div><div class="clear">
+			</div>
+		</div><div id="grid">
+		</div>
+	</body>
+</html>
