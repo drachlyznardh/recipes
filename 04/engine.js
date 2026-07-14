@@ -7,6 +7,7 @@ var load_game = (game_data, player_data) => {
 	set_player_name(player_data?.name);
 	set_player_points(player_data?.points);
 	set_scenario_list(game_data?.scenarios);
+	set_version(game_data?.version);
 	toggle_reset(true);
 	toggle_pause_resume(false, false);
 
@@ -20,6 +21,9 @@ var set_scenario_list = (scenarios) => {
 		.map((e, i) => $('<option value="' + i + '">' + e.name + '</option>')) //
 		.forEach(e => e.appendTo(scenario));
 }
+var set_version = (v) => { $('.version').html('v' + v); }
+var chat = (msg) => { console.log(msg); $('.chat').html('<[' + msg + ']>'); }
+var desc_res = (res) => { return res?.map(e => e[1] + ' ' + resources[e[0]].name)?.join(', '); }
 var toggle_reset = (v) => { $('input[name=reset]').toggle(v); }
 var toggle_pause = (v) => { toggle_pause_resume(v, !v); }
 var toggle_resume = (v) => { toggle_pause_resume(!v, v); }
@@ -48,13 +52,14 @@ var load_scenario = (scenario, autoresume) => {
 			'<td><input id="r' + i + '" name="r' + i + '" value="0" disabled /></td>' + //
 			'</tr>');
 	}
+	resources = scenario.resources;
 	scenario.resources //
 		.map(row) //
 		.forEach(e => e.appendTo(board));
-	resources = scenario.resources.map(e => 0);
+	storage = scenario.resources.map(e => 0);
 
 	stepper = scenario.stepper;
-	victory = scenario.victory;
+	victory = scenario.victory();
 
 	if (autoresume) resume(); else pause();
 }
@@ -70,27 +75,30 @@ var resume = () => {
 var run = () => {
 	console.log('run.start');
 
-	var product = resources.map((e, i) => 0);
-	stepper.forEach(e => handle_recipe(e, resources, product));
-	product.forEach((e, i) => resources[i] += e);
-	resources.forEach((e, i) => $('input[name=r' + i + ']').val(e));
-	resources.forEach((e, i) => console.log('resource#' + i + ': ' + e));
+	var product = storage.map((e, i) => 0);
+	stepper.forEach(e => handle_recipe(e, storage, product));
+	product.forEach((e, i) => storage[i] += e);
+	storage.forEach((e, i) => $('input[name=r' + i + ']').val(e));
+	storage.forEach((e, i) => console.log('resource#' + i + ': ' + e));
 
-	var is_victory = victory(resources);
+	var is_victory = victory(storage);
 
 	if (is_victory) setTimeout(win, 100);
 	else if (is_running) setTimeout(run, 100);
 
 	console.log('run.stop');
 }
-var handle_recipe = (recipe, resources, product) => {
+var handle_recipe = (recipe, storage, product) => {
 	if (recipe?.disabled
-		|| recipe?.req?.some(e => resources[e[0]] < e[1])
-		|| recipe?.product?.some(e => e.length > 2 && resources[e[0]] >= e[2])
+		|| recipe?.req?.some(e => storage[e[0]] < e[1])
+		|| recipe?.product?.some(e => e.length > 2 && storage[e[0]] >= e[2])
 	) return;
 	// Handle max? Recipe does not yield above certain amount of product
-	recipe?.req?.forEach(e => resources[e[0]] -= e[1]);
+	recipe?.req?.forEach(e => storage[e[0]] -= e[1]);
 	recipe?.product?.forEach(e => product[e[0]] += e[1]);
+	chat([desc_res(recipe?.req), desc_res(recipe?.product)] //
+		.filter(e => e) //
+		.join(' to '));
 }
 var win = () => {
 	pause();
@@ -99,7 +107,12 @@ var win = () => {
 
 // Victory
 var check_amount = (amount) => {
-	return (resources) => { return amount?.every(e => resources[e[0]] >= e[1]); }
+	return () => {
+		$('.victory_condition').html('Reach ' + desc_res(amount) + ' to obtain victory');
+		return (storage) => {
+			return amount?.every(e => storage[e[0]] >= e[1]);
+		}
+	}
 }
 
 $(() => {
