@@ -60,6 +60,7 @@ var load_scenario = (scenario) => {
 
 	stepper = scenario.stepper;
 	victory = scenario.victory();
+	has_yet_to_win = true;
 
 	if (game_data.autoresume) resume(); else pause();
 }
@@ -83,7 +84,7 @@ var run = () => {
 
 	var is_victory = victory(storage);
 
-	if (is_victory) setTimeout(win, 100);
+	if (is_victory && has_yet_to_win) setTimeout(win, 100);
 	else if (is_running) setTimeout(run, 100);
 
 	console.log('run.stop');
@@ -102,6 +103,8 @@ var handle_recipe = (recipe, storage, product) => {
 }
 var win = () => {
 	pause();
+	has_yet_to_win = false;
+	$('.victory_condition').html('You won!');
 	alert('Victory!');
 }
 

@@ -7,4 +7,5 @@ var storage;
 var stepper;
 var victory;
 var is_running;
+var has_yet_to_win;
 
