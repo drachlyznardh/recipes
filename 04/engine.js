@@ -38,11 +38,11 @@ var reset = () => {
 	console.log('game_data', game_data);
 	var scenario = $('select[name=scenario]').val();
 	console.log('scenario=' + scenario);
-	setTimeout(() => load_scenario(game_data?.scenarios[scenario], true), 100);
+	setTimeout(() => load_scenario(game_data?.scenarios[scenario]), 100);
 
 	console.log('reset.stop');
 }
-var load_scenario = (scenario, autoresume) => {
+var load_scenario = (scenario) => {
 
 	var board = $('.board');
 	board.show().html('<table></table>');
@@ -61,7 +61,7 @@ var load_scenario = (scenario, autoresume) => {
 	stepper = scenario.stepper;
 	victory = scenario.victory();
 
-	if (autoresume) resume(); else pause();
+	if (game_data.autoresume) resume(); else pause();
 }
 var pause = () => {
 	toggle_resume(true);

@@ -3,6 +3,7 @@ var load_game_data = () => {
 	return {
 		title: 'Il Giochino',
 		version: '0.0.4',
+		autoresume: false,
 		scenarios: [{
 			name: '.5s to victory',
 			resources: [{ key: 'dirt', name: 'Dirt' }],
