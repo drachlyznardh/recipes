@@ -56,7 +56,9 @@ var load_scenario = (scenario) => {
 	});
 	storage = scenario.resources.map(e => 0);
 
-	scenario.stepper.forEach(e => e.disabled = true);
+	var enabler = (scenario.autoenable) ? (e) => e.disabled = false : (e) => e.disabled = true;
+	scenario.stepper.forEach(enabler);
+	// scenario.stepper.forEach(e => e.disabled = true);
 	stepper = scenario.stepper;
 	load_div_as_table('.recipes_display', 3, 'Recipes', stepper, (e, i) => {
 		return $(`<tr>
