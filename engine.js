@@ -48,7 +48,7 @@ var reset = () => {
 var load_scenario = (scenario) => {
 
 	var resources_display = $('.resources_display');
-	resources_display.html('<table></table>');
+	resources_display.html('<table>');
 	$('<tr><td class="title" colspan="2">Resources</td></tr>').appendTo(resources_display);
 	var row = (e, i) => {
 		return $('<tr>' + //
@@ -62,8 +62,9 @@ var load_scenario = (scenario) => {
 		.forEach(e => e.appendTo(resources_display));
 	storage = scenario.resources.map(e => 0);
 
-	var recipes_display = $('.recipes_display');
-	recipes_display.html('<table></table>');
+	// var recipes_display = $('.recipes_display'); recipes_display.html('<table>');
+	$('.recipes_display').html('<table>');
+	var recipes_display = $('.recipes_display > table');
 	$('<tr><td class="title" colspan="3">Recipes</td></tr>').appendTo(recipes_display);
 	var row = (e, i) => {
 		return $('<tr>' + //
