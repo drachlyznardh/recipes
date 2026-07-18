@@ -1,7 +1,8 @@
-console.log('engine.js:start');
+
+var dbg = is_debug ? console.log : (msg) => {}
 
 var load_game = (game_data, player_data) => {
-	console.log('load_game.start');
+	dbg('load_game.start');
 
 	document.title = game_data?.title || 'Game Loaded';
 	set_player_name(player_data?.name);
@@ -11,7 +12,7 @@ var load_game = (game_data, player_data) => {
 	toggle_reset(true);
 	toggle_pause_resume(false, false);
 
-	console.log('load_game.stop');
+	dbg('load_game.stop');
 }
 var set_player_name = (name) => { $('#profile').html(name || '<NO INFO>'); }
 var set_player_points = (points) => { $('#points').html((parseInt(points) || 0) + 'pts'); }
@@ -22,7 +23,7 @@ var set_scenario_list = (scenarios) => {
 		.forEach(e => e.appendTo(scenario));
 }
 var set_version = (v) => { $('.version').html('v' + v); }
-var chat = (msg) => { console.log(msg); $('.chat').html('<[' + msg + ']>'); }
+var chat = (msg) => { dbg(msg); $('.chat').html('<[' + msg + ']>'); }
 var desc_res = (res) => { return res?.map(e => e[1] + ' ' + resources[e[0]].name)?.join(', '); }
 var desc_rec = (rec) => { return [[desc_res(rec?.req), desc_res(rec?.product)] //
 		.filter(e => e) //
@@ -38,17 +39,17 @@ var toggle_pause_resume = (p, r) => {
 }
 
 var reset = () => {
-	console.log('reset.start');
+	dbg('reset.start');
 
-	console.log('game_data', game_data);
+	dbg('game_data', game_data);
 	var scenario = $('select[name=scenario]').val();
-	console.log('scenario=' + scenario);
-	pause();
+	dbg('scenario=' + scenario);
 	setTimeout(() => load_scenario(game_data?.scenarios[scenario]), short_break);
 
-	console.log('reset.stop');
+	dbg('reset.stop');
 }
 var load_scenario = (scenario) => {
+	pause();
 
 	resources = scenario.resources;
 	load_div_as_table('.resources_display', 2, 'Resources', resources, (e, i) => {
@@ -75,7 +76,7 @@ var load_scenario = (scenario) => {
 	rounds = 0;
 
 	$('.board').show();
-	if (game_data.autoresume) resume(); else pause();
+	if (game_data.autoresume) resume();
 }
 var load_div_as_table = (selector, column_count, title, input, row) => {
 	$(selector).html('<table>');
@@ -93,23 +94,25 @@ var resume = () => {
 	setTimeout(run, short_break);
 }
 var run = () => {
-	console.log('run.start');
+	dbg('run.start');
 
 	if (is_running) {
 		var product = storage.map((e, i) => 0);
 		stepper.forEach(e => handle_recipe(e, storage, product));
 		product.forEach((e, i) => storage[i] += e);
 		storage.forEach((e, i) => $('input[name=r' + i + ']').val(e));
-		storage.forEach((e, i) => console.log('resource#' + i + ': ' + e));
+		storage.forEach((e, i) => dbg('resource#' + i + ': ' + e));
 
 		rounds++;
 		var is_victory = victory(storage);
 
 		if (is_victory && has_yet_to_win) setTimeout(win, short_break);
 		else if (is_running) setTimeout(run, round_break);
+
+		dbg(`Round#${rounds} run at ${new Date().getTime()}`);
 	}
 
-	console.log('run.stop');
+	dbg('run.stop');
 }
 var handle_recipe = (recipe, storage, product) => {
 	if (recipe?.disabled
@@ -150,7 +153,7 @@ var win = () => {
 	var test_time_desc = () => {
 		[9, 10, 28, 36, 60, 65, 588, 600, 605, 610, 3500, 3600, 3605, //
 			10000, 10010, 100000, 100010, 1000000, 1000010, 10000000, 10000010 //
-		].forEach(e => console.log(`time_desc(${e}) => ${e * round_break}ms => ${time_desc(e)}`));
+		].forEach(e => dbg(`time_desc(${e}) => ${e * round_break}ms => ${time_desc(e)}`));
 	}
 	// test_time_desc();
 	alert(`Victory! You won in ${time_desc(rounds)}`);
@@ -169,6 +172,4 @@ $(() => {
 	player_data = load_player_data();
 	load_game(game_data, player_data);
 });
-
-console.log('engine.js:stop');
 
