@@ -2,7 +2,7 @@
 var load_game_data = () => {
 	return {
 		title: 'Il Giochino',
-		version: '0.0.5',
+		version: '0.0.6-dev',
 		autoresume: false,
 		scenarios: [{
 			name: '.5s to victory',
