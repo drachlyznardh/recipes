@@ -45,7 +45,7 @@ var reset = () => {
 var load_scenario = (scenario) => {
 
 	var board = $('.board');
-	board.show().html('<table></table>');
+	board.show().html('<table><tr><td class="title" colspan="2">Resources</td></tr></table>');
 	var row = (e, i) => {
 		return $('<tr>' + //
 			'<td class="label"><label for="r' + i + '">' + e.name + '</label></td>' + //

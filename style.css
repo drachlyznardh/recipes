@@ -10,6 +10,7 @@ body { background-color: #d0d0f0; }
 }
 .hidden { display: none; }
 td.label { text-align: right; padding: 0px 3px; }
+td.title { text-align: center; padding: 0px 3px; }
 div.game_selector { float: left; }
 div.player_recap { float: right; }
 
