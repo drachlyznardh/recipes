@@ -43,6 +43,7 @@ var reset = () => {
 	console.log('game_data', game_data);
 	var scenario = $('select[name=scenario]').val();
 	console.log('scenario=' + scenario);
+	pause();
 	setTimeout(() => load_scenario(game_data?.scenarios[scenario]), short_break);
 
 	console.log('reset.stop');
@@ -93,16 +94,18 @@ var resume = () => {
 var run = () => {
 	console.log('run.start');
 
-	var product = storage.map((e, i) => 0);
-	stepper.forEach(e => handle_recipe(e, storage, product));
-	product.forEach((e, i) => storage[i] += e);
-	storage.forEach((e, i) => $('input[name=r' + i + ']').val(e));
-	storage.forEach((e, i) => console.log('resource#' + i + ': ' + e));
+	if (is_running) {
+		var product = storage.map((e, i) => 0);
+		stepper.forEach(e => handle_recipe(e, storage, product));
+		product.forEach((e, i) => storage[i] += e);
+		storage.forEach((e, i) => $('input[name=r' + i + ']').val(e));
+		storage.forEach((e, i) => console.log('resource#' + i + ': ' + e));
 
-	var is_victory = victory(storage);
+		var is_victory = victory(storage);
 
-	if (is_victory && has_yet_to_win) setTimeout(win, short_break);
-	else if (is_running) setTimeout(run, round_break);
+		if (is_victory && has_yet_to_win) setTimeout(win, short_break);
+		else if (is_running) setTimeout(run, round_break);
+	}
 
 	console.log('run.stop');
 }
