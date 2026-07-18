@@ -56,12 +56,13 @@ var load_scenario = (scenario) => {
 	});
 	storage = scenario.resources.map(e => 0);
 
-	scenario.stepper.forEach(e => e.enable = true);
+	scenario.stepper.forEach(e => e.disabled = true);
 	stepper = scenario.stepper;
 	load_div_as_table('.recipes_display', 3, 'Recipes', stepper, (e, i) => {
 		return $(`<tr>
 				<td class="label"><label for="c${i}">${e.name}</label></td>
-				<td><input id="c${i}" type="checkbox" checked /></td>
+				<td><input id="c${i}" type="checkbox"
+				${e?.disabled?'':'checked'} onclick="toggle_recipe(${i})"/></td>
 				<td class="desc">${desc_rec(e)}</td>
 			</tr>`);
 	});
@@ -117,6 +118,14 @@ var handle_recipe = (recipe, storage, product) => {
 		.join(' to '));
 */
 	chat(desc_rec(recipe));
+}
+// var toggle_recipe = (i) => { stepper[i].disabled = !$(`c${i}`).val(); }
+var toggle_recipe = (i) => {
+	console.log(stepper[i]);
+	console.log(stepper[i].disabled);
+	console.log($(`#c${i}`).is(':checked'));
+	stepper[i].disabled = !$(`#c${i}`).is(':checked');
+	console.log(stepper[i].disabled);
 }
 var win = () => {
 	pause();
