@@ -9,26 +9,28 @@
 		<script src="./data.js"></script>
 		<script src="./engine.js"></script>
 	</head><body>
-		<div class="topbar bigbox">
-			<div class="game_selector">
-				<label for="scenario">Game</label>
-				<select class="scenario" id="scenario" name="scenario"></select>
-				<input type="button" name="reset" value="Reset" onclick="reset()" />
-				<input type="button" name="pause" value="Pause" onclick="pause()" />
-				<input type="button" name="resume" value="Resume" onclick="resume()" />
-			</div><div class="player_recap">
-				<span id="profile">Profile</span>, <span id="points">points</span>
-			</div><div class="clear">
+		<div class="main">
+			<div class="topbar bigbox">
+				<div class="game_selector">
+					<label for="scenario">Game</label>
+					<select class="scenario" id="scenario" name="scenario"></select>
+					<input type="button" name="reset" value="Reset" onclick="reset()" />
+					<input type="button" name="pause" value="Pause" onclick="pause()" />
+					<input type="button" name="resume" value="Resume" onclick="resume()" />
+				</div><div class="player_recap">
+					<span id="profile">Profile</span>, <span id="points">points</span>
+				</div><div class="clear">
+				</div>
+			</div><div class="board hidden">
+				<div class="resources_display float_left bigbox"></div>
+				<div class="clear"></div>
+			</div><div class="bottombar bigbox">
+				<div class="victory_condition float_left"></div>
+				<div class="version float_right"></div>
+				<div class="notification float_right"></div>
+				<div class="chat float_right"></div>
+				<div class="clear"></div>
 			</div>
-		</div><div class="board hidden">
-			<div class="resources_display float_left bigbox"></div>
-			<div class="clear"></div>
-		</div><div class="bottombar bigbox">
-			<div class="victory_condition float_left"></div>
-			<div class="version float_right"></div>
-			<div class="notification float_right"></div>
-			<div class="chat float_right"></div>
-			<div class="clear"></div>
 		</div>
 	</body>
 </html>

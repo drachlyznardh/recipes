@@ -1,12 +1,13 @@
 
 body { background-color: #d0d0f0; }
+div.main { max-width: 800px; margin: auto; }
 
 .bigbox {
 	background-color: #c0c0f0;
 	border: 1px solid #b0b0e0;
 	border-radius: 10px;
 	padding: 3px 5px;
-	margin: 3px 0px;
+	margin: 3px;
 }
 .hidden { display: none; }
 td.label { text-align: right; padding: 0px 3px; }
