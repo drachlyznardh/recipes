@@ -126,7 +126,24 @@ var win = () => {
 	pause();
 	has_yet_to_win = false;
 	$('.victory_condition').html('You won!');
-	alert(`Victory! You won in ${rounds/10}s`);
+	var time_desc = (rounds) => {
+		console.log(`time_desc.rounds=${rounds}`);
+		var timems = rounds * round_break;
+		console.log(`timems_desc.timems=${timems}`);
+		if (timems < 1000) return 'less than a second';
+		else if (timems < 60000) return `${Math.floor(timems /
+			1000)}.${Math.floor(timems / 100) % 10}s`;
+		else {
+			aday = 86400000; days = Math.floor(timems / aday); fdays = days ? `${days}days` : '';
+			anhour = 3600000; hours = Math.floor((timems % aday) / anhour);
+			fhours = hours ? `${hours}hour${hours > 1 ? 's' : ''}` : '';
+			aminute = 60000; minutes = Math.floor((timems % anhour) / aminute); fminutes =
+			minutes ? `${minutes}minute${minutes > 1 ? 's' : ''}` : '';
+			return [fdays, fhours, fminutes].filter(e => e).join(' ');
+			return `${Math.floor(timems / 1000)}s`;
+		}
+	}
+	alert(`Victory! You won in ${time_desc(rounds)}`);
 }
 
 // Victory
