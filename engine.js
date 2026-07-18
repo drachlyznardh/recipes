@@ -43,7 +43,7 @@ var reset = () => {
 	console.log('game_data', game_data);
 	var scenario = $('select[name=scenario]').val();
 	console.log('scenario=' + scenario);
-	setTimeout(() => load_scenario(game_data?.scenarios[scenario]), 100);
+	setTimeout(() => load_scenario(game_data?.scenarios[scenario]), short_break);
 
 	console.log('reset.stop');
 }
@@ -88,7 +88,7 @@ var pause = () => {
 var resume = () => {
 	toggle_pause(true);
 	is_running = true;
-	setTimeout(run, 100);
+	setTimeout(run, short_break);
 }
 var run = () => {
 	console.log('run.start');
@@ -101,8 +101,8 @@ var run = () => {
 
 	var is_victory = victory(storage);
 
-	if (is_victory && has_yet_to_win) setTimeout(win, 100);
-	else if (is_running) setTimeout(run, 100);
+	if (is_victory && has_yet_to_win) setTimeout(win, short_break);
+	else if (is_running) setTimeout(run, round_break);
 
 	console.log('run.stop');
 }
