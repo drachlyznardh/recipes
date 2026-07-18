@@ -49,20 +49,21 @@ var load_scenario = (scenario) => {
 
 	resources = scenario.resources;
 	load_div_as_table('.resources_display', 2, 'Resources', resources, (e, i) => {
-		return $('<tr>' + //
-			'<td class="label"><label for="r' + i + '">' + e.name + '</label></td>' + //
-			'<td><input id="r' + i + '" name="r' + i + '" value="0" disabled /></td>' + //
-			'</tr>');
+		return $(`<tr>
+				<td class="label"><label for="r${i}">${e.name}</label></td>
+				<td><input id="r${i}" name="r${i}" value="0" disabled /></td>
+			</tr>`);
 	});
 	storage = scenario.resources.map(e => 0);
 
+	scenario.stepper.forEach(e => e.enable = true);
 	stepper = scenario.stepper;
 	load_div_as_table('.recipes_display', 3, 'Recipes', stepper, (e, i) => {
-		return $('<tr>' + //
-			'<td class="label"><label for="c"' + i + '>' + e.name + '</label></td>' + //
-			'<td><input id="c' + i + '" type="checkbox" checked /></td>' + //
-			'<td class="desc">' + desc_rec(e) + '</td>' + //
-			'</tr>');
+		return $(`<tr>
+				<td class="label"><label for="c${i}">${e.name}</label></td>
+				<td><input id="c${i}" type="checkbox" checked /></td>
+				<td class="desc">${desc_rec(e)}</td>
+			</tr>`);
 	});
 
 	victory = scenario.victory();
