@@ -8,23 +8,20 @@ var load_game_data = () => {
 		autoresume: false,
 		scenarios: [{
 			name: '.5s to victory',
-			resources: [{ key: 'dirt', name: 'Dirt' }],
+			resources: mk_ress(['Dirt']),
 			autoenable: true,
 			stepper: [{ name: 'Free dirt', product: [[0, 1]]}],
 			victory: check_amount([[0, 5]])
 		}, {
 			name: 'Two resources',
-			resources: [{ key: 'dirt', name: 'Dirt' },
-				{ key: 'gold', name: 'Gold' }],
+			resources: mk_ress(['Dirt', 'Gold']),
 			autoenable: true,
 			stepper: [{ name: 'Free dirt', product: [[0, 1]]},
 				{ name: 'Found gold', req: [[0, 5]], product: [[1, 1]]}],
 			victory: check_amount([[1, 5]])
 		}, {
 			name: 'Hold on',
-			resources: [{ key: 'dirt', name: 'Dirt' },
-				{ key: 'gold', name: 'Gold' },
-				{ key: 'victory', name: 'Victory' }],
+			resources: mk_ress(['Dirt', 'Gold', 'Glory']),
 			autoenable: true,
 			stepper: [{ name: 'Free dirt', product: [[0, 1]]},
 				{ name: 'Found gold', req: [[0, 5]], product: [[1, 1]]},
@@ -32,7 +29,6 @@ var load_game_data = () => {
 			victory: check_amount([[2, 1]])
 		}, {
 			name: 'To the max!',
-			// resources: [mk_res('Dirt'), mk_res('Gold')],
 			resources: mk_ress(['Dirt', 'Gold']),
 			autoenable: true,
 			stepper: [{ name: 'Free dirt', product: [[0, 1]], max: [[0, 5]] }],
