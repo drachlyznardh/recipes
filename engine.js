@@ -18,12 +18,15 @@ var set_player_points = (points) => { $('#points').html((parseInt(points) || 0) 
 var set_scenario_list = (scenarios) => {
 	var scenario = $('#scenario');
 	scenarios //
-		.map((e, i) => $('<option value="' + i + '">' + e.name + '</option>')) //
+		.map((e, i) => $(`<option value="${i}">${e.name}</option>`)) //
 		.forEach(e => e.appendTo(scenario));
 }
 var set_version = (v) => { $('.version').html('v' + v); }
 var chat = (msg) => { console.log(msg); $('.chat').html('<[' + msg + ']>'); }
 var desc_res = (res) => { return res?.map(e => e[1] + ' ' + resources[e[0]].name)?.join(', '); }
+var desc_rec = (rec) => { return [desc_res(rec?.req), desc_res(rec?.product)] //
+		.filter(e => e) //
+		.join(' to '); }
 var toggle_reset = (v) => { $('input[name=reset]').toggle(v); }
 var toggle_pause = (v) => { toggle_pause_resume(v, !v); }
 var toggle_resume = (v) => { toggle_pause_resume(!v, v); }
@@ -44,25 +47,39 @@ var reset = () => {
 }
 var load_scenario = (scenario) => {
 
-	var board = $('.board');
-	board.show().html('<table></table>');
-	var row = (e, i) => {
-		return $('<tr>' + //
-			'<td class="label"><label for="r' + i + '">' + e.name + '</label></td>' + //
-			'<td><input id="r' + i + '" name="r' + i + '" value="0" disabled /></td>' + //
-			'</tr>');
-	}
 	resources = scenario.resources;
-	scenario.resources //
-		.map(row) //
-		.forEach(e => e.appendTo(board));
+	load_div_as_table('.resources_display', 2, 'Resources', resources, (e, i) => {
+		return $(`<tr>
+				<td class="label"><label for="r${i}">${e.name}</label></td>
+				<td><input id="r${i}" name="r${i}" value="0" disabled /></td>
+			</tr>`);
+	});
 	storage = scenario.resources.map(e => 0);
 
+	var enabler = (scenario.autoenable) ? (e) => e.disabled = false : (e) => e.disabled = true;
+	scenario.stepper.forEach(enabler);
+	// scenario.stepper.forEach(e => e.disabled = true);
 	stepper = scenario.stepper;
+	load_div_as_table('.recipes_display', 3, 'Recipes', stepper, (e, i) => {
+		return $(`<tr>
+				<td class="label"><label for="c${i}">${e.name}</label></td>
+				<td><input id="c${i}" type="checkbox"
+				${e?.disabled?'':'checked'} onclick="toggle_recipe(${i})"/></td>
+				<td class="desc">${desc_rec(e)}</td>
+			</tr>`);
+	});
+
 	victory = scenario.victory();
 	has_yet_to_win = true;
 
+	$('.board').show();
 	if (game_data.autoresume) resume(); else pause();
+}
+var load_div_as_table = (selector, column_count, title, input, row) => {
+	$(selector).html('<table>');
+	var table = $(selector + ' > table');
+	$(`<tr><td class="title" colspan="${column_count}">${title}</td></tr>`).appendTo(table);
+	input.map(row).forEach(e => e.appendTo(table));
 }
 var pause = () => {
 	toggle_resume(true);
@@ -97,10 +114,14 @@ var handle_recipe = (recipe, storage, product) => {
 	// Handle max? Recipe does not yield above certain amount of product
 	recipe?.req?.forEach(e => storage[e[0]] -= e[1]);
 	recipe?.product?.forEach(e => product[e[0]] += e[1]);
+/*
 	chat([desc_res(recipe?.req), desc_res(recipe?.product)] //
 		.filter(e => e) //
 		.join(' to '));
+*/
+	chat(desc_rec(recipe));
 }
+var toggle_recipe = (i) => { stepper[i].disabled = !$(`#c${i}`).is(':checked'); }
 var win = () => {
 	pause();
 	has_yet_to_win = false;
@@ -111,10 +132,8 @@ var win = () => {
 // Victory
 var check_amount = (amount) => {
 	return () => {
-		$('.victory_condition').html('Reach ' + desc_res(amount) + ' to obtain victory');
-		return (storage) => {
-			return amount?.every(e => storage[e[0]] >= e[1]);
-		}
+		$('.victory_condition').html(`Reach ${desc_res(amount)} to obtain victory`);
+		return (storage) => { return amount?.every(e => storage[e[0]] >= e[1]); }
 	}
 }
 
