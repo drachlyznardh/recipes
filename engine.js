@@ -110,6 +110,7 @@ var handle_recipe = (recipe, storage, product) => {
 	if (recipe?.disabled
 		|| recipe?.req?.some(e => storage[e[0]] < e[1])
 		|| recipe?.product?.some(e => e.length > 2 && storage[e[0]] >= e[2])
+		|| recipe?.max?.some(e => storage[e[0]] >= e[1])
 	) return;
 	// Handle max? Recipe does not yield above certain amount of product
 	recipe?.req?.forEach(e => storage[e[0]] -= e[1]);
