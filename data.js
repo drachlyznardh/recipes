@@ -1,8 +1,7 @@
 
 var load_game_data = () => {
-	var mk_res = (name, key) => {
-		return { name: name, key: key || name.toLowerCase() };
-	}
+	var mk_res = (name, key) => { return { name: name, key: key || name.toLowerCase() }; }
+	var mk_ress = (names) => { return names.map(mk_res); }
 	return {
 		title: 'Il Giochino',
 		version: '0.0.6-dev',
@@ -33,7 +32,8 @@ var load_game_data = () => {
 			victory: check_amount([[2, 1]])
 		}, {
 			name: 'To the max!',
-			resources: [mk_res('Dirt'), mk_res('Gold')],
+			// resources: [mk_res('Dirt'), mk_res('Gold')],
+			resources: mk_ress(['Dirt', 'Gold']),
 			autoenable: true,
 			stepper: [{ name: 'Free dirt', product: [[0, 1]], max: [[0, 5]] }],
 			victory: check_amount([[0, 10]])
