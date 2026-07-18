@@ -119,14 +119,7 @@ var handle_recipe = (recipe, storage, product) => {
 */
 	chat(desc_rec(recipe));
 }
-// var toggle_recipe = (i) => { stepper[i].disabled = !$(`c${i}`).val(); }
-var toggle_recipe = (i) => {
-	console.log(stepper[i]);
-	console.log(stepper[i].disabled);
-	console.log($(`#c${i}`).is(':checked'));
-	stepper[i].disabled = !$(`#c${i}`).is(':checked');
-	console.log(stepper[i].disabled);
-}
+var toggle_recipe = (i) => { stepper[i].disabled = !$(`#c${i}`).is(':checked'); }
 var win = () => {
 	pause();
 	has_yet_to_win = false;
