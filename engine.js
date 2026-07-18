@@ -24,6 +24,9 @@ var set_scenario_list = (scenarios) => {
 var set_version = (v) => { $('.version').html('v' + v); }
 var chat = (msg) => { console.log(msg); $('.chat').html('<[' + msg + ']>'); }
 var desc_res = (res) => { return res?.map(e => e[1] + ' ' + resources[e[0]].name)?.join(', '); }
+var desc_rec = (rec) => { return [desc_res(rec?.req), desc_res(rec?.product)] //
+		.filter(e => e) //
+		.join(' to '); }
 var toggle_reset = (v) => { $('input[name=reset]').toggle(v); }
 var toggle_pause = (v) => { toggle_pause_resume(v, !v); }
 var toggle_resume = (v) => { toggle_pause_resume(!v, v); }
@@ -59,7 +62,21 @@ var load_scenario = (scenario) => {
 		.forEach(e => e.appendTo(resources_display));
 	storage = scenario.resources.map(e => 0);
 
+	var recipes_display = $('.recipes_display');
+	recipes_display.html('<table></table>');
+	$('<tr><td class="title" colspan="3">Recipes</td></tr>').appendTo(recipes_display);
+	var row = (e, i) => {
+		return $('<tr>' + //
+			'<td class="label"><label for="c"' + i + '>' + e.name + '</label></td>' + //
+			'<td><input id="c' + i + '" type="checkbox" checked /></td>' + //
+			'<td class="desc">' + desc_rec(e) + '</td>' + //
+			'</tr>');
+	}
+
 	stepper = scenario.stepper;
+	scenario.stepper //
+		.map(row) //
+		.forEach(e => e.appendTo(recipes_display));
 	victory = scenario.victory();
 	has_yet_to_win = true;
 
@@ -99,9 +116,12 @@ var handle_recipe = (recipe, storage, product) => {
 	// Handle max? Recipe does not yield above certain amount of product
 	recipe?.req?.forEach(e => storage[e[0]] -= e[1]);
 	recipe?.product?.forEach(e => product[e[0]] += e[1]);
+/*
 	chat([desc_res(recipe?.req), desc_res(recipe?.product)] //
 		.filter(e => e) //
 		.join(' to '));
+*/
+	chat(desc_rec(recipe));
 }
 var win = () => {
 	pause();
