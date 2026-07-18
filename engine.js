@@ -47,41 +47,35 @@ var reset = () => {
 }
 var load_scenario = (scenario) => {
 
-	$('.resources_display').html('<table>');
-	var resources_display = $('.resources_display > table');
-	$('<tr><td class="title" colspan="2">Resources</td></tr>').appendTo(resources_display);
-	var row = (e, i) => {
+	resources = scenario.resources;
+	load_div_as_table('.resources_display', 2, 'Resources', resources, (e, i) => {
 		return $('<tr>' + //
 			'<td class="label"><label for="r' + i + '">' + e.name + '</label></td>' + //
 			'<td><input id="r' + i + '" name="r' + i + '" value="0" disabled /></td>' + //
 			'</tr>');
-	}
-	resources = scenario.resources;
-	scenario.resources //
-		.map(row) //
-		.forEach(e => e.appendTo(resources_display));
+	});
 	storage = scenario.resources.map(e => 0);
 
-	$('.recipes_display').html('<table>');
-	var recipes_display = $('.recipes_display > table');
-	$('<tr><td class="title" colspan="3">Recipes</td></tr>').appendTo(recipes_display);
-	var row = (e, i) => {
+	stepper = scenario.stepper;
+	load_div_as_table('.recipes_display', 3, 'Recipes', stepper, (e, i) => {
 		return $('<tr>' + //
 			'<td class="label"><label for="c"' + i + '>' + e.name + '</label></td>' + //
 			'<td><input id="c' + i + '" type="checkbox" checked /></td>' + //
 			'<td class="desc">' + desc_rec(e) + '</td>' + //
 			'</tr>');
-	}
+	});
 
-	stepper = scenario.stepper;
-	scenario.stepper //
-		.map(row) //
-		.forEach(e => e.appendTo(recipes_display));
 	victory = scenario.victory();
 	has_yet_to_win = true;
 
 	$('.board').show();
 	if (game_data.autoresume) resume(); else pause();
+}
+var load_div_as_table = (selector, column_count, title, input, row) => {
+	$(selector).html('<table>');
+	var table = $(selector + ' > table');
+	$('<tr><td class="title" colspan="' + column_count + '">' + title + '</td></tr>').appendTo(table);
+	input.map(row).forEach(e => e.appendTo(table));
 }
 var pause = () => {
 	toggle_resume(true);
