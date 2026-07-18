@@ -44,8 +44,9 @@ var reset = () => {
 }
 var load_scenario = (scenario) => {
 
-	var board = $('.board');
-	board.show().html('<table><tr><td class="title" colspan="2">Resources</td></tr></table>');
+	var resources_display = $('.resources_display');
+	resources_display.html('<table></table>');
+	$('<tr><td class="title" colspan="2">Resources</td></tr>').appendTo(resources_display);
 	var row = (e, i) => {
 		return $('<tr>' + //
 			'<td class="label"><label for="r' + i + '">' + e.name + '</label></td>' + //
@@ -55,13 +56,14 @@ var load_scenario = (scenario) => {
 	resources = scenario.resources;
 	scenario.resources //
 		.map(row) //
-		.forEach(e => e.appendTo(board));
+		.forEach(e => e.appendTo(resources_display));
 	storage = scenario.resources.map(e => 0);
 
 	stepper = scenario.stepper;
 	victory = scenario.victory();
 	has_yet_to_win = true;
 
+	$('.board').show();
 	if (game_data.autoresume) resume(); else pause();
 }
 var pause = () => {
