@@ -112,14 +112,8 @@ var handle_recipe = (recipe, storage, product) => {
 		|| recipe?.product?.some(e => e.length > 2 && storage[e[0]] >= e[2])
 		|| recipe?.max?.some(e => storage[e[0]] >= e[1])
 	) return;
-	// Handle max? Recipe does not yield above certain amount of product
 	recipe?.req?.forEach(e => storage[e[0]] -= e[1]);
 	recipe?.product?.forEach(e => product[e[0]] += e[1]);
-/*
-	chat([desc_res(recipe?.req), desc_res(recipe?.product)] //
-		.filter(e => e) //
-		.join(' to '));
-*/
 	chat(desc_rec(recipe));
 }
 var toggle_recipe = (i) => { stepper[i].disabled = !$(`#c${i}`).is(':checked'); }
