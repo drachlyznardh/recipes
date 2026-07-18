@@ -18,7 +18,7 @@ var set_player_points = (points) => { $('#points').html((parseInt(points) || 0) 
 var set_scenario_list = (scenarios) => {
 	var scenario = $('#scenario');
 	scenarios //
-		.map((e, i) => $('<option value="' + i + '">' + e.name + '</option>')) //
+		.map((e, i) => $(`<option value="${i}">${e.name}</option>`)) //
 		.forEach(e => e.appendTo(scenario));
 }
 var set_version = (v) => { $('.version').html('v' + v); }
@@ -75,7 +75,7 @@ var load_scenario = (scenario) => {
 var load_div_as_table = (selector, column_count, title, input, row) => {
 	$(selector).html('<table>');
 	var table = $(selector + ' > table');
-	$('<tr><td class="title" colspan="' + column_count + '">' + title + '</td></tr>').appendTo(table);
+	$(`<tr><td class="title" colspan="${column_count}">${title}</td></tr>`).appendTo(table);
 	input.map(row).forEach(e => e.appendTo(table));
 }
 var pause = () => {
@@ -128,10 +128,8 @@ var win = () => {
 // Victory
 var check_amount = (amount) => {
 	return () => {
-		$('.victory_condition').html('Reach ' + desc_res(amount) + ' to obtain victory');
-		return (storage) => {
-			return amount?.every(e => storage[e[0]] >= e[1]);
-		}
+		$('.victory_condition').html(`Reach ${desc_res(amount)} to obtain victory`);
+		return (storage) => { return amount?.every(e => storage[e[0]] >= e[1]); }
 	}
 }
 
