@@ -16,6 +16,15 @@ var load_game_data = () => {
 			stepper: [{ name: 'Free dirt', product: [[0, 1]]},
 				{ name: 'Found gold', req: [[0, 5]], product: [[1, 1]]}],
 			victory: check_amount([[1, 5]])
+		}, {
+			name: 'Hold on',
+			resources: [{ key: 'dirt', name: 'Dirt' },
+				{ key: 'gold', name: 'Gold' },
+				{ key: 'victory', name: 'Victory' }],
+			stepper: [{ name: 'Free dirt', product: [[0, 1]]},
+				{ name: 'Found gold', req: [[0, 5]], product: [[1, 1]]},
+				{ name: 'Hold on', req: [[0, 50]], product: [[2, 1]]}],
+			victory: check_amount([[2, 1]])
 		}]
 	};
 }
