@@ -33,6 +33,12 @@ var load_game_data = () => {
 			autoenable: true,
 			stepper: [{ name: 'Free dirt', product: [[0, 1]], max: [[0, 5]] }],
 			victory: check_amount([[0, 10]])
+		}, {
+			name: 'Come back in a minute',
+			resources: mk_ress(['Dirt']),
+			autoenable: true,
+			stepper: [{ name: 'Free dirt', product: [[0, 1]] }],
+			victory: check_amount([[0, 600]])
 		}]
 	};
 }

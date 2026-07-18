@@ -2,6 +2,7 @@
 // Globals
 var game_data;
 var player_data;
+var rounds;
 var resources;
 var storage;
 var stepper;

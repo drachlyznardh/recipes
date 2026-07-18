@@ -72,6 +72,7 @@ var load_scenario = (scenario) => {
 
 	victory = scenario.victory();
 	has_yet_to_win = true;
+	rounds = 0;
 
 	$('.board').show();
 	if (game_data.autoresume) resume(); else pause();
@@ -101,6 +102,7 @@ var run = () => {
 		storage.forEach((e, i) => $('input[name=r' + i + ']').val(e));
 		storage.forEach((e, i) => console.log('resource#' + i + ': ' + e));
 
+		rounds++;
 		var is_victory = victory(storage);
 
 		if (is_victory && has_yet_to_win) setTimeout(win, short_break);
@@ -124,7 +126,7 @@ var win = () => {
 	pause();
 	has_yet_to_win = false;
 	$('.victory_condition').html('You won!');
-	alert('Victory!');
+	alert(`Victory! You won in ${rounds/10}s`);
 }
 
 // Victory
