@@ -24,9 +24,11 @@ var set_scenario_list = (scenarios) => {
 var set_version = (v) => { $('.version').html('v' + v); }
 var chat = (msg) => { console.log(msg); $('.chat').html('<[' + msg + ']>'); }
 var desc_res = (res) => { return res?.map(e => e[1] + ' ' + resources[e[0]].name)?.join(', '); }
-var desc_rec = (rec) => { return [desc_res(rec?.req), desc_res(rec?.product)] //
+var desc_rec = (rec) => { return [[desc_res(rec?.req), desc_res(rec?.product)] //
 		.filter(e => e) //
-		.join(' to '); }
+		.join(' to '), desc_res(rec?.max)] //
+		.filter(e => e) //
+		.join(' up to '); }
 var toggle_reset = (v) => { $('input[name=reset]').toggle(v); }
 var toggle_pause = (v) => { toggle_pause_resume(v, !v); }
 var toggle_resume = (v) => { toggle_pause_resume(!v, v); }
@@ -58,13 +60,11 @@ var load_scenario = (scenario) => {
 
 	var enabler = (scenario.autoenable) ? (e) => e.disabled = false : (e) => e.disabled = true;
 	scenario.stepper.forEach(enabler);
-	// scenario.stepper.forEach(e => e.disabled = true);
 	stepper = scenario.stepper;
 	load_div_as_table('.recipes_display', 3, 'Recipes', stepper, (e, i) => {
 		return $(`<tr>
 				<td class="label"><label for="c${i}">${e.name}</label></td>
-				<td><input id="c${i}" type="checkbox"
-				${e?.disabled?'':'checked'} onclick="toggle_recipe(${i})"/></td>
+				<td><input id="c${i}" type="checkbox" ${e?.disabled?'':'checked'} onclick="toggle_recipe(${i})"/></td>
 				<td class="desc">${desc_rec(e)}</td>
 			</tr>`);
 	});
