@@ -127,28 +127,26 @@ var win = () => {
 	has_yet_to_win = false;
 	$('.victory_condition').html('You won!');
 	var time_desc = (rounds) => {
-		// console.log(`time_desc.rounds=${rounds}`);
 		var timems = rounds * round_break;
-		// console.log(`timems_desc.timems=${timems}`);
 		if (timems < 1000) return 'less than a second';
 		else if (timems < 60000) return `${Math.floor(timems /
 			1000)}.${Math.floor(timems / 100) % 10}seconds`;
 		else {
-			var aday = 86400000;
-			var anhour = 3600000;
-			var aminute = 60000;
-			var asecond = 1000;
-			var plural = (v, n) => v ? `${v}${n}${v > 1 ? 's' : ''}` : false;
+			times = Math.floor(timems / 1000);
+			var aday = 86400;
+			var anhour = 3600;
+			var aminute = 60;
+			var plural = (n, v) => v ? `${v}${n}${v > 1 ? 's' : ''}` : false;
 			var commas = (l) => {
-				if (l?.length > 2) return `${l.slice(0, l.length -1).join(', ')} and ${l[0]}`;
+				if (l?.length > 2) return `${l.slice(0, -1).join(', ')} and ${l[l.length -1]}`;
 				else if (l?.length > 1) return `${l[0]} and ${l[1]}`;
 				else if (l?.length > 0) return l[0];
 			}
-			days = Math.floor(timems / aday); fdays = days ? `${days}days` : '';
-			hours = Math.floor((timems % aday) / anhour); fhours = hours ? `${hours}hour${hours > 1 ? 's' : ''}` : '';
-			minutes = Math.floor((timems % anhour) / aminute); fminutes = minutes ? `${minutes}minute${minutes > 1 ? 's' : ''}` : '';
-			seconds = Math.floor(timems % asecond);
-			return commas([days, hours, minutes, seconds].map(plural).filter(e => e));
+			days = plural('day', Math.floor(times / aday));
+			hours = plural('hour', Math.floor((times % aday) / anhour));
+			minutes = plural('minute', Math.floor((times % anhour) / aminute));
+			seconds = plural('second', times % 10);
+			return commas([days, hours, minutes, seconds].filter(e => e));
 			return commas([days, hours, minutes, seconds].map(plural).filter(e => e));
 			return [days, hours, minutes, seconds].map(plural).filter(e => e).join(' ');
 			return [fdays, fhours, fminutes].filter(e => e).join(' ');
