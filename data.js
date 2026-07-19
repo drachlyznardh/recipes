@@ -2,10 +2,15 @@
 const load_game_data = () => {
 	const mk_res = (name, key) => { return { name: name, key: key || name.toLowerCase() }; }
 	const mk_ress = (names) => { return names.map(mk_res); }
+	const title = 'Il Giochino';
+	const version = '0.0.6-dev';
+	const blankref = (href, name) => `<a href="${href}" target="_blank">${name}</a>`;
+	const about = `<p>This is v${version} of ${title}, written by <a
+	href="https://github.com/drachlyznardh/" target="_blank">DrachLyznardh</a> for fun</p>`;
 	return {
-		title: 'Il Giochino',
-		version: '0.0.6-dev',
-		about: 'Description from game_data',
+		title: title,
+		version: version,
+		about: about,
 		autoresume: true,
 		scenarios: [{
 			name: '.5s to victory',
