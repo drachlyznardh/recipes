@@ -146,11 +146,11 @@ var render_storage = () => {
 var win = () => {
 	pause();
 	has_yet_to_win = false;
-	var time_played = time_desc(rounds * round_break);
-	var time_elapsed = time_desc(now() - last_reset_at);
+	var time_played = rounds * round_break; var desc_played = time_desc(time_played);
+	var time_elapsed = now() - last_reset_at; var desc_elapsed = time_desc(time_elapsed);
+	var time_paused = time_elapsed - time_played; var desc_paused = time_desc(time_paused);
 	$('.victory_condition').html('You won!');
-	// test_time_desc();
-	alert(`Victory! You won in ${time_played}, having played since ${time_elapsed} ago`);
+	alert(`Victory! You won in ${desc_played}, having played since ${desc_elapsed} ago having spent ${desc_paused} pausing`);
 }
 var time_desc = (timems) => {
 	if (timems < 1000) return 'less than a second';
