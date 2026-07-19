@@ -41,7 +41,7 @@ var toggle_pause_resume = (p, r) => {
 	$('input[name=resume]').toggle(r);
 }
 var configure_panels = () => {
-	$('#victory_recap').dialog({
+	$('.victory.recap').dialog({
 		modal: true,
 		autoOpen: false,
 		title: 'Victory!'
@@ -60,6 +60,7 @@ var reset = () => {
 }
 var load_scenario = (scenario) => {
 	pause();
+	$('.tooltip').tooltip().tooltip('close');
 
 	resources = scenario.resources;
 	load_div_as_table('.resources_display', 2, 'Resources', resources, (e, i) => {
@@ -161,22 +162,19 @@ var win = () => {
 	var time_elapsed = now() - last_reset_at; var desc_elapsed = time_desc(time_elapsed);
 	var time_paused = time_elapsed - time_played; var desc_paused = time_desc(time_paused);
 	var time_away = rounds_away * round_break; var desc_away = time_desc(time_away);
-	$('.victory_condition').html('You won!');
-	// alert(`Victory! You won in ${desc_played}, having played since ${desc_elapsed} ago having spent ${desc_paused} pausing and ${desc_away} away`);
-/*
-	$('#victory_recap').html(`<table>
-			<tr><td>Time played</td><td>${desc_played}</td></tr>
-		</table>`);
-*/
 	const table = $('<table>');
-	[['played', time_played], ['elapsed', time_elapsed], ['paused',
-	time_paused], ['away', time_away]
-		].forEach(e => $(`<tr><td class="label">Time ${e[0]}</td><td>${time_desc(e[1])}</td></tr>`).appendTo(table));
-	// table.appendTo($('#victory_recap'));
-	const recap = $('#victory_recap');
+	[
+		['played', time_played],
+		['elapsed', time_elapsed],
+		['paused', time_paused],
+		['away', time_away]
+	].forEach(e => $(`<tr><td class="label">Time ${e[0]}:</td><td>${time_desc(e[1])}</td></tr>`).appendTo(table));
+	const recap = $('.victory.recap');
 	recap.html(false);
 	table.appendTo(recap);
 	recap.dialog('open');
+
+	$('.victory.condition').html('You won!').attr('title', '').tooltip({ content: table.clone() });
 }
 var time_desc = (timems) => {
 	if (timems < 1000) return 'less than a second';
@@ -207,7 +205,8 @@ var test_time_desc = () => {
 // Victory
 var check_amount = (amount) => {
 	return () => {
-		$('.victory_condition').html(`Reach ${desc_res(amount)} to obtain victory`);
+		const desc = `Reach ${desc_res(amount)} to obtain victory`;
+		$('.victory.condition').html(desc).attr('title', '').tooltip({ content: desc });
 		return (storage) => { return amount?.every(e => storage[e[0]] >= e[1]); }
 	}
 }
