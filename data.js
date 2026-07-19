@@ -5,6 +5,7 @@ var load_game_data = () => {
 	return {
 		title: 'Il Giochino',
 		version: '0.0.6-dev',
+		about: 'Description from game_data',
 		autoresume: true,
 		scenarios: [{
 			name: '.5s to victory',

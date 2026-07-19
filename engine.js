@@ -17,10 +17,7 @@ var load_game = (game_data, player_data) => {
 	toggle_pause_resume(false, false);
 	configure_buttons();
 	configure_panels();
-
-	$('.about') //
-		.html('This is a game') //
-		.dialog({ title: `About ${title} v${version}` });
+	configure_about(title, version, game_data?.about || '');
 
 	log(`Done loading in ${time_desc(now() - loading_since)}`);
 }
@@ -60,6 +57,11 @@ var configure_panels = () => {
 	$('.popup.nomodal').dialog({ modal: false });
 	$('.popup.resize').dialog({ resizable: true });
 	$('.popup.noresize').dialog({ resizable: false });
+}
+const configure_about = (title, version, about) => {
+	$('.about') //
+		.html(about) //
+		.dialog({ title: `About ${title} v${version}` });
 }
 
 var reset = () => {
