@@ -42,7 +42,9 @@ var toggle_pause_resume = (p, r) => {
 }
 var configure_panels = () => {
 	$('#victory_recap').dialog({
-		modal: true
+		modal: true,
+		autoOpen: true,
+		title: 'Victory!'
 	});
 }
 
