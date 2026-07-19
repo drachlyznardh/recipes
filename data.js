@@ -1,7 +1,7 @@
 
-var load_game_data = () => {
-	var mk_res = (name, key) => { return { name: name, key: key || name.toLowerCase() }; }
-	var mk_ress = (names) => { return names.map(mk_res); }
+const load_game_data = () => {
+	const mk_res = (name, key) => { return { name: name, key: key || name.toLowerCase() }; }
+	const mk_ress = (names) => { return names.map(mk_res); }
 	return {
 		title: 'Il Giochino',
 		version: '0.0.6-dev',
@@ -43,7 +43,7 @@ var load_game_data = () => {
 		}]
 	};
 }
-var load_player_data = () => {
+const load_player_data = () => {
 	return {
 		name: 'GODS',
 		points: 1337
