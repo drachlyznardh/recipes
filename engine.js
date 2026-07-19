@@ -105,18 +105,26 @@ var run = () => {
 			console.log(`delta(${delta}) = now(${now}) - last_run_at(${last_run_at})`);
 			console.log(`rounds_left(${rounds_left}) = delta(${delta}) / round_break(${round_break})`);
 		}
-		var product = storage.map((e, i) => 0);
-		stepper.forEach(e => handle_recipe(e, storage, product));
-		product.forEach((e, i) => storage[i] += e);
-		storage.forEach((e, i) => $('input[name=r' + i + ']').val(e));
-		storage.forEach((e, i) => dbg('resource#' + i + ': ' + e));
+		var is_victory = false;
+		while (rounds_left--) {
+			var product = storage.map((e, i) => 0);
+			stepper.forEach(e => handle_recipe(e, storage, product));
+			product.forEach((e, i) => storage[i] += e);
 
-		rounds++;
-		last_run_at = new Date().getTime();
-		var is_victory = victory(storage);
+			rounds++;
+			last_run_at = new Date().getTime();
+			is_victory = victory(storage);
 
-		if (is_victory && has_yet_to_win) setTimeout(win, short_break);
-		else if (is_running) setTimeout(run, round_break);
+			if (is_victory && has_yet_to_win) {
+				render_storage();
+				setTimeout(win, short_break);
+			}
+		}
+
+		if (!is_victory && is_running) {
+			render_storage();
+			setTimeout(run, round_break);
+		}
 
 		dbg(`Round#${rounds} run at ${new Date().getTime()}`);
 	}
@@ -166,6 +174,10 @@ var win = () => {
 	}
 	// test_time_desc();
 	alert(`Victory! You won in ${time_desc(rounds)}`);
+}
+var render_storage = () => {
+	storage.forEach((e, i) => $('input[name=r' + i + ']').val(e));
+	storage.forEach((e, i) => dbg('resource#' + i + ': ' + e));
 }
 
 // Victory
