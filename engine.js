@@ -13,6 +13,7 @@ var load_game = (game_data, player_data) => {
 	set_version(game_data?.version);
 	toggle_reset(true);
 	toggle_pause_resume(false, false);
+	configure_panels();
 
 	log(`Done loading in ${time_desc(now() - loading_since)}`);
 }
@@ -38,6 +39,11 @@ var toggle_resume = (v) => { toggle_pause_resume(!v, v); }
 var toggle_pause_resume = (p, r) => {
 	$('input[name=pause]').toggle(p);
 	$('input[name=resume]').toggle(r);
+}
+var configure_panels = () => {
+	$('#victory_recap').dialog({
+		modal: true
+	});
 }
 
 var reset = () => {
