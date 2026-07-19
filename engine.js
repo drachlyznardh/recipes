@@ -98,14 +98,8 @@ var run = () => {
 	dbg('run.start');
 
 	if (is_running) {
-		var now = new Date().getTime();
-		var delta = now - last_run_at;
-		var rounds_left = Math.floor(delta / round_break);
-		if (rounds_left > 1) {
-			console.log(`delta(${delta}) = now(${now}) - last_run_at(${last_run_at})`);
-			console.log(`rounds_left(${rounds_left}) = delta(${delta}) / round_break(${round_break})`);
-		}
 		var is_victory = false;
+		var rounds_left = Math.floor((new Date().getTime() - last_run_at) / round_break);
 		while (rounds_left--) {
 			var product = storage.map((e, i) => 0);
 			stepper.forEach(e => handle_recipe(e, storage, product));
@@ -126,6 +120,7 @@ var run = () => {
 			setTimeout(run, round_break);
 		}
 
+		console.log(`Round#${rounds} run at ${new Date().getTime()}`);
 		dbg(`Round#${rounds} run at ${new Date().getTime()}`);
 	}
 
@@ -142,42 +137,42 @@ var handle_recipe = (recipe, storage, product) => {
 	chat(desc_rec(recipe));
 }
 var toggle_recipe = (i) => { stepper[i].disabled = !$(`#c${i}`).is(':checked'); }
+var render_storage = () => {
+	storage.forEach((e, i) => $('input[name=r' + i + ']').val(e));
+	storage.forEach((e, i) => dbg('resource#' + i + ': ' + e));
+}
 var win = () => {
 	pause();
 	has_yet_to_win = false;
 	$('.victory_condition').html('You won!');
-	var time_desc = (rounds) => {
-		var timems = rounds * round_break;
-		if (timems < 1000) return 'less than a second';
-		else if (timems < 60000) return `${Math.floor(timems / 1000)}.${Math.floor(timems / 100) % 10}seconds`;
-		else {
-			var aday = 86400, anhour = 3600, aminute = 60;
-			times = Math.floor(timems / 1000);
-			var plural = (n, v) => v ? `${v}${n}${v > 1 ? 's' : ''}` : false;
-			var commas = (l) => {
-				if (l?.length > 2) return `${l.slice(0, -1).join(', ')} and ${l[l.length -1]}`;
-				else if (l?.length > 1) return `${l[0]} and ${l[1]}`;
-				else if (l?.length > 0) return l[0];
-			}
-			return commas([
-				days = plural('day', Math.floor(times / aday)),
-				hours = plural('hour', Math.floor((times % aday) / anhour)),
-				minutes = plural('minute', Math.floor((times % anhour) / aminute)),
-				seconds = plural('second', times % 10)
-			].filter(e => e));
-		}
-	}
-	var test_time_desc = () => {
-		[9, 10, 28, 36, 60, 65, 588, 600, 605, 610, 3500, 3600, 3605, //
-			10000, 10010, 100000, 100010, 1000000, 1000010, 10000000, 10000010 //
-		].forEach(e => dbg(`time_desc(${e}) => ${e * round_break}ms => ${time_desc(e)}`));
-	}
 	// test_time_desc();
 	alert(`Victory! You won in ${time_desc(rounds)}`);
 }
-var render_storage = () => {
-	storage.forEach((e, i) => $('input[name=r' + i + ']').val(e));
-	storage.forEach((e, i) => dbg('resource#' + i + ': ' + e));
+var time_desc = (rounds) => {
+	var timems = rounds * round_break;
+	if (timems < 1000) return 'less than a second';
+	else if (timems < 60000) return `${Math.floor(timems / 1000)}.${Math.floor(timems / 100) % 10}seconds`;
+	else {
+		var aday = 86400, anhour = 3600, aminute = 60;
+		times = Math.floor(timems / 1000);
+		var plural = (n, v) => v ? `${v}${n}${v > 1 ? 's' : ''}` : false;
+		var commas = (l) => {
+			if (l?.length > 2) return `${l.slice(0, -1).join(', ')} and ${l[l.length -1]}`;
+			else if (l?.length > 1) return `${l[0]} and ${l[1]}`;
+			else if (l?.length > 0) return l[0];
+		}
+		return commas([
+			days = plural('day', Math.floor(times / aday)),
+			hours = plural('hour', Math.floor((times % aday) / anhour)),
+			minutes = plural('minute', Math.floor((times % anhour) / aminute)),
+			seconds = plural('second', times % 10)
+		].filter(e => e));
+	}
+}
+var test_time_desc = () => {
+	[9, 10, 28, 36, 60, 65, 588, 600, 605, 610, 3500, 3600, 3605, //
+		10000, 10010, 100000, 100010, 1000000, 1000010, 10000000, 10000010 //
+	].forEach(e => dbg(`time_desc(${e}) => ${e * round_break}ms => ${time_desc(e)}`));
 }
 
 // Victory
