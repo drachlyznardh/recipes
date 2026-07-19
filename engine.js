@@ -46,10 +46,19 @@ const configure_buttons = () => {
 		.on('click', () => $('.victory.recap').dialog('open'));
 }
 var configure_panels = () => {
+/*
 	$('.victory.recap').dialog({
 		modal: true,
 		autoOpen: false,
+		resizable: false,
 	});
+*/
+	$('.popup.open').dialog({ autoOpen: true });
+	$('.popup.noopen').dialog({ autoOpen: false });
+	$('.popup.modal').dialog({ modal: true });
+	$('.popup.nomodal').dialog({ modal: false });
+	$('.popup.resize').dialog({ resizable: true });
+	$('.popup.noresize').dialog({ resizable: false });
 }
 
 var reset = () => {
