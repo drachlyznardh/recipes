@@ -107,9 +107,9 @@ var run = () => {
 
 			rounds++;
 			last_run_at = new Date().getTime();
-			is_victory = victory(storage);
+			is_victory = has_yet_to_win && victory(storage);
 
-			if (is_victory && has_yet_to_win) {
+			if (is_victory) {
 				render_storage();
 				setTimeout(win, short_break);
 				break;
