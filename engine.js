@@ -13,7 +13,7 @@ var load_game = (game_data, player_data) => {
 	set_version(game_data?.version);
 	toggle_reset(true);
 	toggle_pause_resume(false, false);
-	// configure_panels();
+	configure_panels();
 
 	log(`Done loading in ${time_desc(now() - loading_since)}`);
 }
@@ -176,7 +176,7 @@ var win = () => {
 	const recap = $('#victory_recap');
 	recap.html(false);
 	table.appendTo(recap);
-	// recap.dialog('open');
+	recap.dialog('open');
 }
 var time_desc = (timems) => {
 	if (timems < 1000) return 'less than a second';
