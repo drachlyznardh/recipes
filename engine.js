@@ -174,7 +174,9 @@ var win = () => {
 	table.appendTo(recap);
 	recap.dialog('open');
 
-	$('.victory.condition').html('You won!').attr('title', '').tooltip({ content: table.clone() });
+	// // $('.victory.condition').html('You won!').attr('title', '').tooltip({ content: table.clone() });
+	// $('.victory.condition').html('You won!').attr('title', table.clone());
+	$('.victory.condition').html('You won!').tooltip({ items: '[content]' }).tooltip({ content: table.clone() });
 }
 var time_desc = (timems) => {
 	if (timems < 1000) return 'less than a second';
@@ -206,7 +208,8 @@ var test_time_desc = () => {
 var check_amount = (amount) => {
 	return () => {
 		const desc = `Reach ${desc_res(amount)} to obtain victory`;
-		$('.victory.condition').html(desc).attr('title', '').tooltip({ content: desc });
+		// $('.victory.condition').html(desc).attr('title', '').tooltip({ content: desc });
+		$('.victory.condition').html(desc).attr('title', desc).tooltip({ items: '[title]' });
 		return (storage) => { return amount?.every(e => storage[e[0]] >= e[1]); }
 	}
 }
