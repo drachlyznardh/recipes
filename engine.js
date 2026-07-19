@@ -43,7 +43,7 @@ var toggle_pause_resume = (p, r) => {
 var configure_panels = () => {
 	$('#victory_recap').dialog({
 		modal: true,
-		autoOpen: true,
+		autoOpen: false,
 		title: 'Victory!'
 	});
 }
@@ -162,7 +162,21 @@ var win = () => {
 	var time_paused = time_elapsed - time_played; var desc_paused = time_desc(time_paused);
 	var time_away = rounds_away * round_break; var desc_away = time_desc(time_away);
 	$('.victory_condition').html('You won!');
-	alert(`Victory! You won in ${desc_played}, having played since ${desc_elapsed} ago having spent ${desc_paused} pausing and ${desc_away} away`);
+	// alert(`Victory! You won in ${desc_played}, having played since ${desc_elapsed} ago having spent ${desc_paused} pausing and ${desc_away} away`);
+/*
+	$('#victory_recap').html(`<table>
+			<tr><td>Time played</td><td>${desc_played}</td></tr>
+		</table>`);
+*/
+	const table = $('<table>');
+	[['played', time_played], ['elapsed', time_elapsed], ['paused',
+	time_paused], ['away', time_away]
+		].forEach(e => $(`<tr><td class="label">Time ${e[0]}</td><td>${time_desc(e[1])}</td></tr>`).appendTo(table));
+	// table.appendTo($('#victory_recap'));
+	const recap = $('#victory_recap');
+	recap.html(false);
+	table.appendTo(recap);
+	recap.dialog('open');
 }
 var time_desc = (timems) => {
 	if (timems < 1000) return 'less than a second';

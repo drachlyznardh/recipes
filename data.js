@@ -5,7 +5,7 @@ var load_game_data = () => {
 	return {
 		title: 'Il Giochino',
 		version: '0.0.6-dev',
-		autoresume: false,
+		autoresume: true,
 		scenarios: [{
 			name: '.5s to victory',
 			resources: mk_ress(['Dirt']),
