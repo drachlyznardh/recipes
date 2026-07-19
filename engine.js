@@ -91,12 +91,20 @@ var pause = () => {
 var resume = () => {
 	toggle_pause(true);
 	is_running = true;
+	last_run_at = new Date().getTime();
 	setTimeout(run, short_break);
 }
 var run = () => {
 	dbg('run.start');
 
 	if (is_running) {
+		var now = new Date().getTime();
+		var delta = now - last_run_at;
+		var rounds_left = Math.floor(delta / round_break);
+		if (rounds_left > 1) {
+			console.log(`delta(${delta}) = now(${now}) - last_run_at(${last_run_at})`);
+			console.log(`rounds_left(${rounds_left}) = delta(${delta}) / round_break(${round_break})`);
+		}
 		var product = storage.map((e, i) => 0);
 		stepper.forEach(e => handle_recipe(e, storage, product));
 		product.forEach((e, i) => storage[i] += e);
@@ -104,6 +112,7 @@ var run = () => {
 		storage.forEach((e, i) => dbg('resource#' + i + ': ' + e));
 
 		rounds++;
+		last_run_at = new Date().getTime();
 		var is_victory = victory(storage);
 
 		if (is_victory && has_yet_to_win) setTimeout(win, short_break);
