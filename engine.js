@@ -13,7 +13,7 @@ var load_game = (game_data, player_data) => {
 	set_version(game_data?.version);
 	toggle_reset(true);
 	toggle_pause_resume(false, false);
-	configure_panels();
+	// configure_panels();
 
 	log(`Done loading in ${time_desc(now() - loading_since)}`);
 }
@@ -176,15 +176,15 @@ var win = () => {
 	const recap = $('#victory_recap');
 	recap.html(false);
 	table.appendTo(recap);
-	recap.dialog('open');
+	// recap.dialog('open');
 }
 var time_desc = (timems) => {
 	if (timems < 1000) return 'less than a second';
-	else if (timems < 60000) return `${Math.floor(timems / 1000)}.${Math.floor(timems / 100) % 10}seconds`;
+	else if (timems < 60000) return `${Math.floor(timems / 1000)}.${Math.floor(timems / 100) % 10} seconds`;
 	else {
 		var aday = 86400, anhour = 3600, aminute = 60;
 		times = Math.floor(timems / 1000);
-		var plural = (n, v) => v ? `${v}${n}${v > 1 ? 's' : ''}` : false;
+		var plural = (n, v) => v ? `${v} ${n}${v > 1 ? 's' : ''}` : false;
 		var commas = (l) => {
 			if (l?.length > 2) return `${l.slice(0, -1).join(', ')} and ${l[l.length -1]}`;
 			else if (l?.length > 1) return `${l[0]} and ${l[1]}`;
