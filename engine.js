@@ -13,6 +13,7 @@ var load_game = (game_data, player_data) => {
 	set_version(game_data?.version);
 	toggle_reset(true);
 	toggle_pause_resume(false, false);
+	configure_buttons();
 	configure_panels();
 
 	log(`Done loading in ${time_desc(now() - loading_since)}`);
@@ -40,11 +41,14 @@ var toggle_pause_resume = (p, r) => {
 	$('input[name=pause]').toggle(p);
 	$('input[name=resume]').toggle(r);
 }
+const configure_buttons = () => {
+	$('.victory.condition') //
+		.on('click', () => $('.victory.recap').dialog('open'));
+}
 var configure_panels = () => {
 	$('.victory.recap').dialog({
 		modal: true,
 		autoOpen: false,
-		title: 'Victory!'
 	});
 }
 
@@ -60,7 +64,6 @@ var reset = () => {
 }
 var load_scenario = (scenario) => {
 	pause();
-	$('.tooltip').tooltip().tooltip('close');
 
 	resources = scenario.resources;
 	load_div_as_table('.resources_display', 2, 'Resources', resources, (e, i) => {
@@ -169,16 +172,14 @@ var win = () => {
 		['paused', time_paused],
 		['away', time_away]
 	].forEach(e => $(`<tr><td class="label">Time ${e[0]}:</td><td>${time_desc(e[1])}</td></tr>`).appendTo(table));
-	const recap = $('.victory.recap');
-	recap.html(false);
-	table.appendTo(recap);
-	recap.dialog('open');
-
-	// // $('.victory.condition').html('You won!').attr('title', '').tooltip({ content: table.clone() });
-	// $('.victory.condition').html('You won!').attr('title', table.clone());
-	// $('.victory.condition').html('You won!').tooltip({ items: '.victory.condition' }).tooltip({ content: table.clone() });
-	$('.victory.condition').val('You won!').attr('title', 'You won!').on('click', () => $('.victory.recap').dialog('open'));
-	// $('.victory.condition').addClass('hover').on('click', () => $('.victory.recap').dialog('open'));
+	table.appendTo($('.victory.recap') //
+		.html(false) //
+		.dialog({ title: 'Victory!' }) //
+		.dialog('open'));
+	$('.victory.condition') //
+		.val('You won!') //
+		.attr('title', 'You won!') //
+		.show();
 }
 var time_desc = (timems) => {
 	if (timems < 1000) return 'less than a second';
@@ -210,11 +211,13 @@ var test_time_desc = () => {
 var check_amount = (amount) => {
 	return () => {
 		const desc = `Reach ${desc_res(amount)} to obtain victory`;
-		// // $('.victory.condition').html(desc).attr('title', '').tooltip({ content: desc });
-		// $('.victory.condition').html(desc).attr('title', desc).tooltip({ items: '[title]' });
-		// $('.victory.condition').html(desc).tooltip({ items: '.victory.condition' }).tooltip({ content: desc });
-		$('.victory.condition').val(desc).attr('title', desc); // .tooltip({ items: '[title]' });
-		// $('.victory.condition').html(desc).removeClass('hover').attr('title', desc); // .tooltip({ items: '[title]' });
+		$('.victory.condition') //
+			.val(desc) //
+			.attr('title', desc) //
+			.show();
+		$('.victory.recap') //
+			.html(desc) //
+			.dialog({ title: 'Victory condition' });
 		return (storage) => { return amount?.every(e => storage[e[0]] >= e[1]); }
 	}
 }
