@@ -74,7 +74,8 @@ var load_scenario = (scenario) => {
 
 	victory = scenario.victory();
 	has_yet_to_win = true;
-	rounds = 0;
+	rounds_played = 0;
+	rounds_away = 0;
 
 	$('.board').show();
 	last_reset_at = now();
@@ -102,12 +103,13 @@ var run = () => {
 	if (is_running) {
 		var is_victory = false;
 		var rounds_left = Math.floor((now() - last_run_at) / round_break);
+		rounds_away += rounds_left -1;
 		while (rounds_left--) {
 			var product = storage.map((e, i) => 0);
 			stepper.forEach(e => handle_recipe(e, storage, product));
 			product.forEach((e, i) => storage[i] += e);
 
-			rounds++;
+			rounds_played++;
 			last_run_at = now();
 			is_victory = has_yet_to_win && victory(storage);
 
@@ -123,7 +125,7 @@ var run = () => {
 			setTimeout(run, round_break);
 		}
 
-		dbg(`Round#${rounds} run at ${now()}`);
+		dbg(`Round_played#${rounds_played} run at ${now()}`);
 	}
 
 	dbg('run.stop');
@@ -146,11 +148,12 @@ var render_storage = () => {
 var win = () => {
 	pause();
 	has_yet_to_win = false;
-	var time_played = rounds * round_break; var desc_played = time_desc(time_played);
+	var time_played = rounds_played * round_break; var desc_played = time_desc(time_played);
 	var time_elapsed = now() - last_reset_at; var desc_elapsed = time_desc(time_elapsed);
 	var time_paused = time_elapsed - time_played; var desc_paused = time_desc(time_paused);
+	var time_away = rounds_away * round_break; var desc_away = time_desc(time_away);
 	$('.victory_condition').html('You won!');
-	alert(`Victory! You won in ${desc_played}, having played since ${desc_elapsed} ago having spent ${desc_paused} pausing`);
+	alert(`Victory! You won in ${desc_played}, having played since ${desc_elapsed} ago having spent ${desc_paused} pausing and ${desc_away} away`);
 }
 var time_desc = (timems) => {
 	if (timems < 1000) return 'less than a second';
