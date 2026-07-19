@@ -11,7 +11,7 @@ var load_game = (game_data, player_data) => {
 	set_player_name(player_data?.name);
 	set_player_points(player_data?.points);
 	set_scenario_list(game_data?.scenarios);
-	const version = game_data?.version || '0.0.x';
+	const version = game_data?.version || 'v0.0.x-dev';
 	set_version(version);
 	toggle_reset(true);
 	toggle_pause_resume(false, false);
@@ -29,7 +29,7 @@ var set_scenario_list = (scenarios) => {
 		.map((e, i) => $(`<option value="${i}">${e.name}</option>`)) //
 		.forEach(e => e.appendTo(scenario));
 }
-var set_version = (v) => { $('.version').val('v' + v); }
+var set_version = (v) => { $('.version').val(v); }
 var chat = (msg) => { dbg(msg); $('.chat').html('<[' + msg + ']>'); }
 var desc_res = (res) => { return res?.map(e => e[1] + ' ' + resources[e[0]].name)?.join(', '); }
 var desc_rec = (rec) => { return [[desc_res(rec?.req), desc_res(rec?.product)] //
@@ -61,7 +61,7 @@ var configure_panels = () => {
 const configure_about = (title, version, about) => {
 	$('.about') //
 		.html(about) //
-		.dialog({ title: `About ${title} v${version}` });
+		.dialog({ title: `About ${title} ${version}` });
 }
 
 var reset = () => {
