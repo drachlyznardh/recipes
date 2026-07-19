@@ -1,9 +1,10 @@
 
 var dbg = is_debug ? console.log : (msg) => {}
+var log = console.log;
 var now = () => new Date().getTime();
 
 var load_game = (game_data, player_data) => {
-	dbg('load_game.start');
+	var loading_since = now();
 
 	document.title = game_data?.title || 'Game Loaded';
 	set_player_name(player_data?.name);
@@ -13,7 +14,7 @@ var load_game = (game_data, player_data) => {
 	toggle_reset(true);
 	toggle_pause_resume(false, false);
 
-	dbg('load_game.stop');
+	log(`Done loading in ${time_desc(now() - loading_since)}`);
 }
 var set_player_name = (name) => { $('#profile').html(name || '<NO INFO>'); }
 var set_player_points = (points) => { $('#points').html((parseInt(points) || 0) + 'pts'); }
