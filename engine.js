@@ -6,15 +6,21 @@ var now = () => new Date().getTime();
 var load_game = (game_data, player_data) => {
 	var loading_since = now();
 
-	document.title = game_data?.title || 'Game Loaded';
+	const title = game_data?.title || 'Game Loaded';
+	document.title = title;
 	set_player_name(player_data?.name);
 	set_player_points(player_data?.points);
 	set_scenario_list(game_data?.scenarios);
-	set_version(game_data?.version);
+	const version = game_data?.version || '0.0.x';
+	set_version(version);
 	toggle_reset(true);
 	toggle_pause_resume(false, false);
 	configure_buttons();
 	configure_panels();
+
+	$('.about') //
+		.html('This is a game') //
+		.dialog({ title: `About ${title} v${version}` });
 
 	log(`Done loading in ${time_desc(now() - loading_since)}`);
 }
@@ -26,7 +32,7 @@ var set_scenario_list = (scenarios) => {
 		.map((e, i) => $(`<option value="${i}">${e.name}</option>`)) //
 		.forEach(e => e.appendTo(scenario));
 }
-var set_version = (v) => { $('.version').html('v' + v); }
+var set_version = (v) => { $('.version').val('v' + v); }
 var chat = (msg) => { dbg(msg); $('.chat').html('<[' + msg + ']>'); }
 var desc_res = (res) => { return res?.map(e => e[1] + ' ' + resources[e[0]].name)?.join(', '); }
 var desc_rec = (rec) => { return [[desc_res(rec?.req), desc_res(rec?.product)] //
@@ -44,15 +50,10 @@ var toggle_pause_resume = (p, r) => {
 const configure_buttons = () => {
 	$('.victory.condition') //
 		.on('click', () => $('.victory.recap').dialog('open'));
+	$('.version') //
+		.on('click', () => $('.about').dialog('open'));
 }
 var configure_panels = () => {
-/*
-	$('.victory.recap').dialog({
-		modal: true,
-		autoOpen: false,
-		resizable: false,
-	});
-*/
 	$('.popup.open').dialog({ autoOpen: true });
 	$('.popup.noopen').dialog({ autoOpen: false });
 	$('.popup.modal').dialog({ modal: true });
