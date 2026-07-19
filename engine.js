@@ -1,5 +1,6 @@
 
 var dbg = is_debug ? console.log : (msg) => {}
+var now = () => new Date().getTime();
 
 var load_game = (game_data, player_data) => {
 	dbg('load_game.start');
@@ -76,6 +77,7 @@ var load_scenario = (scenario) => {
 	rounds = 0;
 
 	$('.board').show();
+	last_reset_at = now();
 	if (game_data.autoresume) resume();
 }
 var load_div_as_table = (selector, column_count, title, input, row) => {
@@ -91,7 +93,7 @@ var pause = () => {
 var resume = () => {
 	toggle_pause(true);
 	is_running = true;
-	last_run_at = new Date().getTime();
+	last_run_at = now();
 	setTimeout(run, short_break);
 }
 var run = () => {
@@ -99,14 +101,14 @@ var run = () => {
 
 	if (is_running) {
 		var is_victory = false;
-		var rounds_left = Math.floor((new Date().getTime() - last_run_at) / round_break);
+		var rounds_left = Math.floor((now() - last_run_at) / round_break);
 		while (rounds_left--) {
 			var product = storage.map((e, i) => 0);
 			stepper.forEach(e => handle_recipe(e, storage, product));
 			product.forEach((e, i) => storage[i] += e);
 
 			rounds++;
-			last_run_at = new Date().getTime();
+			last_run_at = now();
 			is_victory = has_yet_to_win && victory(storage);
 
 			if (is_victory) {
@@ -121,8 +123,7 @@ var run = () => {
 			setTimeout(run, round_break);
 		}
 
-		console.log(`Round#${rounds} run at ${new Date().getTime()}`);
-		dbg(`Round#${rounds} run at ${new Date().getTime()}`);
+		dbg(`Round#${rounds} run at ${now()}`);
 	}
 
 	dbg('run.stop');
@@ -145,12 +146,13 @@ var render_storage = () => {
 var win = () => {
 	pause();
 	has_yet_to_win = false;
+	var time_played = time_desc(rounds * round_break);
+	var time_elapsed = time_desc(now() - last_reset_at);
 	$('.victory_condition').html('You won!');
 	// test_time_desc();
-	alert(`Victory! You won in ${time_desc(rounds)}`);
+	alert(`Victory! You won in ${time_played}, having played since ${time_elapsed} ago`);
 }
-var time_desc = (rounds) => {
-	var timems = rounds * round_break;
+var time_desc = (timems) => {
 	if (timems < 1000) return 'less than a second';
 	else if (timems < 60000) return `${Math.floor(timems / 1000)}.${Math.floor(timems / 100) % 10}seconds`;
 	else {
@@ -173,7 +175,7 @@ var time_desc = (rounds) => {
 var test_time_desc = () => {
 	[9, 10, 28, 36, 60, 65, 588, 600, 605, 610, 3500, 3600, 3605, //
 		10000, 10010, 100000, 100010, 1000000, 1000010, 10000000, 10000010 //
-	].forEach(e => dbg(`time_desc(${e}) => ${e * round_break}ms => ${time_desc(e)}`));
+	].map(e => e * round_break).forEach(e => dbg(`time_desc(${e}) => ${e * round_break}ms => ${time_desc(e)}`));
 }
 
 // Victory
