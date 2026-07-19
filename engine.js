@@ -176,7 +176,7 @@ var win = () => {
 
 	// // $('.victory.condition').html('You won!').attr('title', '').tooltip({ content: table.clone() });
 	// $('.victory.condition').html('You won!').attr('title', table.clone());
-	$('.victory.condition').html('You won!').tooltip({ items: '.victory.condition' }).tooltip({ content: table.clone() });
+	// $('.victory.condition').html('You won!').tooltip({ items: '.victory.condition' }).tooltip({ content: table.clone() });
 }
 var time_desc = (timems) => {
 	if (timems < 1000) return 'less than a second';
@@ -210,7 +210,8 @@ var check_amount = (amount) => {
 		const desc = `Reach ${desc_res(amount)} to obtain victory`;
 		// // $('.victory.condition').html(desc).attr('title', '').tooltip({ content: desc });
 		// $('.victory.condition').html(desc).attr('title', desc).tooltip({ items: '[title]' });
-		$('.victory.condition').html(desc).tooltip({ items: '.victory.condition' }).tooltip({ content: desc });
+		// $('.victory.condition').html(desc).tooltip({ items: '.victory.condition' }).tooltip({ content: desc });
+		$('.victory.condition').html(desc).attr('title', desc); // .tooltip({ items: '[title]' });
 		return (storage) => { return amount?.every(e => storage[e[0]] >= e[1]); }
 	}
 }
