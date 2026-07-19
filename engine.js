@@ -112,6 +112,7 @@ var run = () => {
 			if (is_victory && has_yet_to_win) {
 				render_storage();
 				setTimeout(win, short_break);
+				break;
 			}
 		}
 
