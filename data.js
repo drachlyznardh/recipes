@@ -8,17 +8,22 @@ const load_game_data = () => {
 		const base_url = 'https://github.com/drachlyznardh';
 		const project_name = 'recipes';
 
-		const mklink = (href, name) => `<a href="${href}" target="_blank">${name}</a>`;
+		const mk_link = (href, name) => `<a href="${href}" target="_blank">${name}</a>`;
 		const full_version = is_release ? version : version + devel_suffix;
-		const version_link = mklink( //
+		const version_link = mk_link( //
 			`${base_url}/${project_name}/${is_release ? 'releases/tag/v' + full_version : 'tree/dev'}`, //
 			full_version);
-		const game_link = mklink(`${base_url}/${project_name}`, title);
-		const author_link = mklink(base_url, 'DrachLyznardh');
+		const game_link = mk_link(`${base_url}/${project_name}`, title);
+		const author_link = mk_link(base_url, 'DrachLyznardh');
+
+		const jquery_link = mk_link('https://jquery.com/', 'jQuery');
+		const jqueryui_link = mk_link('https://jqueryui.com/', 'jQuery UI');
+
 		return [title, //
 			`v${full_version}`, //
 			`<p>This is version ${version_link} of ${game_link}</p>
-				<p>Written by ${author_link} for fun since 2026</p>`];
+				<p>Written by ${author_link} for fun since 2026,
+					powered by ${jquery_link} and ${jqueryui_link}</p>`];
 	}
 	const mk_res = (name, key) => { return { name: name, key: key || name.toLowerCase() }; }
 	const mk_ress = (names) => { return names.map(mk_res); }
