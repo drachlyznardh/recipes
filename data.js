@@ -2,12 +2,12 @@
 const load_game_data = () => {
 	const mk_res = (name, key) => { return { name: name, key: key || name.toLowerCase() }; }
 	const mk_ress = (names) => { return names.map(mk_res); }
-	const title = 'Il Giochino';
+	const title = 'Recipes';
 	const version = '0.0.6';
 	const is_release = true; // false;
 	const devel_suffix = '-dev';
 	const base_url = 'https://github.com/drachlyznardh';
-	const project_name = 'ilgiochino';
+	const project_name = 'recipes';
 	const mklink = (href, name) => `<a href="${href}" target="_blank">${name}</a>`;
 	const full_version = is_release ? version : version + devel_suffix;
 	const version_link = mklink( //

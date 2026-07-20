@@ -1,5 +1,5 @@
 
-### il giochino
+### Recipes
 
 * `constants.js` - global constants
 * `data.js` - game data
