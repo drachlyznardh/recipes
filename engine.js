@@ -14,7 +14,7 @@ var load_game = (game_data, player_data) => {
 	const version = game_data?.version || 'v0.0.x-dev';
 	set_version(version);
 	toggle_reset(true);
-	toggle_pause_resume(false, false);
+	// toggle_pause_resume(false, false);
 	configure_buttons();
 	configure_panels();
 	configure_about(title, version, game_data?.about || '');
@@ -38,12 +38,17 @@ var desc_rec = (rec) => { return [[desc_res(rec?.req), desc_res(rec?.product)] /
 		.filter(e => e) //
 		.join(' up to '); }
 var toggle_reset = (v) => { $('input[name=reset]').toggle(v); }
+const toggle_running = () => {
+	if (is_running) pause(); else resume();
+}
+/*
 var toggle_pause = (v) => { toggle_pause_resume(v, !v); }
 var toggle_resume = (v) => { toggle_pause_resume(!v, v); }
 var toggle_pause_resume = (p, r) => {
 	$('input[name=pause]').toggle(p);
 	$('input[name=resume]').toggle(r);
 }
+*/
 const configure_buttons = () => {
 	$('input[type=button]').button();
 	$('select').selectmenu();
@@ -108,7 +113,9 @@ var load_scenario = (scenario) => {
 
 	$('.board').show();
 	last_reset_at = now();
-	if (game_data.autoresume) resume();
+	// if (game_data.autoresume) resume();
+	is_running = game_data.autoresume;
+	toggle_running();
 }
 var load_div_as_table = (selector, column_count, title, input, row) => {
 	$(selector).html('<table>');
@@ -117,12 +124,14 @@ var load_div_as_table = (selector, column_count, title, input, row) => {
 	input.map(row).forEach(e => e.appendTo(table));
 }
 var pause = () => {
-	toggle_resume(true);
+	// toggle_resume(true);
 	is_running = false;
+	$('input[name=toggle]').val('Resume');
 }
 var resume = () => {
-	toggle_pause(true);
+	// toggle_pause(true);
 	is_running = true;
+	$('input[name=toggle]').val('Pause');
 	last_run_at = now();
 	setTimeout(run, short_break);
 }
