@@ -43,10 +43,12 @@ var toggle_resume = (v) => { toggle_pause_resume(!v, v); }
 var toggle_pause_resume = (p, r) => {
 	$('input[name=pause]').toggle(p);
 	$('input[name=resume]').toggle(r);
+	$('.game_selector').controlgroup();
 }
 const configure_buttons = () => {
 	$('input[type=button]').button();
 	$('select').selectmenu();
+	$('.controlgroup').controlgroup();
 	$('.victory.condition') //
 		.on('click', () => $('.victory.recap').dialog('open'));
 	$('.version') //
