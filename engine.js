@@ -21,8 +21,8 @@ var load_game = (game_data, player_data) => {
 
 	log(`Done loading in ${time_desc(now() - loading_since)}`);
 }
-var set_player_name = (name) => { $('#profile').html(name || '<NO INFO>'); }
-var set_player_points = (points) => { $('#points').html((parseInt(points) || 0) + 'pts'); }
+var set_player_name = (name) => { $('#profile').val(name || '<NO INFO>'); }
+var set_player_points = (points) => { $('#points').val((parseInt(points) || 0) + 'pts'); }
 var set_scenario_list = (scenarios) => {
 	var scenario = $('#scenario');
 	scenarios //
@@ -30,7 +30,7 @@ var set_scenario_list = (scenarios) => {
 		.forEach(e => e.appendTo(scenario));
 }
 var set_version = (v) => { $('.version').val(v); }
-var chat = (msg) => { dbg(msg); $('.chat').html('<[' + msg + ']>'); }
+var chat = (msg) => { dbg(msg); $('.chat').val(msg); }
 var desc_res = (res) => { return res?.map(e => e[1] + ' ' + resources[e[0]].name)?.join(', '); }
 var desc_rec = (rec) => { return [[desc_res(rec?.req), desc_res(rec?.product)] //
 		.filter(e => e) //
@@ -43,7 +43,6 @@ var toggle_resume = (v) => { toggle_pause_resume(!v, v); }
 var toggle_pause_resume = (p, r) => {
 	$('input[name=pause]').toggle(p);
 	$('input[name=resume]').toggle(r);
-	$('.game_selector').controlgroup();
 }
 const configure_buttons = () => {
 	$('input[type=button]').button();

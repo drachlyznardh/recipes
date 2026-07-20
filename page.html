@@ -14,13 +14,16 @@
 	</head><body>
 		<div class="main">
 			<div class="topbar bigbox">
-				<div class="game_selector controlgroup">
-					<select class="scenario" id="scenario" name="scenario"></select>
-					<input type="button" name="reset" value="Reset" onclick="reset()" />
+				<div class="game_selector">
+					<div class="controlgroup">
+						<select class="scenario" id="scenario" name="scenario"></select>
+						<input type="button" name="reset" value="Reset" onclick="reset()" />
+					</div>
 					<input type="button" name="pause" value="Pause" onclick="pause()" />
 					<input type="button" name="resume" value="Resume" onclick="resume()" />
-				</div><div class="player_recap">
-					<span id="profile">Profile</span>, <span id="points">points</span>
+				</div><div class="player_recap controlgroup">
+					<input type="button" id="profile" title="profile" />
+					<input type="button" id="points" title="points" />
 				</div><div class="clear">
 				</div>
 			</div><div class="board hidden">
@@ -29,8 +32,10 @@
 				<div class="clear"></div>
 			</div><div class="bottombar bigbox">
 				<input type="button" class="victory condition float_left hidden" />
-				<input type="button" class="version float_right" />
-				<div class="notification float_right"></div>
+				<div class="controlgroup float_right">
+					<input type="button" class="chat" title="chat" />
+					<input type="button" class="version" title="About this version" />
+				</div>
 				<div class="chat float_right"></div>
 				<div class="clear"></div>
 			</div>
