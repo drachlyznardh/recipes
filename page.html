@@ -2,11 +2,14 @@
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<title>Game 04</title>
+		<title></title>
+
 		<script src="./external/jquery-4.0.0.min.js"></script>
 		<script src="./external/jquery-ui-1.14.2.custom/jquery-ui.js"></script>
 		<link rel="stylesheet" href="./external/jquery-ui-1.14.2.custom/jquery-ui.css" />
+
 		<link rel="stylesheet" href="./style.css" />
+
 		<script src="./constants.js"></script>
 		<script src="./globals.js"></script>
 		<script src="./data.js"></script>
@@ -14,14 +17,14 @@
 	</head><body>
 		<div class="main">
 			<div class="topbar bigbox">
-				<div class="game_selector">
+				<div class="float_left">
 					<div class="controlgroup">
 						<select class="scenario" id="scenario" name="scenario"></select>
 						<input type="button" name="reset" value="Reset" onclick="reset()" />
 					</div>
 					<input type="button" name="pause" value="Pause" onclick="pause()" />
 					<input type="button" name="resume" value="Resume" onclick="resume()" />
-				</div><div class="player_recap controlgroup">
+				</div><div class="float_right controlgroup">
 					<input type="button" id="profile" title="profile" />
 					<input type="button" id="points" title="points" />
 				</div><div class="clear">
