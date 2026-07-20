@@ -61,7 +61,8 @@ var configure_panels = () => {
 const configure_about = (title, version, about) => {
 	$('.about') //
 		.html(about) //
-		.dialog({ title: `About ${title} ${version}` });
+		.dialog({ title: `About ${title} ${version}`,
+			width: 600 });
 }
 
 var reset = () => {
