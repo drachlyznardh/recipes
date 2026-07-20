@@ -45,6 +45,8 @@ var toggle_pause_resume = (p, r) => {
 	$('input[name=resume]').toggle(r);
 }
 const configure_buttons = () => {
+	$('input[type=button]').button();
+	$('select').selectmenu();
 	$('.victory.condition') //
 		.on('click', () => $('.victory.recap').dialog('open'));
 	$('.version') //
