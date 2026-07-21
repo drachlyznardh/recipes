@@ -11,5 +11,6 @@ var victory;
 var is_running;
 var last_reset_at;
 var last_run_at;
+var has_resumed;
 var has_yet_to_win;
 

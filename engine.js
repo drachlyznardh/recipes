@@ -18,6 +18,7 @@ var load_game = (game_data, player_data) => {
 	configure_panels();
 	configure_about(title, version, game_data?.about || '');
 	pause();
+	reset();
 
 	log(`Done loading in ${time_desc(now() - loading_since)}`);
 }
@@ -81,7 +82,7 @@ const configure_about = (title, version, about) => {
 		.dialog({ title: `About ${title} ${version}` });
 }
 
-const reset = () => { if (has_yet_to_win) $('.reset.guard').dialog('open'); else do_reset(); }
+const reset = () => { if (has_yet_to_win && has_resumed) $('.reset.guard').dialog('open'); else do_reset(); }
 const do_reset = () => {
 	dbg('reset.start');
 
@@ -118,6 +119,7 @@ const load_scenario = (scenario) => {
 	});
 
 	victory = scenario.victory();
+	has_resumed = false;
 	has_yet_to_win = true;
 	rounds_played = 0;
 	rounds_away = 0;
@@ -139,6 +141,7 @@ var pause = () => {
 }
 var resume = () => {
 	is_running = true;
+	has_resumed = true;
 	$('input[name=toggle]').val('Pause');
 	last_run_at = now();
 	setTimeout(run, short_break);
