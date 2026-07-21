@@ -10,7 +10,8 @@ div.main { max-width: 800px; margin: auto; }
 	margin: 3px;
 }
 .hidden { display: none; }
-.hover:hover { cursor: pointer; }
+table.center { margin: auto; }
+div.center { text-align: center; }
 td { height: 26px; }
 td.label { text-align: right; padding: 0px 3px; }
 td.title {

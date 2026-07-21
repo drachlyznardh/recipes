@@ -117,7 +117,7 @@ const load_scenario = (scenario) => {
 }
 var load_div_as_table = (selector, column_count, title, input, row) => {
 	$(selector).html('<table>');
-	var table = $(selector + ' > table');
+	var table = $(selector + ' > table').addClass('center');
 	$(`<tr><td class="title" colspan="${column_count}">${title}</td></tr>`).appendTo(table);
 	input.map(row).forEach(e => e.appendTo(table));
 }
@@ -186,7 +186,7 @@ var win = () => {
 	var time_elapsed = now() - last_reset_at; var desc_elapsed = time_desc(time_elapsed);
 	var time_paused = time_elapsed - time_played; var desc_paused = time_desc(time_paused);
 	var time_away = rounds_away * round_break; var desc_away = time_desc(time_away);
-	const table = $('<table>');
+	const table = $('<table class="center">');
 	[
 		['played', time_played],
 		['elapsed', time_elapsed],
