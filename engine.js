@@ -80,12 +80,8 @@ const reset = () => {
 
 	dbg('reset.stop');
 }
-const show_player = () => {
-	$('.player.recap').dialog('open');
-}
-const show_ranking = () => {
-	$('.ranking.recap').dialog('open');
-}
+const show_player = () => { $('.player.recap').dialog('open'); }
+const show_ranking = () => { $('.ranking.recap').dialog('open'); }
 const load_scenario = (scenario) => {
 	pause();
 
