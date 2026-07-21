@@ -26,5 +26,5 @@ td.title {
 .half { width: 50%; box-sizing: border-box; }
 .clear { float: none; clear: both;}
 
-.chat.history p { font-family: 'mono'; font-size: small; }
+.chat.history p { font-family: 'mono'; font-size: x-small; }
 
