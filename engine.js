@@ -61,7 +61,7 @@ const configure_buttons = () => {
 			});
 	$('.reset.guard input[name=close]') //
 		.on('click', close_guard);
-	$('input[name=lastchat]') //
+	$('input.lastchat') //
 		.on('click', () => $('.chat.history').dialog('open'));
 }
 var configure_panels = () => {
