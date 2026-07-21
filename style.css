@@ -19,7 +19,8 @@ td.title {
 	font-weight: bold; border-radius: 5px;
 	color: #dddddd; background-color: #8080f0;
 }
-.float_left { float: left; margin-right: 3px; }
-.float_right { float: right; margin-left: 3px; }
+.float_left { float: left; }
+.float_right { float: right; }
+.half { width: 50%; box-sizing: border-box; }
 .clear { float: none; clear: both;}
 
