@@ -48,6 +48,14 @@ const configure_buttons = () => {
 		.on('click', () => $('.victory.recap').dialog('open'));
 	$('.version') //
 		.on('click', () => $('.about').dialog('open'));
+	const close_guard = () => $('.reset.guard').dialog('close');
+	$('.reset.guard input[name=reset]') //
+		.on('click', () => {
+				do_reset();
+				close_guard();
+			});
+	$('.reset.guard input[name=close]') //
+		.on('click', close_guard);
 }
 var configure_panels = () => {
 	$('.popup.open').dialog({ autoOpen: true });
@@ -64,16 +72,8 @@ var configure_panels = () => {
 	$('.ranking.recap') //
 		.html('&lt;[Points, ladder, social]&gt;') //
 		.dialog({ title: 'Player profile' });
-/*
 	$('.reset.guard') //
-		.html('<p class="center">If you reset now, you\'ll lose all your progress in this scenario</p>') //
-		.dialog({ title: 'Are you sure?' }) //
-		.dialog({ buttons: [
-				{ text: 'Reset', click: () => {
-					do_reset(); $(this).dialog('close'); }
-				}, { text: 'Close', click: () => $(this).dialog('close') }
-			]});
-*/
+		.dialog({ title: 'Are you sure?' });
 }
 const configure_about = (title, version, about) => {
 	$('.about') //
