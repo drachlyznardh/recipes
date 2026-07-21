@@ -28,7 +28,6 @@ var set_scenario_list = (scenarios) => {
 	scenarios //
 		.map((e, i) => $(`<option value="${i}">${e.name}</option>`)) //
 		.forEach(e => e.appendTo(scenario));
-	// scenario.on('change', reset);
 	scenario.selectmenu({ change: reset });
 }
 var set_version = (v) => { $('.version').val(v); }
@@ -65,6 +64,14 @@ var configure_panels = () => {
 	$('.ranking.recap') //
 		.html('&lt;[Points, ladder, social]&gt;') //
 		.dialog({ title: 'Player profile' });
+	$('.reset.guard') //
+		.html('<p class="center">If you reset now, you\'ll lose all your progress in this scenario</p>') //
+		.dialog({ title: 'Are you sure?' }) //
+		.dialog({ buttons: [
+				{ text: 'Reset', click: () => {
+					do_reset(); $(this).dialog('close'); }
+				}, { text: 'Close', click: () => $(this).dialog('close') }
+			]});
 }
 const configure_about = (title, version, about) => {
 	$('.about') //
@@ -72,7 +79,8 @@ const configure_about = (title, version, about) => {
 		.dialog({ title: `About ${title} ${version}` });
 }
 
-const reset = () => {
+const reset = () => { if (has_yet_to_win) $('.reset.guard').dialog('open'); else do_reset(); }
+const do_reset = () => {
 	dbg('reset.start');
 
 	dbg('game_data', game_data);
