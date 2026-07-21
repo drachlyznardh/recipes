@@ -28,6 +28,8 @@ var set_scenario_list = (scenarios) => {
 	scenarios //
 		.map((e, i) => $(`<option value="${i}">${e.name}</option>`)) //
 		.forEach(e => e.appendTo(scenario));
+	// scenario.on('change', reset);
+	scenario.selectmenu({ change: reset });
 }
 var set_version = (v) => { $('.version').val(v); }
 var chat = (msg) => { dbg(msg); $('.chat').val(msg); }
