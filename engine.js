@@ -36,7 +36,6 @@ var chat = (msg) => {
 	dbg(msg);
 	$('.lastchat').val(msg);
 	$('.chat.history').append($(`<p title="${new Date()}">${msg}</p>`));
-	max_history = 30;
 	while ($('.chat.history p').length > max_history)
 		$('.chat.history p:first').remove();
 }
