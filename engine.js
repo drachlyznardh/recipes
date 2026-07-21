@@ -32,7 +32,11 @@ var set_scenario_list = (scenarios) => {
 	scenario.selectmenu({ change: reset });
 }
 var set_version = (v) => { $('.version').val(v); }
-var chat = (msg) => { dbg(msg); $('.chat').val(msg); }
+var chat = (msg) => {
+	dbg(msg);
+	$('.lastchat').val(msg);
+	$('.chat.history').append($(`<p title="${new Date()}">${msg}</p>`));
+}
 var desc_res = (res) => { return res?.map(e => e[1] + ' ' + resources[e[0]].name)?.join(', '); }
 var desc_rec = (rec) => { return [[desc_res(rec?.req), desc_res(rec?.product)] //
 		.filter(e => e) //
@@ -57,6 +61,8 @@ const configure_buttons = () => {
 			});
 	$('.reset.guard input[name=close]') //
 		.on('click', close_guard);
+	$('input[name=lastchat]') //
+		.on('click', () => $('.chat.history').dialog('open'));
 }
 var configure_panels = () => {
 	$('.popup.open').dialog({ autoOpen: true });
@@ -75,6 +81,8 @@ var configure_panels = () => {
 		.dialog({ title: 'Player profile' });
 	$('.reset.guard') //
 		.dialog({ title: 'Are you sure?' });
+	$('.chat.history') //
+		.dialog({ title: 'Chat history' });
 }
 const configure_about = (title, version, about) => {
 	$('.about') //
