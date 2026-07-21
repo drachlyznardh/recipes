@@ -21,6 +21,8 @@ td.title {
 }
 .float_left { float: left; }
 .float_right { float: right; }
+.one_of_three { width: 33.3%; box-sizing: border-box; }
+.two_of_three { width: 66.6%; box-sizing: border-box; }
 .half { width: 50%; box-sizing: border-box; }
 .clear { float: none; clear: both;}
 
