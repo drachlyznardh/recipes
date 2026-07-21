@@ -36,6 +36,9 @@ var chat = (msg) => {
 	dbg(msg);
 	$('.lastchat').val(msg);
 	$('.chat.history').append($(`<p title="${new Date()}">${msg}</p>`));
+	max_history = 30;
+	while ($('.chat.history p').length > max_history)
+		$('.chat.history p:first').remove();
 }
 var desc_res = (res) => { return res?.map(e => e[1] + ' ' + resources[e[0]].name)?.join(', '); }
 var desc_rec = (rec) => { return [[desc_res(rec?.req), desc_res(rec?.product)] //
