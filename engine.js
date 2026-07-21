@@ -64,6 +64,7 @@ var configure_panels = () => {
 	$('.ranking.recap') //
 		.html('&lt;[Points, ladder, social]&gt;') //
 		.dialog({ title: 'Player profile' });
+/*
 	$('.reset.guard') //
 		.html('<p class="center">If you reset now, you\'ll lose all your progress in this scenario</p>') //
 		.dialog({ title: 'Are you sure?' }) //
@@ -72,6 +73,7 @@ var configure_panels = () => {
 					do_reset(); $(this).dialog('close'); }
 				}, { text: 'Close', click: () => $(this).dialog('close') }
 			]});
+*/
 }
 const configure_about = (title, version, about) => {
 	$('.about') //
