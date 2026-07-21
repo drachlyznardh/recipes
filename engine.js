@@ -186,7 +186,7 @@ var win = () => {
 	var time_elapsed = now() - last_reset_at; var desc_elapsed = time_desc(time_elapsed);
 	var time_paused = time_elapsed - time_played; var desc_paused = time_desc(time_paused);
 	var time_away = rounds_away * round_break; var desc_away = time_desc(time_away);
-	const table = $('<table class="center">');
+	const table = $('<table>').addClass('center');
 	[
 		['played', time_played],
 		['elapsed', time_elapsed],
