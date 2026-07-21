@@ -9,7 +9,7 @@ var load_game = (game_data, player_data) => {
 	const title = game_data?.title || 'Game Loaded';
 	document.title = title;
 	set_player_name(player_data?.name);
-	set_player_points(player_data?.points);
+	set_player_ranking(player_data?.ranking);
 	set_scenario_list(game_data?.scenarios);
 	const version = game_data?.version || 'v0.0.x-dev';
 	set_version(version);
@@ -17,12 +17,12 @@ var load_game = (game_data, player_data) => {
 	configure_buttons();
 	configure_panels();
 	configure_about(title, version, game_data?.about || '');
-	pause(); // is_running = false; toggle_running();
+	pause();
 
 	log(`Done loading in ${time_desc(now() - loading_since)}`);
 }
 var set_player_name = (name) => { $('#profile').val(name || '<NO INFO>'); }
-var set_player_points = (points) => { $('#points').val((parseInt(points) || 0) + 'pts'); }
+var set_player_ranking = (ranking) => { $('#ranking').val((parseInt(ranking) || 0) + 'pts'); }
 var set_scenario_list = (scenarios) => {
 	var scenario = $('#scenario');
 	scenarios //
@@ -55,15 +55,22 @@ var configure_panels = () => {
 	$('.popup.nomodal').dialog({ modal: false });
 	$('.popup.resize').dialog({ resizable: true });
 	$('.popup.noresize').dialog({ resizable: false });
+	$('.popup.large').dialog({ width: large_popup_width });
+
+	$('.player.recap') //
+		.html('&lt;[Player profile and description]&gt;') //
+		.dialog({ title: 'Player profile' });
+	$('.ranking.recap') //
+		.html('&lt;[Points, ladder, social]&gt;') //
+		.dialog({ title: 'Player profile' });
 }
 const configure_about = (title, version, about) => {
 	$('.about') //
 		.html(about) //
-		.dialog({ title: `About ${title} ${version}`,
-			width: 600 });
+		.dialog({ title: `About ${title} ${version}` });
 }
 
-var reset = () => {
+const reset = () => {
 	dbg('reset.start');
 
 	dbg('game_data', game_data);
@@ -73,7 +80,13 @@ var reset = () => {
 
 	dbg('reset.stop');
 }
-var load_scenario = (scenario) => {
+const show_player = () => {
+	$('.player.recap').dialog('open');
+}
+const show_ranking = () => {
+	$('.ranking.recap').dialog('open');
+}
+const load_scenario = (scenario) => {
 	pause();
 
 	resources = scenario.resources;

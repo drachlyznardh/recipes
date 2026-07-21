@@ -72,7 +72,7 @@ const load_game_data = () => {
 const load_player_data = () => {
 	return {
 		name: 'GODS',
-		points: 1337
+		ranking: 1337
 	};
 }
 

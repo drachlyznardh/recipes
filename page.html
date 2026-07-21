@@ -17,15 +17,13 @@
 	</head><body>
 		<div class="main">
 			<div class="topbar bigbox">
-				<div class="float_left">
-					<div class="controlgroup">
-						<select class="scenario" id="scenario" name="scenario"></select>
-						<input type="button" name="reset" value="Reset" onclick="reset()" />
-						<input type="button" name="toggle" onclick="toggle_running()" />
-					</div>
+				<div class="float_left controlgroup">
+					<select class="scenario" id="scenario" name="scenario"></select>
+					<input type="button" name="reset" value="Reset" onclick="reset()" />
+					<input type="button" name="toggle" onclick="toggle_running()" />
 				</div><div class="float_right controlgroup">
-					<input type="button" id="profile" title="profile" />
-					<input type="button" id="points" title="points" />
+					<input type="button" id="profile" title="profile" onclick="show_player()" />
+					<input type="button" id="ranking" title="ranking" onclick="show_ranking()" />
 				</div><div class="clear">
 				</div>
 			</div><div class="board hidden">
@@ -43,6 +41,8 @@
 			</div>
 		</div>
 		<div class="victory recap popup modal noopen noresize" />
-		<div class="about popup modal noopen noresize" />
+		<div class="player recap popup modal noopen noresize large" />
+		<div class="ranking recap popup modal noopen noresize large" />
+		<div class="about popup modal noopen noresize large" />
 	</body>
 </html>
