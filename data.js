@@ -55,17 +55,19 @@ const load_game_data = () => {
 				{ name: 'Hold on', req: [[0, 50]], product: [[2, 1]]}],
 			victory: check_amount([[2, 1]])
 		}, {
-			name: 'To the max!',
-			resources: mk_ress(['Dirt', 'Gold']),
-			autoenable: true,
-			stepper: [{ name: 'Free dirt', product: [[0, 1]], max: [[0, 5]] }],
-			victory: check_amount([[0, 10]])
-		}, {
 			name: 'Come back in a minute',
 			resources: mk_ress(['Dirt']),
 			autoenable: true,
 			stepper: [{ name: 'Free dirt', product: [[0, 1]] }],
 			victory: check_amount([[0, 600]])
+		}, {
+			name: 'To the max!',
+			resources: mk_ress(['Dirt', 'Gold']),
+			autoenable: true,
+			stepper: [{ name: 'Free dirt', product: [[0, 1]]},
+				{ name: 'Gold traces', req: [[0, 5]], product: [[1, 1]], max: [[1, 5]] },
+				{ name: 'Gold chunks', req: [[0, 25]], product: [[1, 5]] }],
+			victory: check_amount([[1, 10]])
 		}]
 	};
 }
