@@ -35,9 +35,10 @@ var set_version = (v) => { $('.version').val(v); }
 var chat = (msg) => {
 	dbg(msg);
 	$('.lastchat').val(msg);
-	$('.chat.history').append($(`<p title="${new Date()}">${msg}</p>`));
-	while ($('.chat.history p').length > max_history)
-		$('.chat.history p:first').remove();
+	const now = Temporal.Now.plainTimeISO();
+	$('.chat.history').append($(`<tr><td class="time" title="${now}">${now}</td><td class="content">${msg}</td></tr>`));
+	while ($('.chat.history tr').length > max_history)
+		$('.chat.history tr:first').remove();
 }
 var desc_res = (res) => { return res?.map(e => e[1] + ' ' + resources[e[0]].name)?.join(', '); }
 var desc_rec = (rec) => { return [[desc_res(rec?.req), desc_res(rec?.product)] //
@@ -64,7 +65,7 @@ const configure_buttons = () => {
 	$('.reset.guard input[name=close]') //
 		.on('click', close_guard);
 	$('input.lastchat') //
-		.on('click', () => $('.chat.history').dialog('open'));
+		.on('click', () => $('.chat.popup').dialog('open'));
 }
 var configure_panels = () => {
 	$('.popup.open').dialog({ autoOpen: true });
@@ -83,7 +84,7 @@ var configure_panels = () => {
 		.dialog({ title: 'Player profile' });
 	$('.reset.guard') //
 		.dialog({ title: 'Are you sure?' });
-	$('.chat.history') //
+	$('.chat.popup') //
 		.dialog({ title: 'Chat history' });
 }
 const configure_about = (title, version, about) => {

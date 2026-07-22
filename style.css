@@ -26,5 +26,15 @@ td.title {
 .half { width: 50%; box-sizing: border-box; }
 .clear { float: none; clear: both;}
 
-.chat.history p { font-family: 'mono'; font-size: x-small; margin: 0; }
+.chat.history p, .chat.history td {
+	font-family: 'mono';
+	font-size: x-small;
+	height: 14px;
+	margin: 0;
+	padding: 1px 3px;
+}
+.chat.history tr:nth-child(odd) { background-color: #c0c0f0; }
+.chat.history tr:nth-child(even) { background-color: #d0d0f0; }
+.chat.history td.time { width: 72px; }
+.chat.history td.content { width: 478px; }
 
