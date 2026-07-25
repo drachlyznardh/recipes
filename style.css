@@ -10,6 +10,8 @@ div.main { max-width: 800px; margin: auto; }
 	margin: 3px;
 }
 .hidden { display: none; }
+table.center { margin: auto; }
+div.center, p.center { text-align: center; }
 td { height: 26px; }
 td.label { text-align: right; padding: 0px 3px; }
 td.title {
@@ -17,10 +19,22 @@ td.title {
 	font-weight: bold; border-radius: 5px;
 	color: #dddddd; background-color: #8080f0;
 }
-div.game_selector { float: left; }
-div.player_recap { float: right; }
+.float_left { float: left; }
+.float_right { float: right; }
+.one_of_three { width: 33.3%; box-sizing: border-box; }
+.two_of_three { width: 66.6%; box-sizing: border-box; }
+.half { width: 50%; box-sizing: border-box; }
+.clear { float: none; clear: both;}
 
-div.float_left { float: left; margin-right: 3px; }
-div.float_right { float: right; margin-left: 3px; }
-div.clear { float: none; clear: both;}
+.chat.history p, .chat.history td {
+	font-family: 'mono';
+	font-size: x-small;
+	height: 14px;
+	margin: 0;
+	padding: 1px 3px;
+}
+.chat.history tr:nth-child(odd) { background-color: #c0c0f0; }
+.chat.history tr:nth-child(even) { background-color: #d0d0f0; }
+.chat.history td.time { width: 72px; }
+.chat.history td.content { width: 478px; }
 

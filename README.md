@@ -1,6 +1,7 @@
 
-### il giochino
+### Recipes
 
+* `constants.js` - global constants
 * `data.js` - game data
 * `engine.js` - game logic
 * `globals.js` - global variables

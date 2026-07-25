@@ -1,37 +1,62 @@
-<!doctype html>
 <html lang="en">
+<!doctype html>
 	<head>
 		<meta charset="UTF-8" />
-		<title>Game 04</title>
-		<script src="https://code.jquery.com/jquery-4.0.0.slim.min.js"></script>
+		<title></title>
+
+		<script src="./external/jquery-4.0.0.min.js"></script>
+		<script src="./external/jquery-ui-1.14.2.custom/jquery-ui.js"></script>
+		<link rel="stylesheet" href="./external/jquery-ui-1.14.2.custom/jquery-ui.css" />
+
 		<link rel="stylesheet" href="./style.css" />
+
+		<script src="./constants.js"></script>
 		<script src="./globals.js"></script>
 		<script src="./data.js"></script>
 		<script src="./engine.js"></script>
 	</head><body>
 		<div class="main">
 			<div class="topbar bigbox">
-				<div class="game_selector">
-					<label for="scenario">Game</label>
+				<div class="float_left controlgroup">
 					<select class="scenario" id="scenario" name="scenario"></select>
 					<input type="button" name="reset" value="Reset" onclick="reset()" />
-					<input type="button" name="pause" value="Pause" onclick="pause()" />
-					<input type="button" name="resume" value="Resume" onclick="resume()" />
-				</div><div class="player_recap">
-					<span id="profile">Profile</span>, <span id="points">points</span>
+					<input type="button" name="toggle" onclick="toggle_running()" />
+				</div><div class="float_right controlgroup">
+					<input type="button" id="profile" title="profile" onclick="show_player()" />
+					<input type="button" id="ranking" title="ranking" onclick="show_ranking()" />
 				</div><div class="clear">
 				</div>
 			</div><div class="board hidden">
-				<div class="resources_display float_left bigbox"></div>
-				<div class="recipes_display float_left bigbox"></div>
+				<div class="float_left half">
+					<div class="resources_display bigbox"></div>
+				</div><div class="float_left half">
+					<div class="recipes_display bigbox"></div>
+				</div>
 				<div class="clear"></div>
 			</div><div class="bottombar bigbox">
-				<div class="victory_condition float_left"></div>
-				<div class="version float_right"></div>
-				<div class="notification float_right"></div>
-				<div class="chat float_right"></div>
+				<input type="button" class="victory condition float_left hidden" />
+				<div class="controlgroup float_right">
+					<input type="button" class="lastchat" title="Chat history" />
+					<input type="button" class="version" title="About this version" />
+				</div>
 				<div class="clear"></div>
 			</div>
+		</div>
+		<div class="victory recap center popup modal noopen noresize large" />
+		<div class="player recap center popup modal noopen noresize large" />
+		<div class="ranking recap center popup modal noopen noresize large" />
+		<div class="about popup modal noopen noresize large" />
+		<div class="reset guard popup modal noopen noresize">
+			<p class="center">If you reset now, you'll lose all your progress in this scenario<p>
+			<div class="center">
+				<div class="controlgroup">
+					<input type="button" name="reset" value="Reset" />
+					<input type="button" name="close" value="Close" />
+				</div>
+			</div>
+		</div>
+		<div class="chat popup modal noopen noresize large">
+			<table class="chat history center" />
 		</div>
 	</body>
 </html>
