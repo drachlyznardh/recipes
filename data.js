@@ -40,12 +40,27 @@ const load_game_data = () => {
 			stepper: [{ name: 'Free dirt', product: [[0, 1]]}],
 			victory: check_amount([[0, 5]])
 		}, {
+			name: 'Just wait a bit',
+			resources: mk_ress(['Dirt']),
+			autoenable: true,
+			stepper: [{ name: 'Free dirt', product: [[0, 1]] }],
+			victory: check_amount([[0, 20]])
+		}, {
 			name: 'Two resources',
 			resources: mk_ress(['Dirt', 'Gold']),
 			autoenable: true,
 			stepper: [{ name: 'Free dirt', product: [[0, 1]]},
 				{ name: 'Found gold', req: [[0, 5]], product: [[1, 1]]}],
 			victory: check_amount([[1, 5]])
+		}, {
+			name: 'To the max!',
+			resources: mk_ress(['Dirt', 'Gold', 'Glory']),
+			autoenable: true,
+			stepper: [{ name: 'Free dirt', product: [[0, 1]]},
+				{ name: 'Gold traces', req: [[0, 5]], product: [[1, 1]], max: [[1, 10]] },
+				{ name: 'Glory', req: [[0, 10]], product: [[2, 1]], max: [[2, 5]] },
+				{ name: 'Gold chunks', req: [[0, 50]], product: [[1, 10]] }],
+			victory: check_amount([[1, 20], [2, 5]])
 		}, {
 			name: 'Hold on',
 			resources: mk_ress(['Dirt', 'Gold', 'Glory']),
@@ -60,15 +75,6 @@ const load_game_data = () => {
 			autoenable: true,
 			stepper: [{ name: 'Free dirt', product: [[0, 1]] }],
 			victory: check_amount([[0, 600]])
-		}, {
-			name: 'To the max!',
-			resources: mk_ress(['Dirt', 'Gold', 'Glory']),
-			autoenable: true,
-			stepper: [{ name: 'Free dirt', product: [[0, 1]]},
-				{ name: 'Gold traces', req: [[0, 5]], product: [[1, 1]], max: [[1, 10]] },
-				{ name: 'Glory', req: [[0, 10]], product: [[2, 1]], max: [[2, 5]] },
-				{ name: 'Gold chunks', req: [[0, 50]], product: [[1, 10]] }],
-			victory: check_amount([[1, 20], [2, 5]])
 		}]
 	};
 }
