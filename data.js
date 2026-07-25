@@ -2,7 +2,7 @@
 const load_game_data = () => {
 	const mk_about = () => {
 		const title = 'Recipes';
-		const version = '0.0.6';
+		const version = '0.0.7';
 		const is_release = false;
 		const devel_suffix = '-dev';
 		const base_url = 'https://github.com/drachlyznardh';
