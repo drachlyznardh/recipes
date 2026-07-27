@@ -1,6 +1,32 @@
 
+const build_resources = (gd) => {
+	const div = $('.resources');
+/*
+	$(`<span>Resources</span>`).appendTo(div);
+	$(`<input type="button" value="Collapse all" />`).button().appendTo(div);
+	$(`<input type="button" value="Collapse all" />`).button().appendTo(div);
+*/
+	$(`<span>Resources</span>
+		<div class="controlgroup">
+			<input class="expand all" type="button" value="Expand all" />
+			<input class="collapse all" type="button" value="Collapse all" />
+		</div>`).appendTo(div);
+	$('.resources input.expand.all').on('click', () => {
+		$('.resource.description').show();
+		$('.resource.toggle').addClass('ui-icon-minusthick').removeClass('ui-icon-plusthick')
+	});
+	$('.resources input.collapse.all').on('click', () => {
+		$('.resource.description').hide();
+		$('.resource.toggle').addClass('ui-icon-plusthick').removeClass('ui-icon-minusthick')
+	});
+}
+
 $(() => {
 	const gd = load_game_data();
+
+	build_resources(gd);
+
+	$('.controlgroup').controlgroup();
 
 	gd?.scenarios[0]?.resources //
 		.forEach((e, i) => console.log(`Resource #${i}: ${e}`));
