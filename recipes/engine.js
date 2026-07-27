@@ -1,11 +1,6 @@
 
 const build_resources = (gd) => {
 	const div = $('.resources');
-/*
-	$(`<span>Resources</span>`).appendTo(div);
-	$(`<input type="button" value="Collapse all" />`).button().appendTo(div);
-	$(`<input type="button" value="Collapse all" />`).button().appendTo(div);
-*/
 	$(`<span>Resources</span>
 		<div class="controlgroup">
 			<input class="expand all" type="button" value="Expand all" />
@@ -19,21 +14,13 @@ const build_resources = (gd) => {
 		$('.resource.description').hide();
 		$('.resource.toggle').addClass('ui-icon-plusthick').removeClass('ui-icon-minusthick')
 	});
-}
-
-$(() => {
-	const gd = load_game_data();
-
-	build_resources(gd);
-
-	$('.controlgroup').controlgroup();
 
 	gd?.scenarios[0]?.resources //
 		.forEach((e, i) => console.log(`Resource #${i}: ${e}`));
 	const recipe_grid = $('.main');
 	gd?.scenarios[0]?.resources //
 		.map((e, i) => $(`<div class="resource display">
-				<div class="resource name">${e}</div>
+				<div class="resource name" title="Description">${e}</div>
 				<div class="resource description">${e} is a resource</div>
 			</div>`)) //
 		.forEach(e => e.appendTo(recipe_grid));
@@ -53,5 +40,13 @@ $(() => {
 		cancel: '.resource.toggle',
 		placeholder: 'ui-corner-all'
 	});
+}
+
+$(() => {
+	const gd = load_game_data();
+
+	build_resources(gd);
+
+	$('.controlgroup').controlgroup();
 });
 
