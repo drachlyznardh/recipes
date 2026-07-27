@@ -15,12 +15,23 @@ $(() => {
 		.addClass('ui-widget ui-widget-content ui-helper-clearfix ui-corner-all') //
 		.find('.resource.name') //
 		.addClass('ui-widget-header ui-corner-all') //
-		.prepend('<span class="ui-icon ui-icon-minusthick resource toggle"></span>');
-	$('.resource.toggle').on('click', () => {
+		// .prepend('<span class="ui-icon ui-icon-minusthick resource toggle"></span>');
+		.append('<span class="ui-icon ui-icon-minusthick resource toggle"></span>');
+	$('.resource.toggle').on('click', function() {
 		const icon = $(this);
+		console.log('Toggle');
+		console.log(icon);
 		icon.toggleClass('ui-icon-minusthick ui-icon-plusthick');
-		icon.closest('.resource.display').find('.resource.description').toggle();
+		const display = icon.closest('.resource.display');
+		console.log(display);
+		const description = display.find('.resource.description');
+		console.log(description);
+		description.toggle();
 	});
-	$('.main').sortable();
+	$('.main').sortable({
+		handle: '.resource.name',
+		cancel: '.resource.toggle',
+		placeholder: 'ui-corner-all'
+	});
 });
 
