@@ -15,12 +15,11 @@ $(() => {
 		.addClass('ui-widget ui-widget-content ui-helper-clearfix ui-corner-all') //
 		.find('.resource.name') //
 		.addClass('ui-widget-header ui-corner-all') //
-		// .prepend('<span class="ui-icon ui-icon-minusthick resource toggle"></span>');
 		.append('<span class="ui-icon ui-icon-plusthick resource toggle"></span>');
 	$('.resource.toggle').on('click', function() {
-		const icon = $(this);
-		icon.toggleClass('ui-icon-minusthick ui-icon-plusthick');
-		icon.closest('.resource.display').find('.resource.description').toggle();
+		$(this) //
+			.toggleClass('ui-icon-minusthick ui-icon-plusthick') //
+			.closest('.resource.display').find('.resource.description').toggle();
 	});
 	$('.resource.description').toggle();
 	$('.main').sortable({
