@@ -15,12 +15,13 @@ const build_resources = (gd) => {
 		$('.resource.toggle').addClass('ui-icon-plusthick').removeClass('ui-icon-minusthick')
 	});
 
-	gd?.scenarios[0]?.resources //
+	const scenario = gd?.scenarios[0];
+	scenario?.resources //
 		.forEach((e, i) => console.log(`Resource #${i}: ${e}`));
 	const recipe_grid = $('.main');
-	gd?.scenarios[0]?.resources //
+	scenario?.resources //
 		.map((e, i) => $(`<div class="resource display">
-				<div class="resource name" title="Description">${e}</div>
+				<div class="resource name" title="${scenario?.description?.resources.get(e) || ''}">${e}</div>
 				<div class="resource description">${e} is a resource</div>
 			</div>`)) //
 		.forEach(e => e.appendTo(recipe_grid));
