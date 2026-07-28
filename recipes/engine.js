@@ -53,16 +53,16 @@ $(() => {
 	$('.controlgroup').controlgroup()
 
 	const r = $('.recipes.sortable');
-	Array(5).keys() //
-		.map(e => $(`<div style="width: 200px" class="ui-widget ui-widget-header ui-corner-all">
+	Array(25).keys() //
+		.map(e => $(`<div style="width: 250px; float: left" class="ui-widget ui-widget-header ui-corner-all">
 			<span class="ui-icon ui-icon-arrow-4"></span>
 			Recipe ${e}
 			<span class="ui-icon ui-icon-plusthick"></span>
 		</div>`)) //
-		// .forEach(e => e.appendTo($('.recipes.sortable'));
 		.forEach(e => e.appendTo(r));
 
 	$('.recipes.sortable').sortable({
+		connectWith: '.recipes.sortable',
 		grid: [20, 10]
 	});
 });
