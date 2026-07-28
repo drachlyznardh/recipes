@@ -1,6 +1,8 @@
 
 const build_resources = (gd) => {
 	const div = $('.resources');
+	// div.addClass('ui-widget-header ui-corner-all');
+	div.addClass('ui-corner-all');
 	$(`<span>Resources</span>
 		<div class="controlgroup">
 			<input class="expand all" type="button" value="Expand all" />
