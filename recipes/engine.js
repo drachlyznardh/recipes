@@ -50,7 +50,12 @@ $(() => {
 
 	build_resources(gd);
 
-	$('.controlgroup').controlgroup()
+	$('.controlgroup').controlgroup();
+	$('.controlgroup.search').controlgroup({
+		'items': {
+			'button': 'input[type=button], input[type=text]'
+		}
+	});
 
 	const r = $('.recipes.sortable');
 	Array(25).keys() //
