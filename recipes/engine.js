@@ -54,10 +54,13 @@ $(() => {
 
 	const r = $('.recipes.sortable');
 	Array(25).keys() //
-		.map(e => $(`<div style="width: 250px; float: left" class="ui-widget ui-widget-header ui-corner-all">
-			<span class="ui-icon ui-icon-arrow-4"></span>
-			Recipe ${e}
-			<span class="ui-icon ui-icon-plusthick"></span>
+		.map(e => $(`<div style="width: 250px; float: left" class="ui-widget ui-widget-content ui-corner-all">
+			<div class="ui-widget-header ui-corner-all">
+				<span class="ui-icon ui-icon-arrow-4"></span>
+				Recipe ${e}
+				<span class="ui-icon ui-icon-plusthick"></span>
+			</div>
+			<div>Some details about Recipe ${e}</div>
 		</div>`)) //
 		.forEach(e => e.appendTo(r));
 
