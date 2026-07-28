@@ -73,5 +73,7 @@ $(() => {
 		connectWith: '.recipes.sortable',
 		grid: [20, 10]
 	});
+
+	$('.h, .s, .c, .f').addClass('ui-widget ui-widget-content ui-corner-all');
 });
 
