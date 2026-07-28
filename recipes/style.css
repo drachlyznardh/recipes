@@ -1,0 +1,15 @@
+
+div.g {
+	display: grid;
+	grid-template-columns: 1fr 2fr;
+	padding: 10px;
+	gap: 10px;
+	background-color: cyan;
+	grid-template-areas: "header header" "resource recipes" "footer footer"
+}
+
+div.h { grid-area: header; }
+div.h { grid-area: header; }
+div.h { grid-area: header; }
+div.f { grid-area: footer; }
+
