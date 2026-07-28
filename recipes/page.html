@@ -46,11 +46,11 @@
 			<div class="clear"></div>
 		</div>
 
-		<div style="display: grid; grid-template-columns: 1fr 2fr; padding: 10px; gap: 10px; background-color: blue">
-			<div class="ui-widget ui-widget-content ui-corner-all" style="">Header</div>
-			<div class="ui-widget ui-widget-content ui-corner-all" style="">Resources</div>
-			<div class="ui-widget ui-widget-content ui-corner-all" style="">Recipes</div>
-			<div class="ui-widget ui-widget-content ui-corner-all" style="">Footer</div>
+		<div style="display: grid; grid-template-columns: 1fr 2fr; padding: 10px; gap: 10px; background-color: blue; grid-template-areas: 'header header' 'resources recipes' 'footer footer';">
+			<div class="ui-widget ui-widget-content ui-corner-all" style="grid-area: header">Header</div>
+			<div class="ui-widget ui-widget-content ui-corner-all" style="grid-area: resources">Resources</div>
+			<div class="ui-widget ui-widget-content ui-corner-all" style="grid-area: recipes">Recipes</div>
+			<div class="ui-widget ui-widget-content ui-corner-all" style="grid-area: footer">Footer</div>
 		</div>
 	</body>
 </html>
