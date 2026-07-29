@@ -20,7 +20,7 @@ const build_resources = (gd) => {
 	const scenario = gd?.scenarios[0];
 	scenario?.resources //
 		.forEach((e, i) => console.log(`Resource #${i}: ${e}`));
-	const recipe_grid = $('.main');
+	const recipe_grid = $('.grid.resources');
 	scenario?.resources //
 		.map((e, i) => $(`<div class="resource display">
 				<div class="resource name" title="${scenario?.description?.resources.get(e) || ''}">${e}</div>
@@ -74,6 +74,6 @@ $(() => {
 		grid: [20, 10]
 	});
 
-	$('.h, .s, .c, .f').addClass('ui-widget ui-widget-content ui-corner-all');
+	$('.grid.box').addClass('ui-widget ui-widget-content ui-corner-all');
 });
 
