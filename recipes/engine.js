@@ -1,4 +1,9 @@
 
+const toggle_grid3to2 = () => {
+	$('.main.grid').toggleClass('grid2 grid3');
+	$('.grid.resources').toggle();
+}
+
 const build_resources = (gd) => {
 	const div = $('.resources');
 	// div.addClass('ui-widget-header ui-corner-all');
