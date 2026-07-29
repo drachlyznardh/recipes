@@ -1,9 +1,18 @@
 
+:root {
+	--main-bg-color: #d0d0f0;
+}
+
+body {
+	margin: 0px;
+	background-color: var(--main-bg-color);
+}
+
 div.g {
 	display: grid;
 	padding: 10px;
 	gap: 10px;
-	background-color: cyan;
+	/* background-color: cyan; */
 	grid-template-columns: 1fr 5fr;
 }
 div.g.g2 {
