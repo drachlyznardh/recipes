@@ -8,7 +8,7 @@
  *
  * https://api.jqueryui.com/category/theming/
  *
- * To view and modify this theme, visit https://jqueryui.com/themeroller/?ffDefault=Arial%2CHelvetica%2Csans-serif&fsDefault=1em&fwDefault=normal&cornerRadius=10px&bgColorHeader=%238080f0&bgTextureHeader=flat&borderColorHeader=%23b0b0e0&fcHeader=%23dddddd&iconColorHeader=%23444444&bgColorContent=%23c0c0f0&bgTextureContent=flat&borderColorContent=%23b0b0e0&fcContent=%23333333&iconColorContent=%23444444&bgColorDefault=%23f6f6ff&bgTextureDefault=flat&borderColorDefault=%23c5c5f0&fcDefault=%23454545&iconColorDefault=%23777777&bgColorHover=%23ededf0&bgTextureHover=flat&borderColorHover=%23ccccf0&fcHover=%232b2b2b&iconColorHover=%23555555&bgColorActive=%23b0b0f0&bgTextureActive=flat&borderColorActive=%23a0a0f0&fcActive=%23ffffff&iconColorActive=%23ffffff&bgColorHighlight=%23fffa90&bgTextureHighlight=flat&borderColorHighlight=%23dad55e&fcHighlight=%23777620&iconColorHighlight=%23777620&bgColorError=%23fddfdf&bgTextureError=flat&borderColorError=%23f1a899&fcError=%235f3f3f&iconColorError=%23cc0000&bgColorOverlay=%23aaaaaa&bgTextureOverlay=flat&bgImgOpacityOverlay=0&opacityOverlay=30&bgColorShadow=%23666666&bgTextureShadow=flat&bgImgOpacityShadow=0&opacityShadow=30&thicknessShadow=5px&offsetTopShadow=0px&offsetLeftShadow=0px&cornerRadiusShadow=8px&bgImgOpacityHeader=&bgImgOpacityContent=&bgImgOpacityDefault=&bgImgOpacityHover=&bgImgOpacityActive=&bgImgOpacityHighlight=&bgImgOpacityError=
+ * To view and modify this theme, visit https://jqueryui.com/themeroller/?ffDefault=Arial%2CHelvetica%2Csans-serif&fsDefault=1em&fwDefault=normal&cornerRadius=10px&bgColorHeader=%238080f0&bgTextureHeader=flat&borderColorHeader=%23dddddd&fcHeader=%23dddddd&iconColorHeader=%23444444&bgColorContent=%23ffffff&bgTextureContent=flat&borderColorContent=%23dddddd&fcContent=%23333333&iconColorContent=%23444444&bgColorDefault=%23f6f6f6&bgTextureDefault=flat&borderColorDefault=%23c5c5c5&fcDefault=%23454545&iconColorDefault=%23777777&bgColorHover=%23ededed&bgTextureHover=flat&borderColorHover=%23cccccc&fcHover=%232b2b2b&iconColorHover=%23555555&bgColorActive=%23007fff&bgTextureActive=flat&borderColorActive=%23003eff&fcActive=%23ffffff&iconColorActive=%23ffffff&bgColorHighlight=%23fffa90&bgTextureHighlight=flat&borderColorHighlight=%23dad55e&fcHighlight=%23777620&iconColorHighlight=%23777620&bgColorError=%23fddfdf&bgTextureError=flat&borderColorError=%23f1a899&fcError=%235f3f3f&iconColorError=%23cc0000&bgColorOverlay=%23aaaaaa&bgTextureOverlay=flat&bgImgOpacityOverlay=0&opacityOverlay=30&bgColorShadow=%23666666&bgTextureShadow=flat&bgImgOpacityShadow=0&opacityShadow=30&thicknessShadow=5px&offsetTopShadow=0px&offsetLeftShadow=0px&cornerRadiusShadow=8px&bgImgOpacityHeader=&bgImgOpacityContent=&bgImgOpacityDefault=&bgImgOpacityHover=&bgImgOpacityActive=&bgImgOpacityHighlight=&bgImgOpacityError=
  */
 
 
@@ -29,18 +29,18 @@
 	font-size: 1em;
 }
 .ui-widget.ui-widget-content {
-	border: 1px solid #c5c5f0;
+	border: 1px solid #c5c5c5;
 }
 .ui-widget-content {
-	border: 1px solid #b0b0e0;
-	background: #c0c0f0;
+	border: 1px solid #dddddd;
+	background: #ffffff;
 	color: #333333;
 }
 .ui-widget-content a {
 	color: #333333;
 }
 .ui-widget-header {
-	border: 1px solid #b0b0e0;
+	border: 1px solid #dddddd;
 	background: #8080f0;
 	color: #dddddd;
 	font-weight: bold;
@@ -60,8 +60,8 @@
 works properly when clicked or hovered */
 html .ui-button.ui-state-disabled:hover,
 html .ui-button.ui-state-disabled:active {
-	border: 1px solid #c5c5f0;
-	background: #f6f6ff;
+	border: 1px solid #c5c5c5;
+	background: #f6f6f6;
 	font-weight: normal;
 	color: #454545;
 }
@@ -83,8 +83,8 @@ a:visited.ui-button,
 .ui-widget-header .ui-state-focus,
 .ui-button:hover,
 .ui-button:focus {
-	border: 1px solid #ccccf0;
-	background: #ededf0;
+	border: 1px solid #cccccc;
+	background: #ededed;
 	font-weight: normal;
 	color: #2b2b2b;
 }
@@ -111,14 +111,14 @@ a.ui-button:focus {
 a.ui-button:active,
 .ui-button:active,
 .ui-button.ui-state-active:hover {
-	border: 1px solid #a0a0f0;
-	background: #b0b0f0;
+	border: 1px solid #003eff;
+	background: #007fff;
 	font-weight: normal;
 	color: #ffffff;
 }
 .ui-icon-background,
 .ui-state-active .ui-icon-background {
-	border: #a0a0f0;
+	border: #003eff;
 	background-color: #ffffff;
 }
 .ui-state-active a,
