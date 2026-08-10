@@ -38,7 +38,7 @@ function step() {
 		.concat(Array.from(Array(4)).map((e, i) => 10 ** (i + 2)).map(mp12).flat()) //
 		.concat(Array.from(Array(9)).map((e, i) => 10 ** (i + 6)).map(dm12).flat()) //
 		.concat(Array.from(Array(8)).map((e, i) => 10 ** (3 * (i + 5)))) //
-		.concat(Array.from(Array(9)).map((e, i) => 10 ** 33 * (9992 + i)));
+		.concat(Array.from(Array(11)).map((e, i) => 10 ** 33 * (9990 + i)));
 	$('#value').html(values.map(format).map(v => `<li>${v}</li>`));
 
 	return;
