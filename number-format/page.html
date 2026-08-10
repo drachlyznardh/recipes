@@ -34,12 +34,12 @@ function nextStep() {
 function step() {
 	function mp12(v) { return [v - 2, v - 1, v, v + 1, v + 2]; }
 	function dm12(v) { return [v * .99, v * .999, v, v * 1.01, v * 1.1]; }
-	var values = [1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 18, 19, 20] //
+	var values = Array.from(Array(22)).map((e, i) => i + 1) //
 		.concat(Array.from(Array(4)).map((e, i) => 10 ** (i + 2)).map(mp12).flat()) //
 		.concat(Array.from(Array(9)).map((e, i) => 10 ** (i + 6)).map(dm12).flat()) //
 		.concat(Array.from(Array(8)).map((e, i) => 10 ** (3 * (i + 5)))) //
 		.concat(Array.from(Array(9)).map((e, i) => 10 ** 33 * (9992 + i)));
-	$('#value').html(values.map(v => $(`<li>${v} => ${format(v)}</li>`)));
+	$('#value').html(values.map(format).map(v => `<li>${v}</li>`));
 
 	return;
 
