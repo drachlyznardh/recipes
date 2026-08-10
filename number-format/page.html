@@ -12,7 +12,8 @@
 const FPS = 10;
 
 var value = 0;
-var increment = 1;
+var increment = .01;
+var round = 0;
 
 function f(value) {
 	return (value || 0.0).toPrecision(3);
@@ -23,8 +24,13 @@ function nextStep() {
 }
 
 function step() {
+	round++;
+	if (round % 100 == 99) increment *= 11;
 	value += increment;
-	$('#value').html(f(value));
+	// $('#value').html(f(value));
+	$('#value2').html(value.toPrecision(2));
+	$('#value3').html(value.toPrecision(3));
+	$('#value4').html(value.toPrecision(4));
 
 	nextStep();
 }
@@ -32,6 +38,8 @@ function step() {
 $(nextStep);
 		</script>
 	</head><body>
-		<div id="value" />
+		<div id="value2"></div>
+		<div id="value3"></div>
+		<div id="value4"></div>
 	</body>
 </html>
