@@ -10,29 +10,19 @@
 
 		<script type="text/javascript">
 const FPS = 10;
+const PREFIXES = 'K M B T Qa Qi Sx Sp Oc No De'.split(' ');
 
 var value = 0;
 var increment = .01;
 var round = 0;
 
-function f(value) {
-	// const e = Math.floor(Math.log10(value));
+function format(value) {
 	const e = Math.floor(Math.floor(Math.log10(value)) / 3);
-	// const p = 'KMBTQ'[e - 1];
-	const p = 'K M B T Qa Qi Sx Sp Oc No De'.split(' ')[e - 1] || '';
+	const p = PREFIXES[e - 1] || '';
 	const d = 10 ** (3 * e);
-	console.log(value, e, d);
 	const v = // e > 2 ?
 		`${value} => ${(value/d).toFixed(2)}e${e} ${(value/d)}${p}`; // : value;
-	return `<li>${v}</li>`;
-	return e > 2 ? value + ' => ' + (value/d).toFixed(2) + 'e' + e : value;
-	return (value/d).toFixed(2) + 'e' + e;
-
-	return ((e) => e < 1000 ? e.toString() : e.toExponential(3))(value || 0.0);
-	return ((e) => e > 500 ? e.toExponential(2) : e.toString())(value || 0.0);
-	return (value || 0.0).toExponential(2);
-	return (value || 0.0).toFixed(2);
-	return (value || 0.0).toPrecision(3);
+	return `<li>${value} -> ${v}</li>`;
 }
 
 function nextStep() {
@@ -40,12 +30,13 @@ function nextStep() {
 }
 
 function step() {
-
-	var values = [.01, .1, 1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 18, 19, 20,
+	function f(v) { return [v - 1, v, v + 1]; }
+	var values = [1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 18, 19, 20,
 		98, 99, 100, 101,
 		498, 499, 500, 501, 502,
 		998, 999, 1000, 1001,
 		9998, 9999, 10000, 10100,
+	].concat([
 		100000,
 		1000000,
 		10000000,
@@ -53,9 +44,8 @@ function step() {
 		1000000000,
 		10000000000,
 		100000000000,
-	];
-	// $('#value').html(values.map(f).join(', '));
-	$('#value').html(values.map(v => $(f(v))));
+	].map(f).flat());
+	$('#value').html(values.map(format).map($));
 
 	return;
 
