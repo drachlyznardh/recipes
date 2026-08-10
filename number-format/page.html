@@ -36,6 +36,7 @@ function step() {
 	var values = [1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 18, 19, 20] //
 		.concat(Array.from(Array(4)).map((e, i) => 10 ** (i + 2)).map(mp12).flat()) //
 		.concat(Array.from(Array(9)).map((e, i) => 10 ** (i + 6)).map(dm12).flat()) //
+		.concat(Array.from(Array(7)).map((e, i) => 10 ** (3 * (i + 5)))); //
 	$('#value').html(values.map(v => $(`<li>${v} => ${format(v)}</li>`)));
 
 	return;
