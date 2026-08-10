@@ -36,7 +36,8 @@ function setup() {
 
 function step() {
 	round++;
-	if (round % 10 == 9) increment *= 1.1;
+	// if (round % 10 == 9) increment *= 1.1;
+	increment *= 1.1;
 	value += increment;
 
 	$('#value').html(`Value: ${format(value)} (${value})`);
