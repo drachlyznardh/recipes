@@ -21,15 +21,9 @@ function format(v) {
 	if (o == 0) return v.toString();
 	const p = PREFIXES[o - 1] || '';
 	const d = 10 ** (3 * o);
-/*
-	return o == 0 //
-		? v.toString()
-		// : ((e) => `${e}${p}`)(v/d);
-		: ((e) => ((b, e) => (`${Math.floor(e / b) * b}${p}`))(Math.floor(Math.log10(e)), e))(v/d);
-*/
 	const e = v/d;
 	const f = 10 ** (2 - Math.floor(Math.log10(e)));
-	return `${f} ${Math.floor(e * f) / f}${p}`;
+	return `${Math.floor(e * f) / f}${p}`;
 }
 
 function nextStep() {
@@ -37,24 +31,11 @@ function nextStep() {
 }
 
 function step() {
-	function f(v) { return [v * .999, v * .99, v - 1, v, v + 1, v * 1.01, v * 1.1]; }
-	var values = [1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 18, 19, 20,
-		98, 99, 100, 101,
-		498, 499, 500, 501, 502,
-		998, 999, 1000, 1001,
-		9998, 9999, 10000, 10100,
-	].concat([
-		100000,
-		1000000,
-		10000000,
-		100000000,
-		1000000000,
-		10000000000,
-		100000000000,
-		1000000000000,
-		10000000000000,
-	].map(f).flat());
-	// $('#value').html(values.map(format).map($));
+	function mp12(v) { return [v - 2, v - 1, v, v + 1, v + 2]; }
+	function dm12(v) { return [v * .99, v * .999, v, v * 1.01, v * 1.1]; }
+	var values = [1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 18, 19, 20] //
+		.concat(Array.from(Array(4)).map((e, i) => 10 ** (i + 2)).map(mp12).flat()) //
+		.concat(Array.from(Array(9)).map((e, i) => 10 ** (i + 6)).map(dm12).flat()) //
 	$('#value').html(values.map(v => $(`<li>${v} => ${format(v)}</li>`)));
 
 	return;
