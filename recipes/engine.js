@@ -64,8 +64,8 @@ $(() => {
 
 	const r = $('.recipes.sortable');
 	Array(25).keys() //
-		.map(e => $(`<div style="width: 250px; float: left" class="ui-widget ui-widget-content ui-corner-all">
-			<div class="ui-widget-header ui-corner-all">
+		.map(e => $(`<div style="width: 250px; float: left" class="recipe ui-widget ui-widget-content ui-corner-all">
+			<div class="ui-widget-header ui-corner-top">
 				<span class="ui-icon ui-icon-arrow-4"></span>
 				Recipe ${e}
 				<span class="ui-icon ui-icon-plusthick"></span>

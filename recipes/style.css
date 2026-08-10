@@ -26,3 +26,5 @@ div.grid.resources { grid-area: resources; }
 div.grid.recipes { grid-area: recipes; }
 div.grid.footer { grid-area: footer; }
 
+div.recipe { margin: 3px; }
+
