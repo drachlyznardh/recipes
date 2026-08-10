@@ -8,7 +8,10 @@
 		<script src="../external/jquery-ui-1.14.2.custom/jquery-ui.js"></script>
 		<link rel="stylesheet" href="../external/jquery-ui-1.14.2.custom/jquery-ui.css" />
 
-		<script type="text/javascript">
+		<script type="module" src="./common/formatting.js"></script>
+		<script type="module">
+import { format } from './common/formatting.js';
+
 const FPS = 10;
 const PREFIXES = 'K M B T Qa Qi Sx Sp Oc No De'.split(' ');
 
@@ -16,6 +19,7 @@ var value = 0;
 var increment = .01;
 var round = 0;
 
+/*
 function format(v) {
 	if (v < 1) return '0';
 	const o = Math.min(PREFIXES.length, Math.floor(Math.floor(Math.log10(v)) / 3));
@@ -27,6 +31,7 @@ function format(v) {
 	const f = e >= 1000 ? 10000 : 10 ** (2 - Math.floor(Math.log10(e)));
 	return `${Math.floor(e * f) / f}${p}`;
 }
+*/
 
 function nextStep() {
 	setTimeout(step, 1000 / FPS);
