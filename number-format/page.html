@@ -16,13 +16,13 @@ var value = 0;
 var increment = .01;
 var round = 0;
 
-function format(value) {
-	const e = Math.floor(Math.floor(Math.log10(value)) / 3);
-	const p = PREFIXES[e - 1] || '';
-	const d = 10 ** (3 * e);
-	const v = // e > 2 ?
-		`${value} => ${(value/d).toFixed(2)}e${e} ${(value/d)}${p}`; // : value;
-	return `<li>${value} -> ${v}</li>`;
+function format(v) {
+	const o = Math.floor(Math.floor(Math.log10(v)) / 3);
+	const p = PREFIXES[o - 1] || '';
+	const d = 10 ** (3 * o);
+	return o == 0 //
+		? v.toString()
+		: ((e) => `${e}${p}`)(v/d);
 }
 
 function nextStep() {
@@ -30,7 +30,7 @@ function nextStep() {
 }
 
 function step() {
-	function f(v) { return [v - 1, v, v + 1]; }
+	function f(v) { return [v * .999, v - 1, v, v + 1, v * 1.01]; }
 	var values = [1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 18, 19, 20,
 		98, 99, 100, 101,
 		498, 499, 500, 501, 502,
@@ -45,7 +45,8 @@ function step() {
 		10000000000,
 		100000000000,
 	].map(f).flat());
-	$('#value').html(values.map(format).map($));
+	// $('#value').html(values.map(format).map($));
+	$('#value').html(values.map(v => $(`<li>${v} => ${format(v)}</li>`)));
 
 	return;
 
