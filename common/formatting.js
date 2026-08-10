@@ -10,8 +10,8 @@ function format(value) {
 	const d = 10 ** (3 * o);
 	const e = v/d;
 	if (e >= 10000) return 'Too much';
-	const f = e >= 1000 ? 10000 : 10 ** (2 - Math.floor(Math.log10(e)));
-	// return `${Math.floor(Math.floor(e * f) / f)}${p}`;
+	if (e >= 1000) return `${Math.floor(e)}${p}`;
+	const f = 10 ** (2 - Math.floor(Math.log10(e)));
 	return `${Math.floor(e * f) / f}${p}`;
 }
 
