@@ -2,7 +2,7 @@
 const FPS = 10;
 
 var value = 0;
-var increment = 1;
+var increment = 1; // 000 * 1000 * 1000 * 1000 * 1000 * 1000 * 1000 * 1000 * 1000 * 1000 * 1000;
 var round = 0;
 
 function nextStep() {
@@ -17,6 +17,8 @@ function setup() {
 		.concat(Array.from(Array(4)).map((e, i) => 10 ** (i + 2)).map(mp12).flat()) //
 		.concat(Array.from(Array(9)).map((e, i) => 10 ** (i + 6)).map(dm12).flat()) //
 		.concat(Array.from(Array(8)).map((e, i) => 10 ** (3 * (i + 5)))) //
+		.concat([342.345354 * 10 ** 33]) //
+		.concat([342.345354 * 10 ** 34]) //
 		.concat(Array.from(Array(11)).map((e, i) => 10 ** 33 * (9990 + i)));
 	$('#value3').html(values.map(format).map(v => `<li>${v}</li>`));
 }
