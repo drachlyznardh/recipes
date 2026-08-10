@@ -1,4 +1,6 @@
 
+const PREFIXES = 'K M B T Qa Qi Sx Sp Oc No De'.split(' ');
+
 function format(value) {
 	const v = value || 0;
 	if (v < 1) return '0';
