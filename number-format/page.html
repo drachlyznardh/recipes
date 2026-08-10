@@ -24,10 +24,16 @@ function nextStep() {
 }
 
 function step() {
+
+	$('#value').html([.01, .1, 1, 2, 3, 4, 5, 6, 9, 10, 11, 12, 18, 19, 20].map(f).join(', '));
+
+	return;
+
 	round++;
 	if (round % 100 == 99) increment *= 11;
 	value += increment;
-	// $('#value').html(f(value));
+
+	$('#value').html(f(value));
 	$('#value2').html(value.toPrecision(2));
 	$('#value3').html(value.toPrecision(3));
 	$('#value4').html(value.toPrecision(4));
@@ -38,6 +44,7 @@ function step() {
 $(nextStep);
 		</script>
 	</head><body>
+		<div id="value"></div>
 		<div id="value2"></div>
 		<div id="value3"></div>
 		<div id="value4"></div>
