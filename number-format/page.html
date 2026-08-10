@@ -16,10 +16,11 @@ var increment = .01;
 var round = 0;
 
 function f(value) {
-	const e = Math.floor(Math.log(value, 10));
+	const e = Math.floor(Math.log10(value));
 	const d = 10 ** e;
 	console.log(value, e, d);
-	const v = e > 2 ? `${value} => ${(value/d).toFixed(2)}e${e}` : value;
+	const v = // e > 2 ?
+		`${value} => ${(value/d).toFixed(2)}e${e}`; // : value;
 	return `<li>${v}</li>`;
 	return e > 2 ? value + ' => ' + (value/d).toFixed(2) + 'e' + e : value;
 	return (value/d).toFixed(2) + 'e' + e;
