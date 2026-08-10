@@ -22,7 +22,8 @@ function format(v) {
 	const d = 10 ** (3 * o);
 	return o == 0 //
 		? v.toString()
-		: ((e) => `${e}${p}`)(v/d);
+		// : ((e) => `${e}${p}`)(v/d);
+		: ((e) => ((b, e) => (`${Math.floor(e / b) * b}${p}`))(Math.floor(Math.log10(e)), e))(v/d);
 }
 
 function nextStep() {
