@@ -17,6 +17,7 @@ var increment = .01;
 var round = 0;
 
 function format(v) {
+	if (v < 1) return '0';
 	const o = Math.min(PREFIXES.length, Math.floor(Math.floor(Math.log10(v)) / 3));
 	if (o == 0) return v.toString();
 	const p = PREFIXES[o - 1] || '';
@@ -34,7 +35,7 @@ function nextStep() {
 function step() {
 	function mp12(v) { return [v - 2, v - 1, v, v + 1, v + 2]; }
 	function dm12(v) { return [v * .99, v * .999, v, v * 1.01, v * 1.1]; }
-	var values = [-2, 1, 0, .01, .1] //
+	var values = [-2, -1, 0, .01, .1] //
 		.concat(Array.from(Array(22)).map((e, i) => i + 1)) //
 		.concat(Array.from(Array(4)).map((e, i) => 10 ** (i + 2)).map(mp12).flat()) //
 		.concat(Array.from(Array(9)).map((e, i) => 10 ** (i + 6)).map(dm12).flat()) //
