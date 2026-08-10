@@ -16,11 +16,14 @@ var increment = .01;
 var round = 0;
 
 function f(value) {
-	const e = Math.floor(Math.log10(value));
-	const d = 10 ** e;
+	// const e = Math.floor(Math.log10(value));
+	const e = Math.floor(Math.floor(Math.log10(value)) / 3);
+	// const p = 'KMBTQ'[e - 1];
+	const p = 'K M B T Qa Qi Sx Sp Oc No De'.split(' ')[e - 1] || '';
+	const d = 10 ** (3 * e);
 	console.log(value, e, d);
 	const v = // e > 2 ?
-		`${value} => ${(value/d).toFixed(2)}e${e}`; // : value;
+		`${value} => ${(value/d).toFixed(2)}e${e} ${(value/d)}${p}`; // : value;
 	return `<li>${v}</li>`;
 	return e > 2 ? value + ' => ' + (value/d).toFixed(2) + 'e' + e : value;
 	return (value/d).toFixed(2) + 'e' + e;
@@ -42,7 +45,14 @@ function step() {
 		98, 99, 100, 101,
 		498, 499, 500, 501, 502,
 		998, 999, 1000, 1001,
-		9998, 9999, 10000, 10100
+		9998, 9999, 10000, 10100,
+		100000,
+		1000000,
+		10000000,
+		100000000,
+		1000000000,
+		10000000000,
+		100000000000,
 	];
 	// $('#value').html(values.map(f).join(', '));
 	$('#value').html(values.map(v => $(f(v))));
