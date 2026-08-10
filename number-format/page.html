@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<title></title>
+
+		<script src="../external/jquery-4.0.0.min.js"></script>
+		<script src="../external/jquery-ui-1.14.2.custom/jquery-ui.js"></script>
+		<link rel="stylesheet" href="../external/jquery-ui-1.14.2.custom/jquery-ui.css" />
+
+		<script type="text/javascript">
+const FPS = 10;
+
+var value = 0;
+var increment = 1;
+
+function f(value) {
+	return (value || 0.0).toPrecision(3);
+}
+
+function nextStep() {
+	setTimeout(step, 1000 / FPS);
+}
+
+function step() {
+	value += increment;
+	$('#value').html(f(value));
+
+	nextStep();
+}
+
+$(nextStep);
+		</script>
+	</head><body>
+		<div id="value" />
+	</body>
+</html>
