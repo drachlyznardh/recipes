@@ -60,12 +60,9 @@ function reset() {
 
 	$('input[type=button]').button().on('click', function() {
 		const i = parseInt($(this).attr('index'));
-		// const delta = Math.max(1, Math.floor(1.5 * Math.log(factors[i])));
-		var delta = mkDelta(i);
-		deltas[i] = delta; $(`div#multi-${i} div.delta span.delta`).html(format(delta));
-		factors[i] += delta; $(`div#multi-${i} div.value span.value`).html(format(factors[i]));
-		delta = mkDelta(i);
-		deltas[i] = delta; $(`div#multi-${i} div.delta span.delta`).html(format(delta));
+		factors[i] += mkDelta(i); $(`div#multi-${i} div.value span.value`).html(format(factors[i]));
+		const nextDelta = mkDelta(i);
+		deltas[i] = nextDelta; $(`div#multi-${i} div.delta span.delta`).html(format(nextDelta));
 		available -= cost[i]; $('#available span.available').html(format(available));
 		cost[i] += 1.1 ** i * cost[i];
 		$(`div#multi-${i} div.cost span.cost`).html(format(cost[i]));
