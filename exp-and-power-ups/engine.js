@@ -14,8 +14,8 @@ function setup() {
 	Array.from(Array(4)).map((e, i) => i) //
 		.map(e => `<div id="multi-${e}" class="multiplier center">
 				<div class="ui-widget ui-widget-content">
-					<div class="value">Value <span class="value">${increments[e]}</span></div>
-					<div class="cost">Cost <span class="cost">${cost[e]}</span></div>
+					<div class="value">Value <span class="value">${format(increments[e])}</span></div>
+					<div class="cost">Cost <span class="cost">${format(cost[e])}</span></div>
 					<div class="multi-${e}"><input type="button" value="More" index="${e}"/></div>
 				</div>
 			</div>`) //
