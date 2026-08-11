@@ -8,6 +8,8 @@ var increments = Array.from(Array(4)).map(e => 1);
 var cost = Array.from(Array(4)).map(e => 1);
 
 function setup() {
+	cost = Array.from(Array(4)).map((e, i) => 10 ** (i + 1));
+
 	const div = $('#multipliers');
 	Array.from(Array(4)).map((e, i) => i) //
 		.map(e => `<div id="multi-${e}" class="multiplier center">
@@ -23,11 +25,15 @@ function setup() {
 	available = 0;
 	round = 0;
 	increments = Array.from(Array(4)).map(e => 1);
-	cost = Array.from(Array(4)).map(e => 100);
 
 	$('input[type=button]').button().on('click', function() {
 		const i = parseInt($(this).attr('index'));
-		$(`div#multi-${i} div.value span.value`).html(++increments[i]);
+		$(`div#multi-${i} div.value span.value`).html(format(++increments[i]));
+		available -= cost[i]; $('#available span.available').html(format(available));
+		const delta = 1.1 ** i * cost[i];
+		console.log(cost[i], delta, cost[i] + delta);
+		cost[i] += delta;
+		$(`div#multi-${i} div.cost span.cost`).html(format(cost[i]));
 	});
 }
 
@@ -39,11 +45,14 @@ function step() {
 	$('#increment span.increment').html(increments.map(format).join(' * ') + ' = ' + format(increment));
 	total += increment; $('#total span.total').html(format(total));
 	available += increment; $('#available span.available').html(format(available));
-
+/*
 	$('input[type=button]').each((j, e) => {
 		const i = parseInt($(e).attr('index'));
 		$(e).button({ disabled: cost[i] > available });
 	});
+*/
+	$('input[type=button]').each((j, e) => { $(e).button({ disabled: cost[parseInt($(e).attr('index'))] > available }); });
+	// $('input[type=button]').button({ disabled: cost[parseInt($(this).attr('index'))] > available });
 
 	nextStep();
 }
