@@ -5,15 +5,15 @@ var total = 0;
 var available = 0;
 var round = 0;
 var increments = Array.from(Array(4)).map(e => 1);
+var cost = Array.from(Array(4)).map(e => 1);
 
 function setup() {
 	const div = $('#multipliers');
 	Array.from(Array(4)).map((e, i) => i) //
-		// .map(e => `<div id="multi-${e}" class="multiplier ui-widget ui-widget-content">${e}</div>`) //
-		.map(e => `<div id="multi-${e}" class="multiplier">
+		.map(e => `<div id="multi-${e}" class="multiplier center">
 				<div class="ui-widget ui-widget-content">
-					<div>Multiplier #${e}</div>
-					<div class="value">${increments[e]}</div>
+					<div class="value">Value <span class="value">${increments[e]}</span></div>
+					<div class="cost">Cost <span class="cost">${cost[e]}</span></div>
 					<div class="multi-${e}"><input type="button" value="More" index="${e}"/></div>
 				</div>
 			</div>`) //
@@ -23,10 +23,11 @@ function setup() {
 	available = 0;
 	round = 0;
 	increments = Array.from(Array(4)).map(e => 1);
+	cost = Array.from(Array(4)).map(e => 100);
 
 	$('input[type=button]').button().on('click', function() {
 		const i = parseInt($(this).attr('index'));
-		$(`div#multi-${i} div.value`).html(++increments[i]);
+		$(`div#multi-${i} div.value span.value`).html(++increments[i]);
 	});
 }
 
@@ -39,12 +40,12 @@ function step() {
 	total += increment; $('#total span.total').html(format(total));
 	available += increment; $('#available span.available').html(format(available));
 
-	nextStep();
-}
+	$('input[type=button]').each((j, e) => {
+		const i = parseInt($(e).attr('index'));
+		$(e).button({ disabled: cost[i] > available });
+	});
 
-function onMore(e) {
-	console.log(e);
-	console.log($(e));
+	nextStep();
 }
 
 $(setup);
