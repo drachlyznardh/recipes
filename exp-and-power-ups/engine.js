@@ -38,7 +38,7 @@ function reset() {
 	objective = 10 ** (scenario * 4 + 6);
 	$('#objective').html(`Reach ${format(objective)} EXP to achieve victory`);
 
-	size = 4 + scenario * 2;
+	size = 4 + scenario;
 	cost = Array.from(Array(size)).map((e, i) => 10 ** (i + 1));
 	total = 0
 	available = 0;
