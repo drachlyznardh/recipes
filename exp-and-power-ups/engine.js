@@ -42,7 +42,9 @@ function reset() {
 	increments = Array.from(Array(size)).map(e => 1);
 
 	$('#victory').html(`<div class="center">
-			<div>You won!</div><input type="button" value="Play next scenario" onclick="nextScenario()" />
+			<div>You won!</div>
+			<div>It took you ${round} rounds to win, or ${round/FPS}s.</div>
+			<input type="button" value="Play next scenario" onclick="nextScenario()" />
 		</div>`);
 
 	const div = $('#multipliers');
@@ -59,7 +61,8 @@ function reset() {
 
 	$('input[type=button]').button().on('click', function() {
 		const i = parseInt($(this).attr('index'));
-		$(`div#multi-${i} div.value span.value`).html(format(++increments[i]));
+		increments[i] += Math.max(1, Math.floor(Math.log(increments[i])));
+		$(`div#multi-${i} div.value span.value`).html(format(increments[i]));
 		available -= cost[i]; $('#available span.available').html(format(available));
 		cost[i] += 1.1 ** i * cost[i];
 		$(`div#multi-${i} div.cost span.cost`).html(format(cost[i]));
@@ -71,6 +74,7 @@ function reset() {
 function nextStep() { setTimeout(step, 1000 / FPS); }
 
 function step() {
+	round++;
 
 	const increment = increments.reduce((a, e) => a * e, 1);
 	$('#increment span.increment').html(increments.map(format).join(' * ') + ' = ' + format(increment));
