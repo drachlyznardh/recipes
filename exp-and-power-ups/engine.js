@@ -34,7 +34,7 @@ function nextScenario() {
 function mkDelta(i) { return Math.max(1, Math.floor(1.5 * Math.log(factors[i]))); }
 
 function reset() {
-	objective = 10 ** (scenario * 3 + 6);
+	objective = 10 ** (scenario * 4 + 6);
 	$('#objective').html(`Reach ${format(objective)} EXP to achieve victory`);
 
 	size = 4 + scenario * 2;
