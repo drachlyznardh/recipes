@@ -24,15 +24,9 @@ function setup() {
 	round = 0;
 	increments = Array.from(Array(4)).map(e => 1);
 
-	// $('input[type=button]').button().on('click', () => onMore($(this)));
 	$('input[type=button]').button().on('click', function() {
-		// increments[parseInt($(this).attr('index'))]++;
 		const i = parseInt($(this).attr('index'));
-		console.log(`Index #${i}`);
-		// $(`div.multi-${i} div.value`).html(increments[i]++);
-		increments[i]++;
-		console.log(`Increment ${increments[i]}`);
-		$(`div#multi-${i} div.value`).html(increments[i]);
+		$(`div#multi-${i} div.value`).html(++increments[i]);
 	});
 }
 
@@ -41,6 +35,7 @@ function nextStep() { setTimeout(step, 1000 / FPS); }
 function step() {
 
 	const increment = increments.reduce((a, e) => a * e, 1);
+	$('#increment span.increment').html(increments.map(format).join(' * ') + ' = ' + format(increment));
 	total += increment; $('#total span.total').html(format(total));
 	available += increment; $('#available span.available').html(format(available));
 
