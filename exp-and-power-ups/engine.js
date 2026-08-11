@@ -41,12 +41,6 @@ function reset() {
 	round = 0;
 	increments = Array.from(Array(size)).map(e => 1);
 
-	$('#victory').html(`<div class="center">
-			<div>You won!</div>
-			<div>It took you ${round} rounds to win, or ${round/FPS}s.</div>
-			<input type="button" value="Play next scenario" onclick="nextScenario()" />
-		</div>`);
-
 	const div = $('#multipliers');
 	div.html('');
 	Array.from(Array(size)).map((e, i) => i) //
@@ -61,7 +55,7 @@ function reset() {
 
 	$('input[type=button]').button().on('click', function() {
 		const i = parseInt($(this).attr('index'));
-		increments[i] += Math.max(1, Math.floor(Math.log(increments[i])));
+		increments[i] += Math.max(1, Math.floor(1.5 * Math.log(increments[i])));
 		$(`div#multi-${i} div.value span.value`).html(format(increments[i]));
 		available -= cost[i]; $('#available span.available').html(format(available));
 		cost[i] += 1.1 ** i * cost[i];
@@ -72,6 +66,14 @@ function reset() {
 }
 
 function nextStep() { setTimeout(step, 1000 / FPS); }
+
+function win() {
+	$('#victory').html(`<div class="center">
+			<div>You won!</div>
+			<div>It took you ${round} rounds to win, or ${round/FPS}s.</div>
+			<input type="button" value="Play next scenario" onclick="nextScenario()" />
+		</div>`).dialog('open');
+}
 
 function step() {
 	round++;
@@ -84,7 +86,7 @@ function step() {
 
 	if (AUTOBUY) $('input.buyable:enabled:first').click();
 
-	if (checkVictory()) $('#victory').dialog('open');
+	if (checkVictory()) win();
 	else nextStep();
 }
 
