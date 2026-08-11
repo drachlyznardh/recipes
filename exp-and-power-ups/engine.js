@@ -9,6 +9,7 @@ var available = 0;
 var round = 0;
 var factors = [];
 var deltas = [];
+var deltaAccel = 0;
 var cost = [];
 
 function checkVictory() { return objective <= available; }
@@ -31,7 +32,7 @@ function nextScenario() {
 	$('#victory').dialog('close');
 }
 
-function mkDelta(i) { return Math.max(1, Math.floor(1.5 * Math.log(factors[i]))); }
+function mkDelta(i) { return Math.max(1, Math.floor(deltaAccel * Math.log(factors[i]))); }
 
 function reset() {
 	objective = 10 ** (scenario * 4 + 6);
@@ -44,6 +45,7 @@ function reset() {
 	round = 0;
 	factors = Array.from(Array(size)).map(e => 1);
 	deltas = Array.from(Array(size)).map(e => 1);
+	deltaAccel = 1 + scenario / 10;
 
 	const div = $('#multipliers');
 	div.html('');
