@@ -26,10 +26,13 @@ function setup() {
 
 	// $('input[type=button]').button().on('click', () => onMore($(this)));
 	$('input[type=button]').button().on('click', function() {
+		// increments[parseInt($(this).attr('index'))]++;
 		const i = parseInt($(this).attr('index'));
-		console.log($(this));
-		console.log(`Index ${i}`);
+		console.log(`Index #${i}`);
+		// $(`div.multi-${i} div.value`).html(increments[i]++);
+		increments[i]++;
 		console.log(`Increment ${increments[i]}`);
+		$(`div#multi-${i} div.value`).html(increments[i]);
 	});
 }
 
