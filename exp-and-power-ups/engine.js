@@ -50,8 +50,8 @@ function reset() {
 	Array.from(Array(size)).map((e, i) => i) //
 		.map(e => `<div id="multi-${e}" class="multiplier center">
 				<div class="ui-widget ui-widget-content">
-					<div class="value">Value <span class="value">${format(increments[e])}</span></div>
-					<div class="cost">Cost <span class="cost">${format(cost[e])}</span></div>
+					<div class="value">Multiplier #${e + 1}: <span class="value">${format(increments[e])}</span></div>
+					<div class="cost">Upgrade cost: <span class="cost">${format(cost[e])}</span> EXP</div>
 					<div class="multi-${e}"><input type="button" class="buyable" value="More" index="${e}"/></div>
 				</div>
 			</div>`) //
