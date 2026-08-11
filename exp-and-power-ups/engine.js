@@ -35,8 +35,11 @@ function reset() {
 	$('#objective').html(`Reach ${format(objective)} EXP to achieve victory`);
 
 	size = 4 + scenario * 2;
-
 	cost = Array.from(Array(size)).map((e, i) => 10 ** (i + 1));
+	total = 0
+	available = 0;
+	round = 0;
+	increments = Array.from(Array(size)).map(e => 1);
 
 	$('#victory').html(`<div class="center">
 			<div>You won!</div><input type="button" value="Play next scenario" onclick="nextScenario()" />
@@ -54,11 +57,6 @@ function reset() {
 			</div>`) //
 		.map(e => $(e).appendTo(div));
 
-	total = 0
-	available = 0;
-	round = 0;
-	increments = Array.from(Array(size)).map(e => 1);
-
 	$('input[type=button]').button().on('click', function() {
 		const i = parseInt($(this).attr('index'));
 		$(`div#multi-${i} div.value span.value`).html(format(++increments[i]));
@@ -66,6 +64,8 @@ function reset() {
 		cost[i] += 1.1 ** i * cost[i];
 		$(`div#multi-${i} div.cost span.cost`).html(format(cost[i]));
 	});
+
+	nextStep();
 }
 
 function nextStep() { setTimeout(step, 1000 / FPS); }
@@ -78,12 +78,11 @@ function step() {
 	available += increment; $('#available span.available').html(format(available));
 	$('input.buyable').each((j, e) => { $(e).button({ disabled: cost[parseInt($(e).attr('index'))] > available }); });
 
-	if (AUTOBUY) $('input.buyable:enabled').click();
+	if (AUTOBUY) $('input.buyable:enabled:first').click();
 
 	if (checkVictory()) $('#victory').dialog('open');
 	else nextStep();
 }
 
 $(setup);
-$(step);
 
