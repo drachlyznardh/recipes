@@ -7,7 +7,8 @@ var objective = 0;
 var total = 0;
 var available = 0;
 var round = 0;
-var increments = [];
+var factors = [];
+var deltas = [];
 var cost = [];
 
 function checkVictory() { return objective <= available; }
@@ -30,6 +31,8 @@ function nextScenario() {
 	$('#victory').dialog('close');
 }
 
+function mkDelta(i) { return Math.max(1, Math.floor(1.5 * Math.log(factors[i]))); }
+
 function reset() {
 	objective = 10 ** (scenario * 3 + 6);
 	$('#objective').html(`Reach ${format(objective)} EXP to achieve victory`);
@@ -39,14 +42,16 @@ function reset() {
 	total = 0
 	available = 0;
 	round = 0;
-	increments = Array.from(Array(size)).map(e => 1);
+	factors = Array.from(Array(size)).map(e => 1);
+	deltas = Array.from(Array(size)).map(e => 1);
 
 	const div = $('#multipliers');
 	div.html('');
 	Array.from(Array(size)).map((e, i) => i) //
 		.map(e => `<div id="multi-${e}" class="multiplier center">
 				<div class="ui-widget ui-widget-content">
-					<div class="value">Multiplier #${e + 1}: <span class="value">${format(increments[e])}</span></div>
+					<div class="value">Multiplier #${e + 1}: <span class="value">${format(factors[e])}</span></div>
+					<div class="delta">Next: +<span class="delta">${format(deltas[e])}</span></div>
 					<div class="cost">Upgrade cost: <span class="cost">${format(cost[e])}</span> EXP</div>
 					<div class="multi-${e}"><input type="button" class="buyable" value="More" index="${e}"/></div>
 				</div>
@@ -55,8 +60,12 @@ function reset() {
 
 	$('input[type=button]').button().on('click', function() {
 		const i = parseInt($(this).attr('index'));
-		increments[i] += Math.max(1, Math.floor(1.5 * Math.log(increments[i])));
-		$(`div#multi-${i} div.value span.value`).html(format(increments[i]));
+		// const delta = Math.max(1, Math.floor(1.5 * Math.log(factors[i])));
+		var delta = mkDelta(i);
+		deltas[i] = delta; $(`div#multi-${i} div.delta span.delta`).html(format(delta));
+		factors[i] += delta; $(`div#multi-${i} div.value span.value`).html(format(factors[i]));
+		delta = mkDelta(i);
+		deltas[i] = delta; $(`div#multi-${i} div.delta span.delta`).html(format(delta));
 		available -= cost[i]; $('#available span.available').html(format(available));
 		cost[i] += 1.1 ** i * cost[i];
 		$(`div#multi-${i} div.cost span.cost`).html(format(cost[i]));
@@ -78,8 +87,8 @@ function win() {
 function step() {
 	round++;
 
-	const increment = increments.reduce((a, e) => a * e, 1);
-	$('#increment span.increment').html(increments.map(format).join(' * ') + ' = ' + format(increment));
+	const increment = factors.reduce((a, e) => a * e, 1);
+	$('#increment span.increment').html(factors.map(format).join(' * ') + ' = ' + format(increment));
 	total += increment; $('#total span.total').html(format(total));
 	available += increment; $('#available span.available').html(format(available));
 	$('input.buyable').each((j, e) => { $(e).button({ disabled: cost[parseInt($(e).attr('index'))] > available }); });
