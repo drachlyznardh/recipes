@@ -11,5 +11,6 @@ div.multiplier {
 	float: left;
 }
 
+.clear { clear: both; }
 .center { text-align: center; }
 

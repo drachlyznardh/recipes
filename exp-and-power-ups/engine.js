@@ -1,17 +1,38 @@
 
 const FPS = 10;
+const MULTIPLIERS = 6;
 
+var scenario = 0;
+var objective = 0;
 var total = 0;
 var available = 0;
 var round = 0;
-var increments = Array.from(Array(4)).map(e => 1);
-var cost = Array.from(Array(4)).map(e => 1);
+var increments = Array.from(Array(MULTIPLIERS)).map(e => 1);
+var cost = Array.from(Array(MULTIPLIERS)).map(e => 1);
+
+function checkVictory() { return objective >= available; }
 
 function setup() {
-	cost = Array.from(Array(4)).map((e, i) => 10 ** (i + 1));
+	$('#victory').dialog({
+		modal: true,
+		width: 400,
+		resizable: false,
+		autoOpen: false
+	});
+
+	objective = 10 ** (scenario * 2 + 6);
+	$('#objective').html(`Reach ${format(objective)} EXP to achieve victory`);
+
+	reset();
+}
+
+function reset() {
+	size = 4 + scenario * 2;
+
+	cost = Array.from(Array(size)).map((e, i) => 10 ** (i + 1));
 
 	const div = $('#multipliers');
-	Array.from(Array(4)).map((e, i) => i) //
+	Array.from(Array(size)).map((e, i) => i) //
 		.map(e => `<div id="multi-${e}" class="multiplier center">
 				<div class="ui-widget ui-widget-content">
 					<div class="value">Value <span class="value">${format(increments[e])}</span></div>
@@ -24,7 +45,7 @@ function setup() {
 	total = 0
 	available = 0;
 	round = 0;
-	increments = Array.from(Array(4)).map(e => 1);
+	increments = Array.from(Array(size)).map(e => 1);
 
 	$('input[type=button]').button().on('click', function() {
 		const i = parseInt($(this).attr('index'));
@@ -45,7 +66,8 @@ function step() {
 	available += increment; $('#available span.available').html(format(available));
 	$('input[type=button]').each((j, e) => { $(e).button({ disabled: cost[parseInt($(e).attr('index'))] > available }); });
 
-	nextStep();
+	if (checkVictory()) $('#victory').dialog('open');
+	else nextStep();
 }
 
 $(setup);
