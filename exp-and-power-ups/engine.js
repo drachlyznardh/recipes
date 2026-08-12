@@ -19,8 +19,7 @@ function setup() {
 		modal: true,
 		width: 400,
 		resizable: false,
-		autoOpen: false,
-		title: 'Victory!'
+		autoOpen: false
 	});
 
 	reset();
@@ -36,7 +35,9 @@ function mkDelta(i) { return Math.max(1, Math.floor(deltaAccel * Math.log(factor
 
 function reset() {
 	objective = 10 ** (scenario * 4 + 6);
-	$('#objective').html(`Reach ${format(objective)} EXP to achieve victory`);
+	desc = `Reach ${format(objective)} EXP to achieve victory`;
+	$('#objective').html(desc).on('click', () => $('#victory').dialog('open'));
+	$('#victory').html(desc).dialog({ title: 'Objective' });
 
 	size = 4 + scenario;
 	cost = Array.from(Array(size)).map((e, i) => 10 ** (i + 1));
@@ -80,7 +81,7 @@ function win() {
 			<div>You won!</div>
 			<div>It took you ${round} rounds to win, or ${round/FPS}s.</div>
 			<input type="button" value="Play next scenario" onclick="nextScenario()" />
-		</div>`).dialog('open');
+		</div>`).dialog({ title: 'Victory!' }).dialog('open');
 }
 
 function step() {
