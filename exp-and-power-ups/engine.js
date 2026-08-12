@@ -36,8 +36,9 @@ function mkDelta(i) { return Math.max(1, Math.floor(deltaAccel * Math.log(factor
 function reset() {
 	objective = 10 ** (scenario * 4 + 6);
 	desc = `Reach ${format(objective)} EXP to achieve victory`;
-	$('#objective').html(desc).on('click', () => $('#victory').dialog('open'));
+	$('#objective').html(desc);
 	$('#victory').html(desc).dialog({ title: 'Objective' });
+	$('.objective').on('click', () => $('#victory').dialog('open'));
 
 	size = 4 + scenario;
 	cost = Array.from(Array(size)).map((e, i) => 10 ** (i + 1));
@@ -52,8 +53,8 @@ function reset() {
 	div.html('');
 	Array.from(Array(size)).map((e, i) => i) //
 		.map(e => `<div id="multi-${e}" class="multiplier center">
-				<div class="ui-widget ui-widget-content">
-					<div class="value">Multiplier #${e + 1}: <span class="value">${format(factors[e])}</span></div>
+				<div class="ui-widget ui-widget-content ui-corner-all">
+					<div class="value ui-widget-header ui-corner-top">Multiplier #${e + 1}: <span class="value">${format(factors[e])}</span></div>
 					<div class="delta">Next: +<span class="delta">${format(deltas[e])}</span></div>
 					<div class="cost">Upgrade cost: <span class="cost">${format(cost[e])}</span> EXP</div>
 					<div class="multi-${e}"><input type="button" class="buyable" value="More" index="${e}"/></div>

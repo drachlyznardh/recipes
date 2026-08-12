@@ -4,6 +4,9 @@ body { margin: 0px; }
 div.main {
 	max-width: 800px;
 	margin: auto;
+	display: grid;
+	padding: 10px;
+	gap: 10px;
 }
 
 div.multiplier {
@@ -13,4 +16,9 @@ div.multiplier {
 
 .clear { clear: both; }
 .center { text-align: center; }
+
+.auto { margin: auto; }
+.flex { display: flex; flex-wrap: wrap; }
+.fixed { width: 200px; box-sizing: border-box; border: 1px solid red;
+border-radius: 5px;}
 
