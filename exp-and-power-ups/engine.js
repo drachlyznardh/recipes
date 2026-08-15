@@ -96,7 +96,8 @@ function reset() {
 	nextStep();
 }
 
-function nextStep() { setTimeout(step, SKIP ? 0 : 1000 / FPS); }
+// function nextStep() { setTimeout(step, SKIP ? 0 : 1000 / FPS); }
+function nextStep() { SKIP ? step() : setTimeout(step, 1000 / FPS); }
 
 function win() {
 	const timems = round / FPS;
@@ -116,6 +117,7 @@ function refresh() {
 
 function step() {
 	round++;
+	console.log(`Round #${round}`);
 
 	const increment = factors.reduce((a, e) => a * e.factor, 1);
 	total += increment;
