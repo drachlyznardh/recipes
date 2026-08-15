@@ -101,12 +101,25 @@ function step() {
 }
 
 function layout(i) {
+	const rowSize = 4;
 	console.log('Layout', i);
 	const main = $('.main');
 	$(`<div class="center ui-widget ui-widget-header ui-corner-all">Group #${i}</div>`).appendTo(main);
 	// Map.groupBy(Array.from(Array(i)).map((e, i) => i + 1).map((e) => (e, e % 4)), (e, i) => e).forEach(e => console.log(e));
 	// Map.groupBy(Array.from(Array(i)).map((e, i) => i + 1).map((e) => (e % 4, e)), (e, i) => i).forEach(e => console.log(e));
-	Map.groupBy(Array.from(Array(i)).map((e, i) => Math.floor(i / 4)), e => e).forEach(e => console.log(e));
+	// Map.groupBy(Array.from(Array(i)).map((e, i) => Math.floor(i / 4)), e => e).forEach(e => console.log(e));
+	function mkRow(r, c) { return Array.from(Array(c)).map((e, i) => i + 1 + r); }
+	// const rows = Array.from(Array(Math.floor(i / rowSize))).map((e, i) => i * rowSize).map(r => Array.from(Array(rowSize)).map((e, i) => i + 1 + r)) //
+	const rows = Array.from(Array(Math.floor(i / rowSize))).map((e, i) => mkRow(i * rowSize, rowSize))
+		.concat([mkRow(Math.ceil(i / rowSize) * rowSize, Math.floor(i % rowSize))]) //
+		.filter(e => e.length) //
+		;
+	console.log(rows);
+	rows.forEach(row => {
+		// const flex = $('<div>').addClass(['flex', 'flex4']).appendTo(main);
+		const flex = $('<div>').addClass(['flex', 'flex4']).appendTo($('<div>').addClass('auto').appendTo(main));
+		row.forEach(e => $(`<div>#${e}</div>`).addClass(['fixed', 'center']).appendTo(flex));
+	});
 }
 
 function test() {
