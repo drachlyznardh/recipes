@@ -53,7 +53,7 @@ function reset() {
 	$('#victory').html(desc).dialog({ title: 'Objective' });
 	$('.objective').on('click', () => $('#victory').dialog('open'));
 
-	size = 4 + scenario;
+	size = 5 + scenario;
 	cost = Array.from(Array(size)).map((e, i) => 10 ** (i + 1));
 	total = 0
 	available = 0;
@@ -65,7 +65,9 @@ function reset() {
 	const div = $('#multipliers');
 	div.html('');
 	// Array.from(Array(size)).map((e, i) => i).map(e => mkMulti(e).appendTo(div));
-	layout(size, div);
+	layout(size, $('.multis'));
+	// layout(size, div);
+	// layout(size, $('.main'));
 
 	$('input[type=button]').button().on('click', function() {
 		const i = parseInt($(this).attr('index'));
@@ -118,7 +120,7 @@ function layout(i, container) {
 }
 
 function test() {
-	Array.from(Array(9)).map((e, i) => i + 1).map(layout, $('.main'));
+	Array.from(Array(9)).map((e, i) => i + 1).map(e => layout(e, $('.main')));
 }
 
 $(setup);

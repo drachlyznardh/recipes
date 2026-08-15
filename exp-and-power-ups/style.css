@@ -10,8 +10,6 @@ div.main {
 }
 
 div.multiplier {
-	width: 25%;
-	float: left;
 }
 
 .clear { clear: both; }
@@ -22,8 +20,6 @@ div.multiplier {
 .fixed {
 	width: 200px;
 	box-sizing: border-box;
-	/* border: 1px solid red; */
-	/* border-radius: 5px; */
 	padding: 0px 5px;
 }
 
