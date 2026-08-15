@@ -1,8 +1,10 @@
 
 const FPS = 10;
-const SKIP = false;
-const SHOW = true;
-const AUTOBUY = true;
+const OPTIONS = {
+	SKIP: false,
+	SHOW: true,
+	AUTOBUY: true,
+}
 const rowSize = 4;
 const formatter = new Formatter();
 
@@ -24,16 +26,17 @@ class Multiplier {
 		this.delta = 1;
 	}
 
-	mkDelta() { return Math.max(1, Math.floor(deltaAccel * Math.log(this.factor))); }
+	nextDelta() { return Math.max(1, Math.floor(deltaAccel * Math.log(this.factor))); }
+	nextCost() { return 1.1 ** this.index * this.cost; }
 
 	upgrade() {
 		if (this.cost <= available) {
 			this.factor += this.delta;
-			this.deltas = this.mkDelta();
+			this.deltas = this.nextDelta();
 			available -= this.cost;
-			this.cost += 1.1 ** this.index * this.cost;
+			this.cost += this.nextCost();
 		}
-		if (SHOW) this.show();
+		if (OPTIONS.SHOW) this.show();
 	}
 
 	show() {
@@ -95,7 +98,7 @@ function reset() {
 	nextStep();
 }
 
-function nextStep() { SKIP ? round % 10000 ? step() : setTimeout(step, 0) : setTimeout(step, 1000 / FPS); }
+function nextStep() { OPTIONS.SKIP ? round % 10000 ? step() : setTimeout(step, 0) : setTimeout(step, 1000 / FPS); }
 
 function win() {
 	const timems = round / FPS;
@@ -121,9 +124,9 @@ function step() {
 	increment = factors.reduce((a, e) => a * e.factor, 1);
 	total += increment;
 	available += increment;
-	if (SHOW) $('input.buyable').each((j, e) => { $(e).button({ disabled: factors[parseInt($(e).attr('index'))].cost >= available }); });
-	if (AUTOBUY) factors.map(f => f.upgrade());
-	if (SHOW) refresh();
+	if (OPTIONS.SHOW) $('input.buyable').each((j, e) => { $(e).button({ disabled: factors[parseInt($(e).attr('index'))].cost >= available }); });
+	if (OPTIONS.AUTOBUY) factors.map(f => f.upgrade());
+	if (OPTIONS.SHOW) refresh();
 	if (checkVictory()) win(); else nextStep();
 }
 
