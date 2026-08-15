@@ -53,7 +53,7 @@ function reset() {
 	$('#victory').html(desc).dialog({ title: 'Objective' });
 	$('.objective').on('click', () => $('#victory').dialog('open'));
 
-	size = 5 + scenario;
+	size = 3 + scenario;
 	cost = Array.from(Array(size)).map((e, i) => 10 ** (i + 1));
 	total = 0
 	available = 0;
@@ -114,7 +114,8 @@ function layout(i, container) {
 		.concat([mkRow(Math.floor(i / rowSize) * rowSize, Math.floor(i % rowSize))]) //
 		.filter(e => e.length) //
 		.forEach(row => {
-			const flex = $('<div>').addClass(['flex', 'flex4']).appendTo($('<div>').addClass('auto').appendTo(container));
+			// const flex = $('<div>').addClass(['flex', 'flex4']).appendTo($('<div>').addClass('auto').appendTo(container));
+			const flex = $('<div>').addClass('auto').appendTo(container);
 			row.forEach(e => mkMulti(e).addClass(['fixed', 'center']).appendTo(flex));
 		});
 }
