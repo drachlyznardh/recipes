@@ -1,6 +1,7 @@
 
 const FPS = 10;
 const SKIP = true;
+const SHOW = false;
 const AUTOBUY = true;
 const rowSize = 4;
 const formatter = new Formatter();
@@ -31,7 +32,7 @@ class Multiplier {
 			available -= this.cost;
 			this.cost += 1.1 ** this.index * this.cost;
 		}
-		this.show();
+		if (SHOW) this.show();
 	}
 
 	show() {
@@ -98,26 +99,33 @@ function reset() {
 function nextStep() { setTimeout(step, SKIP ? 0 : 1000 / FPS); }
 
 function win() {
+	const timems = round / FPS;
+	refresh();
 	$('#victory').html(`<div class="center">
 			<div>You won!</div>
-			<div>It took you ${round} rounds to win, or ${Formatter.secs(round / FPS)}.</div>
+			<div>It took you <span title="${round} rounds or ${timems}ms">${Formatter.secs(timems)}</span>.</div>
 			<input type="button" value="Play next scenario" onclick="nextScenario()" />
 		</div>`).dialog({ title: 'Victory!' }).dialog('open');
+}
+
+function refresh() {
+	$('#increment span.increment').html(factors.map(f => f.factor).map(Formatter.number).join(' * ') + ' = ' + Formatter.number(increment));
+	$('#total span.total').html(Formatter.number(total));
+	$('#available span.available').html(Formatter.number(available));
 }
 
 function step() {
 	round++;
 
 	const increment = factors.reduce((a, e) => a * e.factor, 1);
-	$('#increment span.increment').html(factors.map(f => f.factor).map(Formatter.number).join(' * ') + ' = ' + Formatter.number(increment));
-	total += increment; $('#total span.total').html(Formatter.number(total));
-	available += increment; $('#available span.available').html(Formatter.number(available));
+	total += increment;
+	available += increment;
 	$('input.buyable').each((j, e) => { $(e).button({ disabled: factors[parseInt($(e).attr('index'))].cost > available }); });
 
 	if (AUTOBUY) $('input.buyable:enabled:first').click();
+	if (SHOW) refresh();
 
-	if (checkVictory()) win();
-	else nextStep();
+	if (checkVictory()) win(); else nextStep();
 }
 
 function layout(i, container) {
