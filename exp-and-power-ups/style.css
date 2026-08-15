@@ -6,14 +6,10 @@ div.main {
 	margin: auto;
 }
 
-div.multiplier {
-}
-
-.clear { clear: both; }
 .center { text-align: center; }
 
 .level { margin: 5px 0px; }
-.auto { margin: auto; display: flex; flex-wrap: wrap; }
+.auto { margin: auto; display: flex; flex-wrap: wrap; width: fit-content; }
 .fixed {
 	width: 200px;
 	box-sizing: border-box;

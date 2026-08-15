@@ -54,6 +54,10 @@ class Multiplier {
 function checkVictory() { return objective <= available; }
 
 function setup() {
+	const body = $('body').html('');
+	['victory'].map(e => $('<div>').prop('id', e).appendTo(body));
+	const main = $('<div>').addClass('main').appendTo(body);
+
 	$('#victory').dialog({
 		modal: true,
 		width: 400,
@@ -84,10 +88,12 @@ function mkMulti(e) {
 }
 
 function reset() {
+/*
 	const body = $('body').html('');
 	['victory'].map(e => $('<div>').prop('id', e).appendTo(body));
 	const main = $('<div>').addClass('main').appendTo(body);
-
+*/
+	const main = $('.main').html('');
 	const header = $('<div>').addClass(['ui-widget', 'ui-widget-content', 'ui-corner-all']) //
 		.appendTo($('<div>').addClass(['level', 'center']) //
 		.appendTo(main));
@@ -165,7 +171,7 @@ function layout(i, container) {
 		.concat([mkRow(Math.floor(i / rowSize) * rowSize, Math.floor(i % rowSize))]) //
 		.filter(e => e.length) //
 		.forEach(row => {
-			const flex = $('<div>').addClass('auto').appendTo($('<div>').addClass('level').appendTo(container));
+			const flex = $('<div>').addClass('auto').appendTo($('<div>').addClass(['level', 'center']).appendTo(container));
 			row.forEach(e => mkMulti(e).addClass(['fixed', 'center']).appendTo(flex));
 		});
 }
