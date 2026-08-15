@@ -1,5 +1,6 @@
 
 const FPS = 10;
+const SKIP = true;
 const AUTOBUY = true;
 const rowSize = 4;
 
@@ -9,9 +10,7 @@ var total = 0;
 var available = 0;
 var round = 0;
 var factors = [];
-// var deltas = [];
 var deltaAccel = 0;
-// var cost = [];
 
 class Multiplier {
 	constructor(index) {
@@ -87,32 +86,15 @@ function reset() {
 	total = 0
 	available = 0;
 	round = 0;
-/*
-	cost = Array.from(Array(size)).map((e, i) => 10 ** (i + 1));
-	factors = Array.from(Array(size)).map(e => 1);
-	deltas = Array.from(Array(size)).map(e => 1);
-	deltaAccel = 1 + scenario / 10;
-*/
 	factors = Array.from(Array(size)).map((e, i) => new Multiplier(i));
 	layout(size, $('.multis').html(''));
 
-	$('input[type=button]').button().on('click', function() {
-		factors[parseInt($(this).attr('index'))].upgrade();
-/*
-		const i = parseInt($(this).attr('index'));
-		factors[i] += mkDelta(i); $(`div#multi-${i} div.value span.value`).html(format(factors[i]));
-		const nextDelta = mkDelta(i);
-		deltas[i] = nextDelta; $(`div#multi-${i} div.delta span.delta`).html(format(nextDelta));
-		available -= cost[i]; $('#available span.available').html(format(available));
-		cost[i] += 1.1 ** i * cost[i];
-		$(`div#multi-${i} div.cost span.cost`).html(format(cost[i]));
-*/
-	});
+	$('input[type=button]').button().on('click', function() { factors[parseInt($(this).attr('index'))].upgrade(); });
 
 	nextStep();
 }
 
-function nextStep() { setTimeout(step, 1000 / FPS); }
+function nextStep() { setTimeout(step, SKIP ? 0 : 1000 / FPS); }
 
 function win() {
 	$('#victory').html(`<div class="center">
