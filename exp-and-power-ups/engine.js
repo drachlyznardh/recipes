@@ -104,8 +104,9 @@ function layout(i) {
 	console.log('Layout', i);
 	const main = $('.main');
 	$(`<div class="center ui-widget ui-widget-header ui-corner-all">Group #${i}</div>`).appendTo(main);
-	Map.groupBy(Array.from(Array(i)).map((e, i) => i + 1).map((e) => (e, e %
-	4)), (e, i) => e).forEach(e => console.log(e));
+	// Map.groupBy(Array.from(Array(i)).map((e, i) => i + 1).map((e) => (e, e % 4)), (e, i) => e).forEach(e => console.log(e));
+	// Map.groupBy(Array.from(Array(i)).map((e, i) => i + 1).map((e) => (e % 4, e)), (e, i) => i).forEach(e => console.log(e));
+	Map.groupBy(Array.from(Array(i)).map((e, i) => Math.floor(i / 4)), e => e).forEach(e => console.log(e));
 }
 
 function test() {
