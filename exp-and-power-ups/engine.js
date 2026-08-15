@@ -12,6 +12,7 @@ var total = 0;
 var available = 0;
 var round = 0;
 var factors = [];
+var increment = 0;
 var deltaAccel = 0;
 
 class Multiplier {
@@ -119,7 +120,7 @@ function step() {
 	round++;
 	console.log(`Round #${round}`);
 
-	const increment = factors.reduce((a, e) => a * e.factor, 1);
+	increment = factors.reduce((a, e) => a * e.factor, 1);
 	total += increment;
 	available += increment;
 	if (SHOW) $('input.buyable').each((j, e) => { $(e).button({ disabled: factors[parseInt($(e).attr('index'))].cost >= available }); });
