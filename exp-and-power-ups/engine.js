@@ -90,7 +90,7 @@ function reset() {
 	$('#victory').html(desc).dialog({ title: 'Objective' });
 	$('.objective').on('click', () => $('#victory').dialog('open'));
 
-	size = 4 + scenario;
+	size = 4 + scenario * 2;
 	total = 0
 	available = 0;
 	gametime.round = 0; gametime.elapsed = new Date().getTime();
