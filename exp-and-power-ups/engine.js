@@ -35,10 +35,10 @@ class Multiplier {
 	}
 
 	show() {
-		$(`div#multi-${this.index} div.value span.value`).html(format(this.factor));
-		$(`div#multi-${this.index} div.delta span.delta`).html(format(this.delta));
-		$('#available span.available').html(format(available));
-		$(`div#multi-${this.index} div.cost span.cost`).html(format(this.cost));
+		$(`div#multi-${this.index} div.value span.value`).html(Formatter.number(this.factor));
+		$(`div#multi-${this.index} div.delta span.delta`).html(Formatter.number(this.delta));
+		$('#available span.available').html(Formatter.number(available));
+		$(`div#multi-${this.index} div.cost span.cost`).html(Formatter.number(this.cost));
 	}
 }
 
@@ -68,9 +68,9 @@ function mkMulti(e) {
 	const m = $(`<div id="multi-${e}">`).addClass(['multiplier', 'center']);
 	const w = $('<div>').addClass(['ui-widget', 'ui-widget-content', 'ui-corner-all']).appendTo(m);
 	[
-		`<div class="value ui-widget-header ui-corner-top">Multiplier #${f.index + 1}: <span class="value">${format(f.factor)}</span></div>`,
-		`<div class="delta">Next: +<span class="delta">${format(f.delta)}</span></div>`,
-		`<div class="cost">Upgrade cost: <span class="cost">${format(f.cost)}</span> EXP</div>`,
+		`<div class="value ui-widget-header ui-corner-top">Multiplier #${f.index + 1}: <span class="value">${Formatter.number(f.factor)}</span></div>`,
+		`<div class="delta">Next: +<span class="delta">${Formatter.number(f.delta)}</span></div>`,
+		`<div class="cost">Upgrade cost: <span class="cost">${Formatter.number(f.cost)}</span> EXP</div>`,
 		`<div class="multi-${e}"><input type="button" class="buyable" value="More" index="${e}"/></div>`
 	].forEach(t => $(t).appendTo(w));
 	return m;
@@ -78,7 +78,7 @@ function mkMulti(e) {
 
 function reset() {
 	objective = 10 ** (scenario * 4 + 6);
-	desc = `Reach ${format(objective)} EXP to achieve victory`;
+	desc = `Reach ${Formatter.number(objective)} EXP to achieve victory`;
 	$('#objective').html(desc);
 	$('#victory').html(desc).dialog({ title: 'Objective' });
 	$('.objective').on('click', () => $('#victory').dialog('open'));
@@ -109,9 +109,9 @@ function step() {
 	round++;
 
 	const increment = factors.reduce((a, e) => a * e.factor, 1);
-	$('#increment span.increment').html(factors.map(f => f.factor).map(format).join(' * ') + ' = ' + format(increment));
-	total += increment; $('#total span.total').html(format(total));
-	available += increment; $('#available span.available').html(format(available));
+	$('#increment span.increment').html(factors.map(f => f.factor).map(Formatter.number).join(' * ') + ' = ' + Formatter.number(increment));
+	total += increment; $('#total span.total').html(Formatter.number(total));
+	available += increment; $('#available span.available').html(Formatter.number(available));
 	$('input.buyable').each((j, e) => { $(e).button({ disabled: factors[parseInt($(e).attr('index'))].cost > available }); });
 
 	if (AUTOBUY) $('input.buyable:enabled:first').click();
