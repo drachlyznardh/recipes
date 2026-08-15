@@ -3,6 +3,7 @@ const FPS = 10;
 const SKIP = true;
 const AUTOBUY = true;
 const rowSize = 4;
+const formatter = new Formatter();
 
 var scenario = 0;
 var objective = 0;
@@ -99,7 +100,7 @@ function nextStep() { setTimeout(step, SKIP ? 0 : 1000 / FPS); }
 function win() {
 	$('#victory').html(`<div class="center">
 			<div>You won!</div>
-			<div>It took you ${round} rounds to win, or ${round/FPS}s.</div>
+			<div>It took you ${round} rounds to win, or ${Formatter.secs(round / FPS)}.</div>
 			<input type="button" value="Play next scenario" onclick="nextScenario()" />
 		</div>`).dialog({ title: 'Victory!' }).dialog('open');
 }
