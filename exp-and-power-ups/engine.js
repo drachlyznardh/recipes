@@ -1,7 +1,7 @@
 
 const FPS = 10;
-const SKIP = true;
-const SHOW = false;
+const SKIP = false;
+const SHOW = true;
 const AUTOBUY = true;
 const rowSize = 4;
 const formatter = new Formatter();
@@ -62,8 +62,6 @@ function nextScenario() {
 	reset();
 	$('#victory').dialog('close');
 }
-
-function mkDelta(i) { return Math.max(1, Math.floor(deltaAccel * Math.log(factors[i]))); }
 
 function mkMulti(e) {
 	const f = factors[e];
@@ -131,7 +129,7 @@ function step() {
 
 function layout(i, container) {
 	function mkRow(r, c) { return Array.from(Array(c)).map((e, i) => i + r); }
-	Array.from(Array(Math.floor(i / rowSize))).map((e, r) => mkRow(r * rowSize, rowSize))
+	Array.from(Array(Math.floor(i / rowSize))).map((e, r) => mkRow(r * rowSize, rowSize)) //
 		.concat([mkRow(Math.floor(i / rowSize) * rowSize, Math.floor(i % rowSize))]) //
 		.filter(e => e.length) //
 		.forEach(row => {
