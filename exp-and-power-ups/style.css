@@ -4,11 +4,6 @@ body { margin: 0px; }
 div.main {
 	max-width: 800px;
 	margin: auto;
-/*
-	display: grid;
-	padding: 10px;
-	gap: 10px;
-*/
 }
 
 div.multiplier {
@@ -22,9 +17,9 @@ div.multiplier {
 .fixed {
 	width: 200px;
 	box-sizing: border-box;
-	padding: 0px 5px;
 }
+.fixed > .ui-widget-content { margin: 0px 2.5px; }
 
-.fixed:first-child { padding-left: 0px; }
-.fixed:last-child { padding-right: 0px; }
+.fixed:first-child > .ui-widget-content { margin-left: 0px; }
+.fixed:last-child > .ui-widget-content { margin-right: 0px; }
 
