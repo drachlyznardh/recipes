@@ -44,7 +44,17 @@ function mkMulti(e) {
 				</div>
 			</div>`);
 */
-	const w = $('div').addClass(['ui-widget', 'ui-widget-content', 'ui-corner-all']).appendTo($('div').addClass([/* 'multiplier', */ 'center']));
+	const m = $('<div>').addClass([/* 'multiplier', */ 'center']);
+	const w = $('<div>').addClass(['ui-widget', 'ui-widget-content', 'ui-corner-all']).appendTo(m);
+	[
+		`<div class="value ui-widget-header ui-corner-top">Multiplier #${e + 1}: <span class="value">${format(factors[e])}</span></div>`,
+		`<div class="delta">Next: +<span class="delta">${format(deltas[e])}</span></div>`,
+		`<div class="cost">Upgrade cost: <span class="cost">${format(cost[e])}</span> EXP</div>`,
+		`<div class="multi-${e}"><input type="button" class="buyable" value="More" index="${e}"/></div>`
+	].forEach(t => $(t).appendTo(w));
+	return m;
+	// const w = $('<div>').addClass(['ui-widget', 'ui-widget-content', 'ui-corner-all']).appendTo($('<div>').addClass([/* 'multiplier', */ 'center']));
+	// return w;
 }
 
 function reset() {
