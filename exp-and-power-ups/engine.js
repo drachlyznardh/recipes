@@ -1,18 +1,22 @@
 
 const FPS = 10;
 const OPTIONS = {
-	SKIP: false,
-	SHOW: true,
+	SKIP: true,
+	SHOW: false,
 	AUTOBUY: true,
 }
 const rowSize = 4;
 const formatter = new Formatter();
 
+const gametime = {
+	round: 0,
+	elapsed: 0,
+}
+
 var scenario = 0;
 var objective = 0;
 var total = 0;
 var available = 0;
-var round = 0;
 var factors = [];
 var increment = 0;
 var deltaAccel = 0;
@@ -89,7 +93,7 @@ function reset() {
 	size = 4 + scenario;
 	total = 0
 	available = 0;
-	round = 0;
+	gametime.round = 0; gametime.elapsed = new Date().getTime();
 	factors = Array.from(Array(size)).map((e, i) => new Multiplier(i));
 	layout(size, $('.multis').html(''));
 
@@ -98,14 +102,17 @@ function reset() {
 	nextStep();
 }
 
-function nextStep() { OPTIONS.SKIP ? round % 10000 ? step() : setTimeout(step, 0) : setTimeout(step, 1000 / FPS); }
+function nextStep() { OPTIONS.SKIP ? gametime.round % 10000 ? step() : setTimeout(step, 0) : setTimeout(step, 1000 / FPS); }
 
 function win() {
-	const timems = round / FPS;
+	const roundms = gametime.round / FPS;
+	const elapsedms = new Date().getTime() - gametime.elapsed;
+	const elapsedrnd = elapsedms * FPS;
 	refresh();
 	$('#victory').html(`<div class="center">
 			<div>You won!</div>
-			<div>It took you <span title="${round} rounds or ${timems}ms">${Formatter.secs(timems)}</span>.</div>
+			<div>It took you <span title="${gametime.round} rounds or ${roundms}ms">${Formatter.secs(roundms)}</span>,
+			<div>with <span title="${elapsedrnd} rounds or ${elapsedms}ms">${Formatter.millis(elapsedms)}</span> elapsed.</div>
 			<input type="button" value="Play next scenario" onclick="nextScenario()" />
 		</div>`).dialog({ title: 'Victory!' }).dialog('open');
 }
@@ -118,8 +125,8 @@ function refresh() {
 }
 
 function step() {
-	round++;
-	console.log(`Round #${round}`);
+	gametime.round++;
+	console.log(`Round #${gametime.round}`);
 
 	increment = factors.reduce((a, e) => a * e.factor, 1);
 	total += increment;
