@@ -84,6 +84,10 @@ function mkMulti(e) {
 }
 
 function reset() {
+	const body = $('body').html('');
+	['victory'].map(e => $('<div>').prop('id', e).appendTo(body));
+	const main = $('<div>').addClass('body').appendTo(body);
+
 	objective = 10 ** (scenario * 4 + 6);
 	desc = `Reach ${Formatter.number(objective)} EXP to achieve victory`;
 	$('#objective').html(desc);
