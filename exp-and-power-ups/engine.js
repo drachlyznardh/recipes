@@ -1,6 +1,7 @@
 
 const FPS = 10;
 const AUTOBUY = true;
+const rowSize = 4;
 
 var scenario = 0;
 var objective = 0;
@@ -34,17 +35,7 @@ function nextScenario() {
 function mkDelta(i) { return Math.max(1, Math.floor(deltaAccel * Math.log(factors[i]))); }
 
 function mkMulti(e) {
-/*
-	return $(`<div id="multi-${e}" class="multiplier center">
-				<div class="ui-widget ui-widget-content ui-corner-all">
-					<div class="value ui-widget-header ui-corner-top">Multiplier #${e + 1}: <span class="value">${format(factors[e])}</span></div>
-					<div class="delta">Next: +<span class="delta">${format(deltas[e])}</span></div>
-					<div class="cost">Upgrade cost: <span class="cost">${format(cost[e])}</span> EXP</div>
-					<div class="multi-${e}"><input type="button" class="buyable" value="More" index="${e}"/></div>
-				</div>
-			</div>`);
-*/
-	const m = $('<div>').addClass([/* 'multiplier', */ 'center']);
+	const m = $('<div>').addClass(['multiplier', 'center']);
 	const w = $('<div>').addClass(['ui-widget', 'ui-widget-content', 'ui-corner-all']).appendTo(m);
 	[
 		`<div class="value ui-widget-header ui-corner-top">Multiplier #${e + 1}: <span class="value">${format(factors[e])}</span></div>`,
@@ -53,8 +44,6 @@ function mkMulti(e) {
 		`<div class="multi-${e}"><input type="button" class="buyable" value="More" index="${e}"/></div>`
 	].forEach(t => $(t).appendTo(w));
 	return m;
-	// const w = $('<div>').addClass(['ui-widget', 'ui-widget-content', 'ui-corner-all']).appendTo($('<div>').addClass([/* 'multiplier', */ 'center']));
-	// return w;
 }
 
 function reset() {
@@ -75,19 +64,8 @@ function reset() {
 
 	const div = $('#multipliers');
 	div.html('');
-	Array.from(Array(size)).map((e, i) => i) //
-/*
-		.map(e => `<div id="multi-${e}" class="multiplier center">
-				<div class="ui-widget ui-widget-content ui-corner-all">
-					<div class="value ui-widget-header ui-corner-top">Multiplier #${e + 1}: <span class="value">${format(factors[e])}</span></div>
-					<div class="delta">Next: +<span class="delta">${format(deltas[e])}</span></div>
-					<div class="cost">Upgrade cost: <span class="cost">${format(cost[e])}</span> EXP</div>
-					<div class="multi-${e}"><input type="button" class="buyable" value="More" index="${e}"/></div>
-				</div>
-			</div>`) //
-		.map(e => $(e).appendTo(div));
-*/
-		.map(e => mkMulti(e).appendTo(div));
+	// Array.from(Array(size)).map((e, i) => i).map(e => mkMulti(e).appendTo(div));
+	layout(size, div);
 
 	$('input[type=button]').button().on('click', function() {
 		const i = parseInt($(this).attr('index'));
@@ -127,25 +105,22 @@ function step() {
 	else nextStep();
 }
 
-function layout(i) {
-	const rowSize = 4;
-	const main = $('.main');
-	$(`<div class="center ui-widget ui-widget-header ui-corner-all">Group #${i}</div>`).appendTo(main);
-	function mkRow(r, c) { return Array.from(Array(c)).map((e, i) => i + 1 + r); }
-	Array.from(Array(Math.floor(i / rowSize))).map((e, i) => mkRow(i * rowSize, rowSize))
+function layout(i, container) {
+	// $(`<div class="center ui-widget ui-widget-header ui-corner-all">Group #${i}</div>`).appendTo(container);
+	function mkRow(r, c) { return Array.from(Array(c)).map((e, i) => i + r); }
+	Array.from(Array(Math.floor(i / rowSize))).map((e, r) => mkRow(r * rowSize, rowSize))
 		.concat([mkRow(Math.floor(i / rowSize) * rowSize, Math.floor(i % rowSize))]) //
 		.filter(e => e.length) //
 		.forEach(row => {
-			const flex = $('<div>').addClass(['flex', 'flex4']).appendTo($('<div>').addClass('auto').appendTo(main));
-			// row.forEach(e => $(`<div>#${e}</div>`).addClass(['fixed', 'center']).appendTo(flex));
+			const flex = $('<div>').addClass(['flex', 'flex4']).appendTo($('<div>').addClass('auto').appendTo(container));
 			row.forEach(e => mkMulti(e).addClass(['fixed', 'center']).appendTo(flex));
 		});
 }
 
 function test() {
-	Array.from(Array(9)).map((e, i) => i + 1).map(layout);
+	Array.from(Array(9)).map((e, i) => i + 1).map(layout, $('.main'));
 }
 
 $(setup);
-$(test);
+// $(test);
 

@@ -19,6 +19,14 @@ div.multiplier {
 
 .auto { margin: auto; }
 .flex { display: flex; flex-wrap: wrap; }
-.fixed { width: 200px; box-sizing: border-box; border: 1px solid red;
-border-radius: 5px;}
+.fixed {
+	width: 200px;
+	box-sizing: border-box;
+	/* border: 1px solid red; */
+	/* border-radius: 5px; */
+	padding: 0px 5px;
+}
+
+.fixed:first-child { padding-left: 0px; }
+.fixed:last-child { padding-right: 0px; }
 
