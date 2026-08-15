@@ -96,8 +96,7 @@ function reset() {
 	nextStep();
 }
 
-// function nextStep() { setTimeout(step, SKIP ? 0 : 1000 / FPS); }
-function nextStep() { SKIP ? step() : setTimeout(step, 1000 / FPS); }
+function nextStep() { SKIP ? round % 10000 ? step() : setTimeout(step, 0) : setTimeout(step, 1000 / FPS); }
 
 function win() {
 	const timems = round / FPS;
@@ -113,6 +112,7 @@ function refresh() {
 	$('#increment span.increment').html(factors.map(f => f.factor).map(Formatter.number).join(' * ') + ' = ' + Formatter.number(increment));
 	$('#total span.total').html(Formatter.number(total));
 	$('#available span.available').html(Formatter.number(available));
+	factors.map(f => f.show());
 }
 
 function step() {
