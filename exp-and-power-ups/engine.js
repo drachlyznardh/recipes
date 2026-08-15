@@ -86,22 +86,40 @@ function mkMulti(e) {
 function reset() {
 	const body = $('body').html('');
 	['victory'].map(e => $('<div>').prop('id', e).appendTo(body));
-	const main = $('<div>').addClass('body').appendTo(body);
+	const main = $('<div>').addClass('main').appendTo(body);
+
+	const header = $('<div>').addClass(['ui-widget', 'ui-widget-content', 'ui-corner-all']) //
+		.appendTo($('<div>').addClass(['level', 'center']) //
+		.appendTo(main));
+	[
+		'<div class="ui-widget ui-widget-header ui-corner-top">Resources</div>',
+		'<div id="total">Total experience gained: <span class="total"></span> EXP</div>',
+		'<div id="available">Currently available experience: <span class="available"></span> EXP</div>',
+		'<div id="increment">Increment: <span class="increment"></span> EXP</div>',
+	].map(e => $(e).appendTo(header));
 
 	objective = 10 ** (scenario * 4 + 6);
-	desc = `Reach ${Formatter.number(objective)} EXP to achieve victory`;
-	$('#objective').html(desc);
-	$('#victory').html(desc).dialog({ title: 'Objective' });
-	$('.objective').on('click', () => $('#victory').dialog('open'));
 
 	size = 4 + scenario * 2;
 	total = 0
 	available = 0;
 	gametime.round = 0; gametime.elapsed = new Date().getTime();
 	factors = Array.from(Array(size)).map((e, i) => new Multiplier(i));
-	layout(size, $('.multis').html(''));
+	layout(size, $('.main'));
 
 	$('input[type=button]').button().on('click', function() { factors[parseInt($(this).attr('index'))].upgrade(); });
+
+	const objdiv = $('<div>').addClass(['objective', 'ui-widget', 'ui-widget-content', 'ui-corner-all']) //
+		.appendTo($('<div>').addClass(['level', 'center']) //
+		.appendTo(main));
+	[
+		'<div class="ui-widget-header ui-corner-top">Objective</div>',
+		'<div id="objective" class="clear"></div>',
+	].map(e => $(e).appendTo(objdiv));
+	desc = `Reach ${Formatter.number(objective)} EXP to achieve victory`;
+	$('#objective').html(desc);
+	$('#victory').html(desc).dialog({ title: 'Objective' });
+	$('.objective').on('click', () => $('#victory').dialog('open'));
 
 	nextStep();
 }
@@ -147,7 +165,7 @@ function layout(i, container) {
 		.concat([mkRow(Math.floor(i / rowSize) * rowSize, Math.floor(i % rowSize))]) //
 		.filter(e => e.length) //
 		.forEach(row => {
-			const flex = $('<div>').addClass('auto').appendTo(container);
+			const flex = $('<div>').addClass('auto').appendTo($('<div>').addClass('level').appendTo(container));
 			row.forEach(e => mkMulti(e).addClass(['fixed', 'center']).appendTo(flex));
 		});
 }
