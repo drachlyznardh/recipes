@@ -84,7 +84,7 @@ function reset() {
 	$('#victory').html(desc).dialog({ title: 'Objective' });
 	$('.objective').on('click', () => $('#victory').dialog('open'));
 
-	size = 3 + scenario;
+	size = 4 + scenario;
 	total = 0
 	available = 0;
 	round = 0;
@@ -123,17 +123,8 @@ function step() {
 	total += increment;
 	available += increment;
 	if (SHOW) $('input.buyable').each((j, e) => { $(e).button({ disabled: factors[parseInt($(e).attr('index'))].cost >= available }); });
-
 	if (AUTOBUY) factors.map(f => f.upgrade());
-
-/*
-	// if (AUTOBUY) $('input.buyable:enabled:first').click();
-	if (AUTOBUY) factors.map(f => console.log(`${f.cost} >= ${available}`));
-	if (AUTOBUY) factors.filter(f => f.cost >= available).map(f => f.upgrade());
-	// if (AUTOBUY) while (available > 0) factors.filter(f => f.cost >= available).map(f => f.upgrade);
-*/
 	if (SHOW) refresh();
-
 	if (checkVictory()) win(); else nextStep();
 }
 
