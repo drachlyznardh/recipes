@@ -88,11 +88,6 @@ function mkMulti(e) {
 }
 
 function reset() {
-/*
-	const body = $('body').html('');
-	['victory'].map(e => $('<div>').prop('id', e).appendTo(body));
-	const main = $('<div>').addClass('main').appendTo(body);
-*/
 	const main = $('.main').html('');
 	const header = $('<div>').addClass(['ui-widget', 'ui-widget-content', 'ui-corner-all']) //
 		.appendTo($('<div>').addClass(['level', 'center']) //
