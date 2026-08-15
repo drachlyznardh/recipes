@@ -122,9 +122,16 @@ function step() {
 	const increment = factors.reduce((a, e) => a * e.factor, 1);
 	total += increment;
 	available += increment;
-	$('input.buyable').each((j, e) => { $(e).button({ disabled: factors[parseInt($(e).attr('index'))].cost > available }); });
+	if (SHOW) $('input.buyable').each((j, e) => { $(e).button({ disabled: factors[parseInt($(e).attr('index'))].cost >= available }); });
 
-	if (AUTOBUY) $('input.buyable:enabled:first').click();
+	if (AUTOBUY) factors.map(f => f.upgrade());
+
+/*
+	// if (AUTOBUY) $('input.buyable:enabled:first').click();
+	if (AUTOBUY) factors.map(f => console.log(`${f.cost} >= ${available}`));
+	if (AUTOBUY) factors.filter(f => f.cost >= available).map(f => f.upgrade());
+	// if (AUTOBUY) while (available > 0) factors.filter(f => f.cost >= available).map(f => f.upgrade);
+*/
 	if (SHOW) refresh();
 
 	if (checkVictory()) win(); else nextStep();
