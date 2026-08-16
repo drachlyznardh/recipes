@@ -58,6 +58,19 @@ function setup() {
 	['victory'].map(e => $('<div>').prop('id', e).appendTo(body));
 	const main = $('<div>').addClass('main').appendTo(body);
 
+	const tabs = $('<div>').prop('id', 'tabs').appendTo(body);
+	const ul = $('<ul>').appendTo(tabs);
+	[
+		'<li><a href="#tab-options">Options</a></li>',
+		'<li><a href="#tab-game">Game</a></li>',
+		'<li><a href="#tab-tree">Tree</a></li>',
+	].map(e => $(e).appendTo(ul));
+	$('<div>').prop('id', 'tab-options').html('Opts').appendTo(tabs);
+	$('<div>').prop('id', 'tab-game').html('Game').appendTo(tabs);
+	$('<div>').prop('id', 'tab-tree').html('Tree').appendTo(tabs);
+
+	tabs.tabs();
+
 	$('#victory').dialog({
 		modal: true,
 		width: 400,
@@ -101,7 +114,7 @@ function reset() {
 
 	objective = 10 ** (scenario * 4 + 6);
 
-	size = 4 + scenario * 2;
+	size = 3 + scenario * 2;
 	total = 0
 	available = 0;
 	gametime.round = 0; gametime.elapsed = new Date().getTime();
