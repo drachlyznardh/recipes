@@ -10,7 +10,7 @@ class Options {
 	show() { return this._show; }
 	autobuy() { return this._autobuy; }
 
-	graphics(container) {
+	setup(container) {
 		const div = $('<div>').addClass(['ui-widget', 'ui-widget-content', 'ui-corner-all']) //
 			.appendTo($('<div>').addClass(['level', 'center']).appendTo(container)) //
 			.append($('<div>').html('Options').addClass(['ui-widget-header', 'ui-corner-top']));
@@ -23,7 +23,10 @@ class Options {
 			const varName = `_${name}`;
 			const selector = `option-${name}`;
 			$(`<label title="${e[1]}" for="${selector}">${e[0]}</label>`).appendTo(div);
-			$(`<input title="${e[1]}" type="checkbox" id="${selector}" name="${selector}" />`).prop('checked', this[varName]).appendTo(div).on('change', () => this[varName] = $(`#${selector}`).is(':checked'));
+			$(`<input title="${e[1]}" type="checkbox" id="${selector}" name="${selector}" />`) //
+				.prop('checked', this[varName]) //
+				.appendTo(div) //
+				.on('change', () => this[varName] = $(`#${selector}`).is(':checked'));
 		});
 		div.controlgroup();
 	}

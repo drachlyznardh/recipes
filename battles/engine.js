@@ -14,7 +14,9 @@ function setupTabs(list, container, active) {
 	return container;
 }
 
-function setupOptions(container) {
+function setupOptions(container) { options.setup(container); }
+
+function setup_dfjngkufnbguk(container) {
 	const div = $('<div>').addClass(['ui-widget', 'ui-widget-content', 'ui-corner-all']) //
 		.appendTo($('<div>').addClass(['level', 'center']).appendTo(container));
 	$('<div>').html('Options').addClass(['ui-widget-header', 'ui-corner-top']).appendTo(div);
@@ -38,7 +40,6 @@ function setup() {
 		['This', 'Helper text'],
 		['That', 'Helper text'],
 	], $('<div>').appendTo(main), 0);
-	// setupOptions($('#tab-options'));
-	options.graphics($('#tab-options'));
+	setupOptions($('#tab-options'));
 }
 
