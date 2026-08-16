@@ -14,12 +14,15 @@ function setupTabs(list, container, active) {
 	return container;
 }
 
-function setupOptions(container) { options.setup(container); }
+function setupOptions(container) { return options.setup(container); }
 
-function setup_dfjngkufnbguk(container) {
+function setupBattle(container) {
+/*
 	const div = $('<div>').addClass(['ui-widget', 'ui-widget-content', 'ui-corner-all']) //
 		.appendTo($('<div>').addClass(['level', 'center']).appendTo(container));
-	$('<div>').html('Options').addClass(['ui-widget-header', 'ui-corner-top']).appendTo(div);
+	$('<div>').html('Battle').addClass(['ui-widget-header', 'ui-corner-top']).appendTo(div);
+*/
+	const div = Style.mkTabBody(container, 'Battle');
 	const group = $('<div>').controlgroup();
 	[
 		['Skip', ''],
@@ -33,13 +36,15 @@ function setup() {
 	$('title').html(TITLE);
 
 	const main = $('<div>').addClass('main').appendTo($('body'));
-	setupTabs([
+	const tabs = setupTabs([
 		['icon:gear', 'Options', 'options'],
 		['Battle', 'Battle enemies and gain experience'],
 		['Experience', 'Spend experience and gain levels'],
-		['This', 'Helper text'],
-		['That', 'Helper text'],
-	], $('<div>').appendTo(main), 0);
+		['Challenges', 'Apply challenges and unlock bonuses'],
+		// ['This', 'Helper text'],
+		// ['That', 'Helper text'],
+	], $('<div>').appendTo(main), 1);
 	setupOptions($('#tab-options'));
+	setupBattle($('#tab-battle'));
 }
 

@@ -29,6 +29,7 @@ class Options {
 				.on('change', () => this[varName] = $(`#${selector}`).is(':checked'));
 		});
 		div.controlgroup();
+		return container;
 	}
 }
 
