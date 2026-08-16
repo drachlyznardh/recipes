@@ -22,8 +22,8 @@ class Options {
 			const name = e[0].toLowerCase();
 			const varName = `_${name}`;
 			const selector = `option-${name}`;
-			$(`<label for="${selector}">${e[0]}</label>`).appendTo(div);
-			$(`<input type="checkbox" id="${selector}" name="${selector}" />`).prop('checked', this[varName]).appendTo(div).on('change', () => this[varName] = $(`#${selector}`).is(':checked'));
+			$(`<label title="${e[1]}" for="${selector}">${e[0]}</label>`).appendTo(div);
+			$(`<input title="${e[1]}" type="checkbox" id="${selector}" name="${selector}" />`).prop('checked', this[varName]).appendTo(div).on('change', () => this[varName] = $(`#${selector}`).is(':checked'));
 		});
 		div.controlgroup();
 	}

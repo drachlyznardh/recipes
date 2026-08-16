@@ -1,5 +1,6 @@
 
 const TITLE = 'Battles'
+const options = new Options();
 
 function setupTabs(list, container, active) {
 	const ul = $('<ul>').appendTo(container);
@@ -10,12 +11,20 @@ function setupTabs(list, container, active) {
 		$('<div>').prop('id', selector).appendTo(container);
 	});
 	container.tabs({ active: active || 0, classes: { 'ui-tabs-nav': 'ui-corner-top' } });
+	return container;
 }
 
 function setupOptions(container) {
 	const div = $('<div>').addClass(['ui-widget', 'ui-widget-content', 'ui-corner-all']) //
-		.appendTo($('<div>').addClass(['level']).appendTo(container));
+		.appendTo($('<div>').addClass(['level', 'center']).appendTo(container));
 	$('<div>').html('Options').addClass(['ui-widget-header', 'ui-corner-top']).appendTo(div);
+	const group = $('<div>').controlgroup();
+	[
+		['Skip', ''],
+	].map(e => {
+		// $(e).appendTo(e);
+	});
+	return container;
 }
 
 function setup() {
@@ -29,6 +38,7 @@ function setup() {
 		['This', 'Helper text'],
 		['That', 'Helper text'],
 	], $('<div>').appendTo(main), 0);
-	setupOptions($('#tab-options'));
+	// setupOptions($('#tab-options'));
+	options.graphics($('#tab-options'));
 }
 
