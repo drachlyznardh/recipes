@@ -13,7 +13,17 @@ class Options {
 			['Skip', 'Skip all rounds, allowing the fastest possible simulation speed'],
 			['Show', 'Refresh interface every frame, showing progress'],
 			['Autobuy', 'Buy each upgrade as soon as affordable'],
-		].map(e => $(`<tr title="${e[1]}"><td>${e[0]}</td><td><input type="checkbox" name="${e[0].toLowerCase()}"/></td></tr>`).appendTo(table));
+		].map(e => {
+			const name = e[0].toLowerCase();
+			const selector = `option-${name}`;
+			$(`<label for="${selector}">${e[0]}</label>`).appendTo(div);
+			// $(`<input type="checkbox" id="${selector}" name="${selector}" />`).appendTo(div).on('change', function() { console.log($(this), 'changed', e, $(this).is(':checked')); });
+			$(`<input type="checkbox" id="${selector}" name="${selector}" />`).appendTo(div).on('change', function() {
+				this[name] = $(this).is(':checked');
+				console.log(name, this[name]);
+			});
+		});
+		div.controlgroup();
 	}
 }
 
