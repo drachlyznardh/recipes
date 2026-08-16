@@ -7,16 +7,16 @@ function setup() {
 	const main = $('<div>').addClass('main').appendTo($('body'));
 	const tabs = $('<div>').appendTo(main);
 	const ul = $('<ul>').appendTo(tabs);
-	$('<li title="Options"><a href="#tab-options"><span class="ui-icon ui-icon-gear"></span></a></li>').appendTo(ul);
-	$('<div>').prop('id', 'tab-options').appendTo(tabs);
 	[
+		['icon:gear', 'Options'],
 		['Battle', 'Battle enemies and gain experience'],
 		['Experience', 'Spend experience and gain levels'],
 		['This', 'Helper text'],
 		['That', 'Helper text'],
 	].map(e => {
 		const selector = `tab-${e[0].toLowerCase()}`;
-		$(`<li title="${e[1]}"><a href="#${selector}">${e[0]}</a></li>`).appendTo(ul);
+		const description = e[0].startsWith('icon:') ? `<span class="ui-icon ui-icon-${e[0].split(':')[1]}"></span>` : e[0];
+		$(`<li title="${e[1]}"><a href="#${selector}">${description}</a></li>`).appendTo(ul);
 		$('<div>').prop('id', selector).appendTo(tabs);
 	});
 	tabs.tabs({ active: 1, classes: { 'ui-tabs-nav': 'ui-corner-top' } });
