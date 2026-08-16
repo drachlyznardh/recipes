@@ -1,10 +1,6 @@
 
 const FPS = 10;
-const OPTIONS = {
-	SKIP: false, // true,
-	SHOW: true, // false,
-	AUTOBUY: false, // true,
-}
+const options = new Options();
 const rowSize = 4;
 const formatter = new Formatter();
 
@@ -40,7 +36,7 @@ class Multiplier {
 			available -= this.cost;
 			this.cost += this.nextCost();
 		}
-		if (OPTIONS.SHOW) this.show();
+		if (options.show) this.show();
 	}
 
 	show() {
@@ -61,17 +57,17 @@ function setup() {
 	const tabs = $('<div>').prop('id', 'tabs').appendTo(main);
 	const ul = $('<ul>').appendTo(tabs);
 	[
-		'<li><a href="#tab-options">Options</a></li>',
-		'<li><a href="#tab-game">Game</a></li>',
+		'<li><a href="#tab-options"><span class="ui-icon ui-icon-gear"></span></a></li>',
+		'<li><a href="#tab-exp">EXP</a></li>',
 		'<li><a href="#tab-tree">Tree</a></li>',
 	].map(e => $(e).appendTo(ul));
-	$('<div>').prop('id', 'tab-options').html('Opts').appendTo(tabs);
-	$('<div>').prop('id', 'tab-game').html('Game').appendTo(tabs);
+	const tab_options = $('<div>').prop('id', 'tab-options').appendTo(tabs);
+	$('<div>').prop('id', 'tab-exp').html('Game').appendTo(tabs);
 	$('<div>').prop('id', 'tab-tree').html('Tree').appendTo(tabs);
 
-	// tabs.tabs({ active: 1, disabled: [2]});
-	// tabs.find('ul').find('li').filter(e => e > 1).hide();
-	tabs.tabs({ active: 1 }).find('ul').find('li').filter(e => e > 1).hide();
+	tabs.tabs({ active: 0 }).find('ul').find('li').filter(e => e > 1).hide();
+
+	options.graphics(tab_options);
 
 	$('#victory').dialog({
 		modal: true,
@@ -103,8 +99,7 @@ function mkMulti(e) {
 }
 
 function reset() {
-	// const main = $('.main').html('');
-	const main = $('#tab-game').html('');
+	const main = $('#tab-exp').html('');
 	const header = $('<div>').addClass(['ui-widget', 'ui-widget-content', 'ui-corner-all']) //
 		.appendTo($('<div>').addClass(['level', 'center']) //
 		.appendTo(main));
@@ -122,8 +117,7 @@ function reset() {
 	available = 0;
 	gametime.round = 0; gametime.elapsed = new Date().getTime();
 	factors = Array.from(Array(size)).map((e, i) => new Multiplier(i));
-	// layout(size, $('.main'));
-	layout(size, $('#tab-game'));
+	layout(size, $('#tab-exp'));
 
 	$('input[type=button]').button().on('click', function() { factors[parseInt($(this).attr('index'))].upgrade(); });
 
@@ -142,7 +136,7 @@ function reset() {
 	nextStep();
 }
 
-function nextStep() { OPTIONS.SKIP ? gametime.round % 10000 ? step() : setTimeout(step, 0) : setTimeout(step, 1000 / FPS); }
+function nextStep() { options.skip ? gametime.round % 10000 ? step() : setTimeout(step, 0) : setTimeout(step, 1000 / FPS); }
 
 function win() {
 	const roundms = gametime.round / FPS;
@@ -166,14 +160,14 @@ function refresh() {
 
 function step() {
 	gametime.round++;
-	console.log(`Round #${gametime.round}`);
+	// console.log(`Round #${gametime.round}`);
 
 	increment = factors.reduce((a, e) => a * e.factor, 1);
 	total += increment;
 	available += increment;
-	if (OPTIONS.SHOW) $('input.buyable').each((j, e) => { $(e).button({ disabled: factors[parseInt($(e).attr('index'))].cost >= available }); });
-	if (OPTIONS.AUTOBUY) factors.map(f => f.upgrade());
-	if (OPTIONS.SHOW) refresh();
+	if (options.show) $('input.buyable').each((j, e) => { $(e).button({ disabled: factors[parseInt($(e).attr('index'))].cost >= available }); });
+	if (options.autobuy) factors.map(f => f.upgrade());
+	if (options.show) refresh();
 	if (checkVictory()) win(); else nextStep();
 }
 
