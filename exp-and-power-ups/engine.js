@@ -63,13 +63,15 @@ function setup() {
 	[
 		'<li><a href="#tab-options">Options</a></li>',
 		'<li><a href="#tab-game">Game</a></li>',
-		'<li style="display: none"><a href="#tab-tree">Tree</a></li>',
+		'<li><a href="#tab-tree">Tree</a></li>',
 	].map(e => $(e).appendTo(ul));
 	$('<div>').prop('id', 'tab-options').html('Opts').appendTo(tabs);
 	$('<div>').prop('id', 'tab-game').html('Game').appendTo(tabs);
 	$('<div>').prop('id', 'tab-tree').html('Tree').appendTo(tabs);
 
-	tabs.tabs({ active: 1, disabled: [2]});
+	// tabs.tabs({ active: 1, disabled: [2]});
+	// tabs.find('ul').find('li').filter(e => e > 1).hide();
+	tabs.tabs({ active: 1 }).find('ul').find('li').filter(e => e > 1).hide();
 
 	$('#victory').dialog({
 		modal: true,
