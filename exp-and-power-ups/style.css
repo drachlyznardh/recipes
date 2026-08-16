@@ -1,5 +1,8 @@
 
-body { margin: 0px; }
+body {
+	margin: 0px;
+	background-color: #d0d0f0;
+}
 
 div.main {
 	max-width: 800px;
@@ -9,13 +12,20 @@ div.main {
 .center { text-align: center; }
 
 .level { margin: 5px 0px; }
+.level:first-child { margin-top: 0px; }
+.level:last-child { margin-bottom: 0px; }
 .auto { margin: auto; display: flex; flex-wrap: wrap; width: fit-content; }
 .fixed {
-	width: 200px;
+	width: 25%;
 	box-sizing: border-box;
 }
 .fixed > .ui-widget-content { margin: 0px 2.5px; }
 
 .fixed:first-child > .ui-widget-content { margin-left: 0px; }
 .fixed:last-child > .ui-widget-content { margin-right: 0px; }
+
+.ui-tabs .ui-tabs-panel {
+	background-color: #d0d0f0;
+	padding: .2em;
+}
 

@@ -65,7 +65,7 @@ function setup() {
 	$('<div>').prop('id', 'tab-exp').html('Game').appendTo(tabs);
 	$('<div>').prop('id', 'tab-tree').html('Tree').appendTo(tabs);
 
-	tabs.tabs({ active: 0 }).find('ul').find('li').filter(e => e > 1).hide();
+	tabs.tabs({ active: 1 }).find('ul').find('li').filter(e => e > 1).hide();
 
 	options.graphics(tab_options);
 
@@ -177,7 +177,8 @@ function layout(i, container) {
 		.concat([mkRow(Math.floor(i / rowSize) * rowSize, Math.floor(i % rowSize))]) //
 		.filter(e => e.length) //
 		.forEach(row => {
-			const flex = $('<div>').addClass('auto').appendTo($('<div>').addClass(['level', 'center']).appendTo(container));
+			// const flex = $('<div>').addClass('auto').appendTo($('<div>').addClass(['level', 'center']).appendTo(container));
+			const flex = $('<div>').addClass(['level', 'center', 'auto']).appendTo(container);
 			row.forEach(e => mkMulti(e).addClass(['fixed', 'center']).appendTo(flex));
 		});
 }
