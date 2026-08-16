@@ -58,18 +58,18 @@ function setup() {
 	['victory'].map(e => $('<div>').prop('id', e).appendTo(body));
 	const main = $('<div>').addClass('main').appendTo(body);
 
-	const tabs = $('<div>').prop('id', 'tabs').appendTo(body);
+	const tabs = $('<div>').prop('id', 'tabs').appendTo(main);
 	const ul = $('<ul>').appendTo(tabs);
 	[
 		'<li><a href="#tab-options">Options</a></li>',
 		'<li><a href="#tab-game">Game</a></li>',
-		'<li><a href="#tab-tree">Tree</a></li>',
+		'<li style="display: none"><a href="#tab-tree">Tree</a></li>',
 	].map(e => $(e).appendTo(ul));
 	$('<div>').prop('id', 'tab-options').html('Opts').appendTo(tabs);
 	$('<div>').prop('id', 'tab-game').html('Game').appendTo(tabs);
 	$('<div>').prop('id', 'tab-tree').html('Tree').appendTo(tabs);
 
-	tabs.tabs();
+	tabs.tabs({ active: 1, disabled: [2]});
 
 	$('#victory').dialog({
 		modal: true,
@@ -101,7 +101,8 @@ function mkMulti(e) {
 }
 
 function reset() {
-	const main = $('.main').html('');
+	// const main = $('.main').html('');
+	const main = $('#tab-game').html('');
 	const header = $('<div>').addClass(['ui-widget', 'ui-widget-content', 'ui-corner-all']) //
 		.appendTo($('<div>').addClass(['level', 'center']) //
 		.appendTo(main));
@@ -119,7 +120,8 @@ function reset() {
 	available = 0;
 	gametime.round = 0; gametime.elapsed = new Date().getTime();
 	factors = Array.from(Array(size)).map((e, i) => new Multiplier(i));
-	layout(size, $('.main'));
+	// layout(size, $('.main'));
+	layout(size, $('#tab-game'));
 
 	$('input[type=button]').button().on('click', function() { factors[parseInt($(this).attr('index'))].upgrade(); });
 
