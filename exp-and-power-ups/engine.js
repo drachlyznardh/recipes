@@ -160,7 +160,7 @@ function refresh() {
 
 function step() {
 	gametime.round++;
-	console.log(`Round #${gametime.round}, ${options.skip()}, ${options.show()}, ${options.autobuy()}`);
+	// console.log(`Round #${gametime.round}, ${options.skip()}, ${options.show()}, ${options.autobuy()}`);
 
 	increment = factors.reduce((a, e) => a * e.factor, 1);
 	total += increment;

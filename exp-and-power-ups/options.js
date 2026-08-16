@@ -10,10 +10,7 @@ class Options {
 	show() { return this._show; }
 	autobuy() { return this._autobuy; }
 
-	onChange(target, varName) {
-		this[varName] = $(this).is(':checked');
-		console.log(this.skip(), this.show(), this.autobuy());
-	}
+	setOnChange(varName, selector) { return () => this[varName] = $(selector).is(':checked'); }
 
 	graphics(container) {
 		const div = $('<div>').addClass(['auto']).appendTo(container);
@@ -27,13 +24,7 @@ class Options {
 			const varName = `_${name}`;
 			const selector = `option-${name}`;
 			$(`<label for="${selector}">${e[0]}</label>`).appendTo(div);
-			$(`<input type="checkbox" id="${selector}" name="${selector}" />`).prop('checked', this[varName]).appendTo(div).on('change', function() { this.onChange($(this), varName); });
-/*
-			$(`<input type="checkbox" id="${selector}" name="${selector}" />`).prop('checked', this[varName]).appendTo(div).on('change', function() {
-				this[varName] = $(this).is(':checked');
-				console.log(this.skip(), this.show(), this.autobuy());
-			});
-*/
+			$(`<input type="checkbox" id="${selector}" name="${selector}" />`).prop('checked', this[varName]).appendTo(div).on('change', this.setOnChange(varName, `#${selector}`));
 		});
 		div.controlgroup();
 	}
