@@ -4,7 +4,7 @@ const TITLE = 'Battles'
 function setupTabs(list, container, active) {
 	const ul = $('<ul>').appendTo(container);
 	list.map(e => {
-		const selector = e.length > 2 ? e[2] : `tab-${e[0].toLowerCase()}`;
+		const selector = `tab-${e.length > 2 ? e[2] : e[0].toLowerCase()}`;
 		const description = e[0].startsWith('icon:') ? `<span class="ui-icon ui-icon-${e[0].split(':')[1]}"></span>` : e[0];
 		$(`<li title="${e[1]}"><a href="#${selector}">${description}</a></li>`).appendTo(ul);
 		$('<div>').prop('id', selector).appendTo(container);
