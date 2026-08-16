@@ -16,7 +16,7 @@ div.main {
 .level:last-child { margin-bottom: 0px; }
 .auto { margin: auto; display: flex; flex-wrap: wrap; width: fit-content; }
 .fixed {
-	width: 25%;
+	width: 196px;
 	box-sizing: border-box;
 }
 .fixed > .ui-widget-content { margin: 0px 2.5px; }

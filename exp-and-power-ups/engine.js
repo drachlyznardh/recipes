@@ -112,7 +112,7 @@ function reset() {
 
 	objective = 10 ** (scenario * 4 + 6);
 
-	size = 3 + scenario * 2;
+	size = 4 + scenario * 2;
 	total = 0
 	available = 0;
 	gametime.round = 0; gametime.elapsed = new Date().getTime();
@@ -177,8 +177,7 @@ function layout(i, container) {
 		.concat([mkRow(Math.floor(i / rowSize) * rowSize, Math.floor(i % rowSize))]) //
 		.filter(e => e.length) //
 		.forEach(row => {
-			// const flex = $('<div>').addClass('auto').appendTo($('<div>').addClass(['level', 'center']).appendTo(container));
-			const flex = $('<div>').addClass(['level', 'center', 'auto']).appendTo(container);
+			const flex = $('<div>').addClass('auto').appendTo($('<div>').addClass(['level', 'center']).appendTo(container));
 			row.forEach(e => mkMulti(e).addClass(['fixed', 'center']).appendTo(flex));
 		});
 }
