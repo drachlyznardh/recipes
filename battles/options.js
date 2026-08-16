@@ -1,0 +1,31 @@
+
+class Options {
+	constructor() {
+		this._skip = false;
+		this._show = true;
+		this._autobuy = false;
+	}
+
+	skip() { return this._skip; }
+	show() { return this._show; }
+	autobuy() { return this._autobuy; }
+
+	graphics(container) {
+		const div = $('<div>').addClass(['ui-widget', 'ui-widget-content', 'ui-corner-all']) //
+			.appendTo($('<div>').addClass(['level', 'center']).appendTo(container)) //
+			.append($('<div>').html('Options').addClass(['ui-widget-header', 'ui-corner-top']));
+		[
+			['Skip', 'Skip all rounds, allowing the fastest possible simulation speed'],
+			['Show', 'Refresh interface every frame, showing progress'],
+			['Autobuy', 'Buy each upgrade as soon as affordable'],
+		].map(e => {
+			const name = e[0].toLowerCase();
+			const varName = `_${name}`;
+			const selector = `option-${name}`;
+			$(`<label for="${selector}">${e[0]}</label>`).appendTo(div);
+			$(`<input type="checkbox" id="${selector}" name="${selector}" />`).prop('checked', this[varName]).appendTo(div).on('change', () => this[varName] = $(`#${selector}`).is(':checked'));
+		});
+		div.controlgroup();
+	}
+}
+
