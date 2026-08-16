@@ -17,11 +17,6 @@ function setupTabs(list, container, active) {
 function setupOptions(container) { return options.setup(container); }
 
 function setupBattle(container) {
-/*
-	const div = $('<div>').addClass(['ui-widget', 'ui-widget-content', 'ui-corner-all']) //
-		.appendTo($('<div>').addClass(['level', 'center']).appendTo(container));
-	$('<div>').html('Battle').addClass(['ui-widget-header', 'ui-corner-top']).appendTo(div);
-*/
 	const div = Style.mkTabBody(container, 'Battle');
 	const group = $('<div>').controlgroup();
 	[
@@ -30,6 +25,14 @@ function setupBattle(container) {
 		// $(e).appendTo(e);
 	});
 	return container;
+}
+
+function setupExperience(container) {
+	return Style.mkTabBody(container, 'Experience');
+}
+
+function setupChallenges(container) {
+	return Style.mkTabBody(container, 'Challenges');
 }
 
 function setup() {
@@ -46,5 +49,7 @@ function setup() {
 	], $('<div>').appendTo(main), 1);
 	setupOptions($('#tab-options'));
 	setupBattle($('#tab-battle'));
+	setupExperience($('#tab-experience'));
+	setupChallenges($('#tab-challenges'));
 }
 
