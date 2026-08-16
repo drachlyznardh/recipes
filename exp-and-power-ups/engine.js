@@ -36,7 +36,7 @@ class Multiplier {
 			available -= this.cost;
 			this.cost += this.nextCost();
 		}
-		if (options.show) this.show();
+		if (options.show()) this.show();
 	}
 
 	show() {
@@ -136,7 +136,7 @@ function reset() {
 	nextStep();
 }
 
-function nextStep() { options.skip ? gametime.round % 10000 ? step() : setTimeout(step, 0) : setTimeout(step, 1000 / FPS); }
+function nextStep() { options.skip() ? gametime.round % 10000 ? step() : setTimeout(step, 0) : setTimeout(step, 1000 / FPS); }
 
 function win() {
 	const roundms = gametime.round / FPS;
@@ -160,14 +160,14 @@ function refresh() {
 
 function step() {
 	gametime.round++;
-	// console.log(`Round #${gametime.round}`);
+	console.log(`Round #${gametime.round}, ${options.skip()}, ${options.show()}, ${options.autobuy()}`);
 
 	increment = factors.reduce((a, e) => a * e.factor, 1);
 	total += increment;
 	available += increment;
-	if (options.show) $('input.buyable').each((j, e) => { $(e).button({ disabled: factors[parseInt($(e).attr('index'))].cost >= available }); });
-	if (options.autobuy) factors.map(f => f.upgrade());
-	if (options.show) refresh();
+	if (options.show()) $('input.buyable').each((j, e) => { $(e).button({ disabled: factors[parseInt($(e).attr('index'))].cost >= available }); });
+	if (options.autobuy()) factors.map(f => f.upgrade());
+	if (options.show()) refresh();
 	if (checkVictory()) win(); else nextStep();
 }
 
