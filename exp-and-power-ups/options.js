@@ -11,8 +11,9 @@ class Options {
 	autobuy() { return this._autobuy; }
 
 	graphics(container) {
-		const div = $('<div>').addClass(['auto']).appendTo(container);
-		const table = $('<table>').addClass('option').appendTo(div);
+		const div = $('<div>').addClass(['ui-widget', 'ui-widget-content', 'ui-corner-all']) //
+			.appendTo($('<div>').addClass(['level', 'center']).appendTo(container)) //
+			.append($('<div>').html('Options').addClass(['ui-widget-header', 'ui-corner-top']));
 		[
 			['Skip', 'Skip all rounds, allowing the fastest possible simulation speed'],
 			['Show', 'Refresh interface every frame, showing progress'],
