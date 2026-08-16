@@ -1,9 +1,9 @@
 
 const FPS = 10;
 const OPTIONS = {
-	SKIP: true,
-	SHOW: false,
-	AUTOBUY: true,
+	SKIP: false, // true,
+	SHOW: true, // false,
+	AUTOBUY: false, // true,
 }
 const rowSize = 4;
 const formatter = new Formatter();
@@ -183,11 +183,4 @@ function layout(i, container) {
 			row.forEach(e => mkMulti(e).addClass(['fixed', 'center']).appendTo(flex));
 		});
 }
-
-function test() {
-	Array.from(Array(9)).map((e, i) => i + 1).map(e => layout(e, $('.main')));
-}
-
-$(setup);
-// $(test);
 
