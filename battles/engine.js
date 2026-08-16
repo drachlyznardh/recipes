@@ -10,7 +10,7 @@ function setupTabs(list, container, active) {
 		$(`<li title="${e[1]}"><a href="#${selector}">${description}</a></li>`).appendTo(ul);
 		$('<div>').prop('id', selector).appendTo(container);
 	});
-	container.tabs({ active: active || 0, classes: { 'ui-tabs-nav': 'ui-corner-top' } });
+	container.tabs({ active: active || 1, classes: { 'ui-tabs-nav': 'ui-corner-top' } });
 	return container;
 }
 
@@ -31,8 +31,24 @@ function setupExperience(container) {
 	return Style.mkTabBody(container, 'Experience');
 }
 
+function setupQuests(container) {
+	const div = Style.mkTabBody(container, 'Quests');
+	[
+		'Win a battle',
+		'Lose a battle',
+	].map(e => $(`<div>`).html(e).appendTo(div));
+	return container;
+}
+
 function setupChallenges(container) {
-	return Style.mkTabBody(container, 'Challenges');
+	const div = Style.mkTabBody(container, 'Challenges');
+
+	[
+		'Win a battle',
+		'Lose a battle',
+	].map(e => $(`<div>`).html(e).appendTo(div));
+
+	return div;
 }
 
 function setup() {
@@ -43,13 +59,13 @@ function setup() {
 		['icon:gear', 'Options', 'options'],
 		['Battle', 'Battle enemies and gain experience'],
 		['Experience', 'Spend experience and gain levels'],
+		['Quests', 'Complete quests and unlock bonuses'],
 		['Challenges', 'Apply challenges and unlock bonuses'],
-		// ['This', 'Helper text'],
-		// ['That', 'Helper text'],
-	], $('<div>').appendTo(main), 1);
+	], $('<div>').appendTo(main), 3);
 	setupOptions($('#tab-options'));
 	setupBattle($('#tab-battle'));
 	setupExperience($('#tab-experience'));
+	setupQuests($('#tab-quests'));
 	setupChallenges($('#tab-challenges'));
 }
 
