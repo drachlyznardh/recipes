@@ -41,20 +41,23 @@ function setupQuests(container) {
 			}
 		}
 	}
-	const div = Style.mkTabBody(container, 'Quests');
+	// const div = Style.mkTabBody(container, 'Quests');
 	[
 		['First victory', 'Win a battle', false, () => console.log('some kind of side effect')],
 		['First loss', 'Lose a battle', () => true, () => console.log('You lost. But you win')],
 		['Impossible', 'This quest cannot be claimed', () => false, () => console.log('Unreachable statement')],
 	].map((e, i) => {
 		const description = e[1] || e[0];
-		const d = Style.mkWidget(div, e[0]).prop('title', description);
+		// // const d = Style.mkWidget(div, e[0]).prop('title', description);
+		// const d = Style.mkWidget(container, e[0]).prop('title', description);
+		const d = Style.mkWidget(container, e[0]).prop('title', description);
 		$('<div>').html(description).appendTo(d);
 		$('<input type="button" value="Claim" />').button() //
 			.appendTo($('<div>').appendTo(d)) //
 			.on('click', mkClaim(i, e[2], e[3]));
 	});
-	return div;
+	// return div;
+	return container;
 }
 
 function setupChallenges(container) {
