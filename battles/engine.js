@@ -33,6 +33,17 @@ function setupExperience(container) {
 
 function setupQuests(container) {
 	function mkClaim(index, cause, effect) {
+		function mkCause(cause) {
+			return cause ? cause : () => false;
+		}
+		function mkEffect(effect) {
+			return effect ? () => {
+				console.log(`Claiming Quest #${index}`);
+				effect();
+				console.log(`Claimed Quest #${index}`);
+			} : () => console.log(`No effect for Quest #${index}`)
+		}
+/*
 		return () => {
 			if (!cause || cause()) {
 				console.log(`Claiming Quest #${index}`);
@@ -40,6 +51,9 @@ function setupQuests(container) {
 				console.log(`Claimed Quest #${index}`);
 			}
 		}
+*/
+		const f = mkEffect(effect);
+		return cause ? () => cause() && f() : f();
 	}
 	[
 		['First victory', 'Win a battle', false, () => console.log('some kind of side effect')],
