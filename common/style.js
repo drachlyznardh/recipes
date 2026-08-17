@@ -18,14 +18,7 @@ class Style {
 	}
 
 	static mkTabBody(container, title) {
-/*
-		const div = $('<div>').addClass(['ui-widget', 'ui-widget-content', 'ui-corner-all']) //
-			.appendTo($('<div>').addClass(['level', 'center']).appendTo(container));
-		Style.mkTitle(div, title);
-		return div;
-*/
 		return Style.mkWidget(Style.mkLevel(container), title);
 	}
-
 }
 
