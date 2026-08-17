@@ -44,7 +44,8 @@ function setupQuests(container) {
 	const div = Style.mkTabBody(container, 'Quests');
 	[
 		['First victory', 'Win a battle', false, () => console.log('some kind of side effect')],
-		['Lose a battle'],
+		['First loss', 'Lose a battle', () => true, () => console.log('You lost. But you win')],
+		['Impossible', 'This quest cannot be claimed', () => false, () => console.log('Unreachable statement')],
 	].map((e, i) => {
 		const description = e[1] || e[0];
 		const d = Style.mkWidget(div, e[0]).prop('title', description);
