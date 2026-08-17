@@ -50,7 +50,7 @@ function setupQuests(container) {
 		const description = e[1] || e[0];
 		// // const d = Style.mkWidget(div, e[0]).prop('title', description);
 		// const d = Style.mkWidget(container, e[0]).prop('title', description);
-		const d = Style.mkWidget(container, e[0]).prop('title', description);
+		const d = Style.mkWidget(Style.mkLevel(container), e[0]).prop('title', description);
 		$('<div>').html(description).appendTo(d);
 		$('<input type="button" value="Claim" />').button() //
 			.appendTo($('<div>').appendTo(d)) //

@@ -1,17 +1,31 @@
 
 class Style {
-	static mkTabBody(container, title) {
-		const div = $('<div>').addClass(['ui-widget', 'ui-widget-content', 'ui-corner-all']) //
-			.appendTo($('<div>').addClass(['level', 'center']).appendTo(container));
-		$('<div>').html(title).addClass(['ui-widget-header', 'ui-corner-top']).appendTo(div);
-		return div;
+	static mkTitle(container, title) {
+		return title //
+			?  $('<div>').addClass(['ui-widget-header', 'ui-corner-top']).html(title).appendTo(container)
+			: container;
 	}
 
 	static mkWidget(container, title) {
 		const div = $('<div>').addClass(['ui-widget', 'ui-widget-content', 'ui-corner-all']) //
 			.appendTo(container);
-		if (title) $('<div>').addClass(['ui-widget-header', 'ui-corner-top']).html(title).appendTo(div);
+		Style.mkTitle(div, title);
 		return div;
 	}
+
+	static mkLevel(container) {
+		return $('<div>').addClass(['level', 'center']).appendTo(container);
+	}
+
+	static mkTabBody(container, title) {
+/*
+		const div = $('<div>').addClass(['ui-widget', 'ui-widget-content', 'ui-corner-all']) //
+			.appendTo($('<div>').addClass(['level', 'center']).appendTo(container));
+		Style.mkTitle(div, title);
+		return div;
+*/
+		return Style.mkWidget(Style.mkLevel(container), title);
+	}
+
 }
 
