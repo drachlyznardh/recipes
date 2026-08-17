@@ -33,9 +33,6 @@ function setupExperience(container) {
 
 function setupQuests(container) {
 	function mkClaim(index, cause, effect) {
-		function mkCause(cause) {
-			return cause ? cause : () => false;
-		}
 		function mkEffect(effect) {
 			return effect ? () => {
 				console.log(`Claiming Quest #${index}`);
@@ -44,21 +41,18 @@ function setupQuests(container) {
 			} : () => console.log(`No effect for Quest #${index}`)
 		}
 /*
-		return () => {
-			if (!cause || cause()) {
-				console.log(`Claiming Quest #${index}`);
-				if (effect) effect();
-				console.log(`Claimed Quest #${index}`);
-			}
-		}
-*/
 		const f = mkEffect(effect);
-		return cause ? () => cause() && f() : f();
+		return cause //
+			? () => cause() && f() //
+			: f;
+*/
+		return (f => cause ? () => cause() && f() : f)(mkEffect(effect));
 	}
 	[
 		['First victory', 'Win a battle', false, () => console.log('some kind of side effect')],
 		['First loss', 'Lose a battle', () => true, () => console.log('You lost. But you win')],
 		['Impossible', 'This quest cannot be claimed', () => false, () => console.log('Unreachable statement')],
+		['No effect', false, false, false],
 	].map((e, i) => {
 		const description = e[1] || e[0];
 		const d = Style.mkWidget(Style.mkLevel(container), e[0]).prop('title', description);
