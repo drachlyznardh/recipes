@@ -40,12 +40,6 @@ function setupQuests(container) {
 				console.log(`Claimed Quest #${index}`);
 			} : () => console.log(`No effect for Quest #${index}`)
 		}
-/*
-		const f = mkEffect(effect);
-		return cause //
-			? () => cause() && f() //
-			: f;
-*/
 		return (f => cause ? () => cause() && f() : f)(mkEffect(effect));
 	}
 	[

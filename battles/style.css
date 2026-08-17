@@ -11,7 +11,7 @@ div.main {
 
 .center { text-align: center; }
 
-.level { margin: 5px 0px; }
+.level { margin: .2em 0px; }
 .level:first-child { margin-top: 0px; }
 .level:last-child { margin-bottom: 0px; }
 .auto { margin: auto; display: flex; flex-wrap: wrap; width: fit-content; }
