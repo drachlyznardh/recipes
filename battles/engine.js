@@ -32,12 +32,28 @@ function setupExperience(container) {
 }
 
 function setupQuests(container) {
+	function mkClaim(index, cause, effect) {
+		return () => {
+			if (!cause || cause()) {
+				console.log(`Claiming Quest #${index}`);
+				if (effect) effect();
+				console.log(`Claimed Quest #${index}`);
+			}
+		}
+	}
 	const div = Style.mkTabBody(container, 'Quests');
 	[
-		'Win a battle',
-		'Lose a battle',
-	].map(e => $(`<div>`).html(e).appendTo(div));
-	return container;
+		['First victory', 'Win a battle', false, () => console.log('some kind of side effect')],
+		['Lose a battle'],
+	].map((e, i) => {
+		const description = e[1] || e[0];
+		const d = Style.mkWidget(div, e[0]).prop('title', description);
+		$('<div>').html(description).appendTo(d);
+		$('<input type="button" value="Claim" />').button() //
+			.appendTo($('<div>').appendTo(d)) //
+			.on('click', mkClaim(i, e[2], e[3]));
+	});
+	return div;
 }
 
 function setupChallenges(container) {
